@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+
+
+<body>
+welcome!!!
+{##}
+{#<h1>{{ objects.user_name }}</h1>#}
+{#<h1>{{ objects.email }}</h1>#}
+{#<h1>{{ objects.first_name }}</h1>#}
+{#<h1>{{ objects.last_name }}</h1>#}
+{#<h1>{{ objects.user_password }}</h1>#}
+{#<h1>{{ created }}</h1>#}
+<table>
+    <tr>
+        <th>user_name</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>email</th>
+        <th>user_password</th>
+    </tr>
+{#    {% for item in objects %}#}
+    <tr>
+        <td>{{ objects.user_name}}</td>
+        <td>{{ objects.first_name}}</td>
+        <td>{{ objects.last_name}}</td>
+        <td>{{ objects.email }}</td>
+    <td>{{ objects.user_password}}</td>
+    </tr>
+{#    {% endfor %}#}
+</table>
+
+</body>
+
+</html>
+

@@ -1,0 +1,33 @@
+body{
+	font-size: 16px;
+	color: BLACK;
+	background-color: lightgoldenrodyellow;
+	font-family: 'Oxygen', sans-serif;
+}
+#header-nav{
+	background-color: yellow;
+	/*The border-radius CSS property rounds the
+	corners of an element's outer border edge.
+	You can set a single radius to make circular corners,
+	or two radii to make elliptical corners.*/
+	border-radius:0;
+	border: 0;
+}
+#logan{
+    margin-top:30px;
+}
+#logo-img{
+	background: url('../static/images/voyce-logo.jpg') no-repeat;
+	width: 150px;
+	height:150px;
+	margin: 10px 15px 10px 0;
+}
+
+#uploaddata {
+  width: 800px;
+  height: 500px;
+  border: 1px solid green;
+  padding: 1px;
+  margin: 100px;
+  text-align: center;
+}
