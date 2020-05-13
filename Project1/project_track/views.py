@@ -36,7 +36,7 @@ def login(request):
             user_object = User.objects.get(email=user_email, user_password=user_password)
             context = {"objects": user_object}
             # login(request)
-            return render(request, 'test.html', context)
+            return render(request, 'welcome.html', context)
             #user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
             # user=authenticate(request, email=user_email, password=request.POST.get('password'))
             # if user.is_authenticated:
@@ -77,7 +77,7 @@ def signup(request):
         object=User.objects.create(user_name=user_name, first_name=first_name, last_name=last_name,
                                    email=user_email, user_password=user_password)
         context = {"objects": object}
-        return render(request, 'test.html', context)
+        return render(request, 'welcome.html', context)
     else:
         return render(request, 'signup.html')
 def test(request):
@@ -112,4 +112,4 @@ def test(request):
     context={"objects":objects}
 
     print(context)
-    return render(request, 'test.html',context)
+    return render(request, 'welcome.html',context)
