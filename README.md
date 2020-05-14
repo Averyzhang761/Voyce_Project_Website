@@ -19,16 +19,16 @@ git branch
 ```
 * cd to voyce repo
 ```
-cd voyce
+cd Voyce_Project
 ```
 * Create the virtual env
 ``` 
 python3 -m venv venv
 source venv/bin/activate
 ```
-* Install Django
+* Install dependencies (packages for the app)
 ```
-pip install Django
+pip install -r requirements.txt
 ```
 * Run
 ```
