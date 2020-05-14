@@ -3,7 +3,7 @@
 * Fork this repo
 * cd to the directory you want to save your file and run 
 ```
-git clone https://github.com/khuyentran1401/voyce.git
+git clone https://github.com/Averyzhang761/Voyce_Project.git
 ```
 * Create the new branch on your local machine (To make sure we don't change the master file before reviewing the change)
 ```
