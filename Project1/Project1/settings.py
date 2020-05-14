@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # very important!!!
     'project_track.apps.ProjectTrackConfig',
+    'table',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'Project1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["Project1/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
