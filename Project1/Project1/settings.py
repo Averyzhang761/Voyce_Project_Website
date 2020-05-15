@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9d+t)2%bfgq8id(hcbq971$i$7gv8b!7pm5!m$1esqs!c5dbcx'
+SECRET_KEY = 'u&a01)zdf09)n^0a6nnlthh&hyw)@==835i_76^mqkh5ksq_gz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # very important!!!
+
     'project_track.apps.ProjectTrackConfig',
-    'table',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +56,7 @@ ROOT_URLCONF = 'Project1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["Project1/templates/"],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,22 +80,14 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-# 'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'voyce_project',
-#         'USER': 'admin',
-#         'PASSWORD': '12345678',
-#         'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
-#         'PORT': '3306',
-#     }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'voyce_project',
-        'USER': 'dbadmin',
-        'PASSWORD': '12345678',
-        # 'HOST': '',
-        'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
+        'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'voyce',
+                'USER': 'voycedb',
+                'PASSWORD': '12345678',
+                # 'HOST': '',
+                'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
+                'PORT': '3306',
     }
 }
 
