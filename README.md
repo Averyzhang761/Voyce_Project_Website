@@ -1,7 +1,7 @@
 # Voyce
 How to
 * [Get started](#how-to-get-started)
-* [Commit your change)(#how-to-commit)
+* [Commit your change](#how-to-commit)
 * [Get your Branch Up to Date with Master](#how-to-update-your-repo)
 ## How to Get Started
 * Fork this repo
