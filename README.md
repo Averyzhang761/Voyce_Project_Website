@@ -1,4 +1,6 @@
 # Voyce
+How to
+* [Run the app](how-to-run-the-app)
 ## How to run the app
 * Fork this repo
 * cd to the directory you want to save your file and run 
@@ -58,8 +60,18 @@ Delete a branch on your local filesystem
 git branch -d [name_of_your_new_branch]
 ```
 ## How to update your repo
-One the master repo has been updated, use
+Once the master repo has been updated, use
 ```
 git pull origin master
 ```
 to get up to date.
+
+To get your branch up to date with the current master use
+``` 
+git checkout <your branch>
+```
+Up to date with the origin
+```
+git fetch
+git rebase origin/master
+```
