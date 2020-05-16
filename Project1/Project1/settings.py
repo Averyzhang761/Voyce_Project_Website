@@ -89,6 +89,16 @@ DATABASES = {
 #         'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
 #         'PORT': '3306',
 #     }
+
+ #     'default': {
+ #             'ENGINE': 'django.db.backends.mysql',
+ #             'NAME': 'voyce',
+ #             'USER': 'voycedb',
+ #             'PASSWORD': '12345678',
+ #             # 'HOST': '',
+ #             'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
+ #             'PORT': '3306',
+ # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'voyce_project',
