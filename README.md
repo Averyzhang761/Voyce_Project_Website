@@ -1,6 +1,6 @@
 # Voyce
 How to
-* [Run the app](how-to-run-the-app)
+* [Run the app](#how-to-run-the-app)
 ## How to run the app
 * Fork this repo
 * cd to the directory you want to save your file and run 
