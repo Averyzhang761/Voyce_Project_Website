@@ -49,10 +49,6 @@ Push the branch on github :
 ```
 git push origin [name_of_your_new_branch]
 ```
-Update your branch when the original branch from official repository has been updated :
-```
-git fetch
-```
 As we review on the change, we can merge the other branch:
 ```
 git merge [name_of_your_new_branch]
@@ -61,3 +57,9 @@ Delete a branch on your local filesystem
 ```
 git branch -d [name_of_your_new_branch]
 ```
+## How to update your repo
+One the master repo has been updated, use
+```
+git pull origin master
+```
+to get up to date.
