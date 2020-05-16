@@ -7,7 +7,6 @@ from django.contrib.auth import authenticate, login
 # from django.contrib.auth.models import User
 
 from .models import User
-from .models import Sample
 # Create your views here.
 def home(request):
     # #project_track="I am the project_track application"
@@ -37,7 +36,7 @@ def login(request):
             user_object = User.objects.get(email=user_email, user_password=user_password)
             context = {"objects": user_object}
             # login(request)
-            return render(request, 'test.html', context)
+            return render(request, 'welcome.html', context)
             #user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
             # user=authenticate(request, email=user_email, password=request.POST.get('password'))
             # if user.is_authenticated:
@@ -78,7 +77,7 @@ def signup(request):
         object=User.objects.create(user_name=user_name, first_name=first_name, last_name=last_name,
                                    email=user_email, user_password=user_password)
         context = {"objects": object}
-        return render(request, 'test.html', context)
+        return render(request, 'welcome.html', context)
     else:
         return render(request, 'signup.html')
 def test(request):
@@ -109,8 +108,8 @@ def test(request):
     # objects=User.objects.get(user_id=2)
     # objects.delete()
     # objects=User.objects.get(user_name='jamesz')
-    objects = Sample.objects.all().values
+    objects = User.objects.all().values
     context={"objects":objects}
 
     print(context)
-    return render(request, 'test.html',context)
+    return render(request, 'welcome.html',context)
