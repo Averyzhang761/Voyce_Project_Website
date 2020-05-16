@@ -1,7 +1,9 @@
 # Voyce
 How to
-* [Run the app](#how-to-run-the-app)
-## How to run the app
+* [Get started](#how-to-get-started)
+* [Commit your change)(#how-to-commit)
+* [Get your Branch Up to Date with Master](#how-to-update-your-repo)
+## How to Get Started
 * Fork this repo
 * cd to the directory you want to save your file and run 
 ```
