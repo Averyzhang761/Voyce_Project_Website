@@ -7,7 +7,11 @@ from django.contrib.auth import authenticate, login
 # from django.contrib.auth.models import User
 
 from .models import User
+from .models import Sample
+
 # Create your views here.
+
+
 def home(request):
     # #project_track="I am the project_track application"
     # current_user="Avery Zhang"
@@ -16,24 +20,27 @@ def home(request):
     # })
     return render(request, 'home.html')
 
+
 def upload(request):
-    if request.method=="POST":
-        uploaded_file=request.FILES['document']
+    if request.method == "POST":
+        uploaded_file = request.FILES['document']
         print(uploaded_file.name)
         print(uploaded_file.size)
     return render(request, 'home.html')
+
 
 def login(request):
     # username = request.POST.get('username')
     # password = request.POST.get('password')
     # User.objects.create(username=request.POST.get('username'),
     #                     password=request.POST.get('password'))
-    if request.method=="POST":
+    if request.method == "POST":
         try:
 
-            user_email=request.POST.get('email')
-            user_password=request.POST.get('password')
-            user_object = User.objects.get(email=user_email, user_password=user_password)
+            user_email = request.POST.get('email')
+            user_password = request.POST.get('password')
+            user_object = User.objects.get(
+                email=user_email, user_password=user_password)
             context = {"objects": user_object}
             # login(request)
             return render(request, 'welcome.html', context)
@@ -50,7 +57,7 @@ def login(request):
             #     return render(request, 'login.html')
         except User.DoesNotExist:
             print(request.POST.get('email'), 'does not exist')
-            #render to register page
+            # render to register page
             # user = User.objects.get(user_name=request.POST.get('email'), email=request.POST.get('email'),
             #                                 user_password=request.POST.get('password'))
             # user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
@@ -61,6 +68,7 @@ def login(request):
     else:
         return render(request, 'login.html')
 
+
 def signup(request):
     # #project_track="I am the project_track application"
     # current_user="Avery Zhang"
@@ -70,16 +78,18 @@ def signup(request):
     if request.method == "POST":
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        user_name=request.POST.get('user_name')
+        user_name = request.POST.get('user_name')
         user_email = request.POST.get('email')
         user_password = request.POST.get('password_confirmation')
         print('success')
-        object=User.objects.create(user_name=user_name, first_name=first_name, last_name=last_name,
-                                   email=user_email, user_password=user_password)
+        object = User.objects.create(user_name=user_name, first_name=first_name, last_name=last_name,
+                                     email=user_email, user_password=user_password)
         context = {"objects": object}
         return render(request, 'welcome.html', context)
     else:
         return render(request, 'signup.html')
+
+
 def test(request):
     # objects, created=User.objects.get_or_create(user_id=2, user_name = 'archt', first_name = 'arch', last_name = 'talents',
     #  email = 'arch@talentu', user_password = '12345678')
@@ -109,7 +119,7 @@ def test(request):
     # objects.delete()
     # objects=User.objects.get(user_name='jamesz')
     objects = User.objects.all().values
-    context={"objects":objects}
+    context = {"objects": objects}
 
     print(context)
-    return render(request, 'welcome.html',context)
+    return render(request, 'welcome.html', context)
