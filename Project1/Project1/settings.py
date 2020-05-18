@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # very important!!!
     'project_track.apps.ProjectTrackConfig',
     'table',
+    'page_look',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'Project1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["Project1/templates/"],
+        'DIRS': ["Project1/templates/","page_look/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,20 +81,6 @@ WSGI_APPLICATION = 'Project1.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-<<<<<<< HEAD
-# 'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'voyce_project',
-#         'USER': 'admin',
-#         'PASSWORD': '12345678',
-#         'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
-#         'PORT': '3306',
-#     }
-
  #     'default': {
  #             'ENGINE': 'django.db.backends.mysql',
  #             'NAME': 'voyce',
@@ -102,15 +90,13 @@ DATABASES = {
  #             'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
  #             'PORT': '3306',
  # }
-=======
 
->>>>>>> some commit
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'voyce_project',
-        'USER': 'dbadmin',
-        'PASSWORD': '12345678',
-        'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
+        'NAME': 'voyce',
+        'USER': 'khuyentran',
+        'PASSWORD': 'Cun123456',
+        'HOST': 'voyce-1.c0nnd7z7ktdl.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
@@ -153,3 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/img/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'page_look/static')
+]
