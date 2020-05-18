@@ -101,11 +101,11 @@ DATABASES = {
  # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'voyce_project',
-        'USER': 'dbadmin',
-        'PASSWORD': '12345678',
+        'NAME': 'voyce',
+        'USER': 'khuyentran',
+        'PASSWORD': 'Cun123456',
         # 'HOST': '',
-        'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
+        'HOST': 'voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }

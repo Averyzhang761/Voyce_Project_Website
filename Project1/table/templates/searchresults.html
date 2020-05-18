@@ -1,51 +1,49 @@
-<h1>Search Results</h1>
+{% extends "base.html" %}
 
-<h1>Table</h1>
+{% block page_content %}
+
+
+<a href="{% url 'new' %}" class="btn btn-primary btn-lg active" role="button">Insert new data</a>
+
+<form action="{% url 'searchresults' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+</form>
+
+<h1>Facility</h1>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Facility</th>
-      <th scope="col">Type</th>
-      <th scope="col">Number of Beds</th>
-      <th scope="col">Region</th>
-      <th scope="col">Address</th>
-      <th scope="col">City</th>
-      <th scope="col">State</th>
-      <th scope="col">Zip</th>
-      <th scope="col">Telefone</th>
-      <th scope="col">Fax</th>
-      <th scope="col">Admin</th>
-      <th scope="col">Admin Email</th>
-      <th scope="col">SW</th>
-      <th scope="col">SW Email</th>
-      <th scope="col">Markt/Adminssion</th>
-      <th scope="col">Markt/Adminssion Email</th>
-
+      <th scope="col">Facility Name</th>
+      <th scope="col">Open Female Medicaid Beds</th>
+      <th scope="col">Open Male Medicaid Beds</th>
+      <th scope="col">Open Female Medicare Beds</th>
+      <th scope="col">Open Male Medicare Beds</th>
+      <th scope="col">Open Female Private Pay Beds</th>
+      <th scope="col">Open Male Private Pay Beds</th>
+      <th scope="col">Open Female Dementia Beds</th>
+      <th scope="col">Open Male Dementia Beds</th>
 
     </tr>
   </thead>
   <tbody>
-  {% for user in object_list %}
+    {% for user in users %}
     <tr>
       <th scope="row">{{ forloop.counter}}</th>
-      <td>{{user.facility}}</td>
-      <td>{{user.type}}</td>
-      <td>{{user.number_beds}}</td>
-      <td>{{user.region}}</td>
-      <td>{{user.address}}</td>
-      <td>{{user.city}}</td>
-      <td>{{user.state}}</td>
-      <td>{{user.zip}}</td>
-      <td>{{user.telefone}}</td>
-      <td>{{user.fax}}</td>
-      <td>{{user.admin}}</td>
-      <td>{{user.admin_email}}</td>
-      <td>{{user.sw}}</td>
-      <td>{{user.sw_email}}</td>
-      <td>{{user.markt}}</td>
-      <td>{{user.martk_email}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.date}}</td>
+      <td>{{user.female_medicaid}}</td>
+      <td>{{user.male_medicaid}}</td>
+      <td>{{user.female_medicare}}</td>
+      <td>{{user.male_medicare}}</td>
+      <td>{{user.female_private}}</td>
+      <td>{{user.male_private}}</td>
+      <td>{{user.female_dementia}}</td>
+      <td>{{user.male_dementia}}</td>
     </tr>
-  {% endfor %}
+    {% endfor %}
   </tbody>
 </table>
+
+
+
+{% endblock %}
