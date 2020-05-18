@@ -105,7 +105,7 @@ DATABASES = {
         'USER': 'khuyentran',
         'PASSWORD': 'Cun123456',
         # 'HOST': '',
-        'HOST': 'voyce-1.c0nnd7z7ktdl.us-east-2.rds.amazonaws.com',
+        'HOST': 'voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
