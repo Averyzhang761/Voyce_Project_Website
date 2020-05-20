@@ -1,26 +1,26 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-# Class attributes correspond to columns 
-# Instances of the classes correspond to rows in the database. 
 
-# Create your models here.
-class Table(models.Model):
-	facility = models.CharField(max_length=200, blank=True, null=True)
-	type = models.CharField(max_length=20, blank=True, null=True)
-	number_beds = models.CharField(max_length=20, blank=True, null=True)
-	region = models.CharField(max_length=100, blank=True, null=True)
-	address = models.CharField(max_length=200, blank=True, null=True)
-	city = models.CharField(max_length=200, blank=True, null=True)
-	state = models.CharField(max_length=5, blank=True, null=True)
-	zip = models.CharField(max_length=20, blank=True, null=True)
-	telefone = models.CharField(max_length=200, blank=True, null=True)
-	fax = models.CharField(max_length=200, blank=True, null=True)
-	admin = models.CharField(max_length=200, blank=True, null=True)
-	admin_email = models.EmailField(blank=True, null=True)
-	sw = models.CharField(max_length=200, blank=True, null=True)
-	sw_email = models.EmailField(blank=True, null=True)
-	markt = models.CharField(max_length=200, blank=True, null=True)
-	markt_email = models.EmailField(blank=True, null=True)
+class Facility(models.Model):
+    name = models.CharField(max_length=100)
+    date = models.CharField(max_length=30, blank=True, null=True)
+    female_medicaid = models.SmallIntegerField()
+    male_medicaid = models.SmallIntegerField(blank=True, null=True)
+    female_medicare = models.SmallIntegerField(blank=True, null=True)
+    male_medicare = models.SmallIntegerField(blank=True, null=True)
+    female_private = models.SmallIntegerField(blank=True, null=True)
+    male_private = models.SmallIntegerField(blank=True, null=True)
+    female_dementia = models.SmallIntegerField(blank=True, null=True)
+    male_dementia = models.SmallIntegerField(blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
 
-
-
+    class Meta:
+        managed = False
+        db_table = 'facility'

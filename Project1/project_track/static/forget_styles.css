@@ -1,30 +1,21 @@
-#logo-img {
-    float: left;
-    position: relative;
-    margin: 10px 15px 15px 10px;
-    height: 100px;
-    width:100px;
-}
-
-
 #knack-body #kn-app-header {
-      background-color: #F3AD40;
+      background-color: #07467c;
     }
 
     .kn-modal>h1 {
-      background-color: #F3AD40 !important;
+      background-color: #07467c !important;
     }
 
     .kn-menu-arrow.is-right:before {
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), #F3AD40);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), #07467c);
     }
 
     .kn-menu-arrow.is-left:before {
-      background: linear-gradient(to left, rgba(255, 255, 255, 0), #F3AD40);
+      background: linear-gradient(to left, rgba(255, 255, 255, 0), #07467c);
     }
 
     #kn-app-menu nav.tabs li.is-active a {
-      color: #F3AD40 !important;
+      color: #07467c !important;
     }
     #kn-app-header,
     #knack-logo .kn-title {
@@ -34,57 +25,58 @@
       color: #ffffff !important;
     }
     .kn-content a {
-      color: #F3AD40;
+      color: #07467c;
     }
 
     .kn-content .link-hover-color:hover {
-      color: #F3AD40;
+      color: #07467c;
     }
 
     .kn-button.is-link {
-      color: #F3AD40;
+      color: #07467c;
     }
 
     .kn-menu .kn-button {
-      color: #F3AD40;
+      color: #07467c;
     }
 
     .tabs.is-toggle .is-active a {
-      color: #F3AD40;
+      color: #07467c;
     }
 
     .tabs.is-toggle a {
-      color: #F3AD40;
+      color: #07467c;
     }
 
     .tabs a:hover {
-      color: #F3AD40;
+      color: #07467c;
     }
     .kn-navigation-bar a {
-      background-color: #F3AD40;
+      background-color: #17427a;
     }
+
     .kn-navigation-bar a:hover {
       background-color: #123562 !important;
     }
 
     .kn-navigation-bar .is-active a {
-      background-color: #F3AD40;
+      background-color: #123562;
     }
 
     .is-primary {
-      background-color: #F3AD40 !important;
+      background-color: #17427a !important;
     }
 
     .select:after {
-      border-color: #F3AD40;
+      border-color: #17427a;
     }
 
     .kn-button.is-active a {
-      background-color: #F3AD40;
+      background-color: #17427a;
     }
 
     .kn-button.is-active a {
-      border-color: #F3AD40 !important;
+      border-color: #17427a !important;
     }
 
     .kn-button.is-primary:hover,
@@ -132,4 +124,5 @@
     }
 
     .kn-button.is-loading:after {
-      border-color: transparent transparent #ffffff #ffffff !important;}
+      border-color: transparent transparent #ffffff #ffffff !important;
+    }

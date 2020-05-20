@@ -2,9 +2,13 @@
 *.log
 *.pot
 *.pyc
-__pycache__
+__pycache__/
+**/__pycache__/**/
 db.sqlite3
 media
+**/*.csv
+
+*.sql
 
 # Backup files # 
 *.bak 
@@ -106,7 +110,6 @@ Control.ca-list
 Control.ca-bundle 
 Control.system-ca-bundle 
 GitHub.sublime-settings 
-
 # Visual Studio Code # 
 .vscode/* 
 !.vscode/settings.json 
