@@ -8,4 +8,7 @@ urlpatterns=[
     path('upload/', views.upload, name='upload'),
     path('signup/', views.signup, name="signup"),
     path('test/', views.test, name="test"),
+    path('forgetpsd/', views.forgetpsd, name='forgetpsd'),
+    path('reset/', views.resetpsd, name='resetpsd'),
+
 ]
