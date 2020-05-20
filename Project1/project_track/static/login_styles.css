@@ -1,21 +1,29 @@
+#logo-img {
+    float: left;
+    position: relative;
+    margin: 10px 15px 15px 10px;
+    height: 100px;
+    width:100px;
+}
+
 #knack-body #kn-app-header {
-  background-color: #07467c;
+  background-color: #F3AD40;
 }
 
 .kn-modal>h1 {
-  background-color: #07467c !important;
+  background-color: #F3AD40 !important;
 }
 
 .kn-menu-arrow.is-right:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), #07467c);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), #F3AD40);
 }
 
 .kn-menu-arrow.is-left:before {
-  background: linear-gradient(to left, rgba(255, 255, 255, 0), #07467c);
+  background: linear-gradient(to left, rgba(255, 255, 255, 0), #F3AD40);
 }
 
 #kn-app-menu nav.tabs li.is-active a {
-  color: #07467c !important;
+  color: #F3AD40 !important;
 }
 #kn-app-header,
 #knack-logo .kn-title {
@@ -25,60 +33,63 @@
   color: #ffffff !important;
 }
 .kn-content a {
-  color: #07467c;
+  color: #F3AD40;
 }
 #forgot-pass{
   margin-left:10px;
 }
 .kn-content .link-hover-color:hover {
-  color: #07467c;
+  color: #F3AD40;
 }
 
 .kn-button.is-link {
-  color: #07467c;
+  color: #F3AD40;
 }
 
 .kn-menu .kn-button {
-  color: #07467c;
+  color: #F3AD40;
 }
 
 .tabs.is-toggle .is-active a {
-  color: #07467c;
-}
 
+  color: #F3AD40;
+}
+/*#07467c*/
 .tabs.is-toggle a {
-  color: #07467c;
+  color: #F3AD40;
 }
 
 .tabs a:hover {
-  color: #07467c;
+  color: #F3AD40;
 }
+
+/*17427a*/
 .kn-navigation-bar a {
-  background-color: #17427a;
+  background-color: #F3AD40;
 }
 
 .kn-navigation-bar a:hover {
-  background-color: #123562 !important;
+  background-color: #F3AD40 !important;
 }
 
 .kn-navigation-bar .is-active a {
-  background-color: #123562;
+  background-color: #F3AD40;
 }
 
 .is-primary {
-  background-color: #17427a !important;
+  background-color: #F3AD40 !important;
 }
 
 .select:after {
-  border-color: #17427a;
+  border-color: #F3AD40;
 }
 
 .kn-button.is-active a {
-  background-color: #17427a;
+  background-color: #F3AD40;
 }
 
 .kn-button.is-active a {
-  border-color: #17427a !important;
+  border-color: #F3AD40 !important;
 }
 
 .kn-button.is-primary:hover,
@@ -88,19 +99,19 @@
 }
 
 .fc-state-active {
-  border-color: #17427a !important;
+  border-color: #F3AD40 !important;
 }
 
 .kn-menu-list a {
-  border-color: #17427a !important;
+  border-color: #F3AD40 !important;
 }
 
 .kn-menu-list li.is-primary {
-  background-color: #17427a !important;
+  background-color: #F3AD40 !important;
 }
 
 #app-menu-list-mobile li.is-active {
-  background-color: #17427a;
+  background-color: #F3AD40;
 }
 #knack-body .input:focus {
   border-color: #0F2B4F;

@@ -3,7 +3,7 @@
 <html lang="'en">
 <head>
 {#    <link rel="stylesheet" href='../static/styles.css'>#}
-    <title>Voyce Login</title>
+    <title>VOYCE Login</title>
     <link href="https://cdn1.cloud-database.co/renderer/css/jquery.fancybox-1.3.4.css" rel="stylesheet" class="lazyload" charset="utf-8">
     <link href="https://cdn1.cloud-database.co/renderer/css/v2/renderer_566a62b954debc6ede2dbe212474be311016c46f.v2.min.css" rel="stylesheet" class="lazyload" charset="utf-8">
     <link href="https://cdn1.cloud-database.co/renderer/css/fonts.css" rel="stylesheet" class="lazyload" charset="utf-8">
@@ -19,9 +19,12 @@
 
     <div id="kn-app-mobile-container">
       <h1 id="knack-logo" style="">
-        <a href="#facility-status-samples" class="kn-title" address="true">Voyce</a>
-      </h1>
+        <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
 
+      </h1>
+        <div>
+        <img id = "logo-img" src="../static/images/voyce-logo.jpg" alt="">
+        </div>
       <div class="kn-mobile-controls">
         <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
           <i class="fa fa-bars"></i>
@@ -104,7 +107,13 @@
           </div>
       </div>
       <input class="kn-button is-primary" tabindex="4" type="submit" value="Sign In">
-        <a tabindex="5" class="ang-link" id="forgot-pass" href="#facility-status-samples/knack-password/forgot">(forgot password?)</a>
+        <a tabindex="5" class="ang-link" id="forgot-pass" href="forgetpsd">(forgot password?)</a>
+
+        <div>
+            {% if message %}
+          <div style="color:red" id="emailHelp" class="form-text text-muted">{{ message }}</div>
+        {% endif %}
+        </div>
     </form>
 
 
@@ -134,7 +143,7 @@
     <div id="kn-powered-link" style="margin-top: 45px;">
     <a href="https://www.voycestl.org/?gclid=Cj0KCQjwhtT1BRCiARIsAGlY51K5a87Ns00VjJ62OM-ovdPPlEIrZrxD9bxAT1wov5pPFrVCnohc2QEaAjI9EALw_wcB"
        target="_blank" title="Build your own online databases and web apps">
-        <em>Know more about Voyce</em></a>
+        <em>Know more about VOYCE</em></a>
 </div>
 </div>
 </div>

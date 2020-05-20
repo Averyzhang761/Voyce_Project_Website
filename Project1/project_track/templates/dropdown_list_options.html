@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+
+
+<body>
+welcome!!!
+
+<option value="">---------</option>
+{% for user in users %}
+<option value="{{ user.pk }}">{{ user.user_name }}</option>
+{% endfor %}
+
+
+</body>
+
+</html>
+

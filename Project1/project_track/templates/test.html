@@ -5,9 +5,48 @@
 
 </head>
 
-
 <body>
 welcome!!!
+
+<h2>Person Form</h2>
+
+  <form method="POST" id="personForm" novalidate>
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+
+    </table>
+      <option value="">---------</option>
+        {% for user in users %}
+        <option>{{ user.user_name }}</option>
+        {% endfor %}
+    <button type="submit">Save</button>
+    <a href="{% url 'test' %}">Nevermind</a>
+
+
+  </form>
+
+
+
+{#<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
+{#  <script>#}
+{#    $("#id_country").change(function () {#}
+{#      var url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view#}
+{#      var countryId = $(this).val();  // get the selected country ID from the HTML input#}
+{##}
+{#      $.ajax({                       // initialize an AJAX request#}
+{#        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)#}
+{#        data: {#}
+{#          'country': countryId       // add the country id to the GET parameters#}
+{#        },#}
+{#        success: function (data) {   // `data` is the return of the `load_cities` view function#}
+{#          $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server#}
+{#        }#}
+{#      });#}
+{##}
+{#    });#}
+{#  </script>#}
+
 {##}
 {#<h1>{{ objects.user_name }}</h1>#}
 {#<h1>{{ objects.email }}</h1>#}
@@ -15,24 +54,24 @@ welcome!!!
 {#<h1>{{ objects.last_name }}</h1>#}
 {#<h1>{{ objects.user_password }}</h1>#}
 {#<h1>{{ created }}</h1>#}
-<table>
-    <tr>
-        <th>user_name</th>
-        <th>first_name</th>
-        <th>last_name</th>
-        <th>email</th>
-        <th>user_password</th>
-    </tr>
+{#<table>#}
+{#    <tr>#}
+{#        <th>user_name</th>#}
+{#        <th>first_name</th>#}
+{#        <th>last_name</th>#}
+{#        <th>email</th>#}
+{#        <th>user_password</th>#}
+{#    </tr>#}
 {#    {% for item in objects %}#}
-    <tr>
-        <td>{{ objects.user_name}}</td>
-        <td>{{ objects.first_name}}</td>
-        <td>{{ objects.last_name}}</td>
-        <td>{{ objects.email }}</td>
-    <td>{{ objects.user_password}}</td>
-    </tr>
+{#    <tr>#}
+{#        <td>{{ objects.user_name}}</td>#}
+{#        <td>{{ objects.first_name}}</td>#}
+{#        <td>{{ objects.last_name}}</td>#}
+{#        <td>{{ objects.email }}</td>#}
+{#    <td>{{ objects.user_password}}</td>#}
+{#    </tr>#}
 {#    {% endfor %}#}
-</table>
+{#</table>#}
 
 </body>
 
