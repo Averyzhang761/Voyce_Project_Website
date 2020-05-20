@@ -35,8 +35,8 @@ EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
 # This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'aubrey.lan@outlook.com'
-EMAIL_HOST_PASSWORD = 'Z!izhim2iaoao'
+EMAIL_HOST_USER = 'your_email'
+EMAIL_HOST_PASSWORD = 'your_password'
 # Application definition
 
 INSTALLED_APPS = [
