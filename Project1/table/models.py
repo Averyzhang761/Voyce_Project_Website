@@ -24,3 +24,10 @@ class Facility(models.Model):
     class Meta:
         managed = False
         db_table = 'facility'
+
+class PivotFacility(models.Model):
+    gender = models.CharField(max_length=10)
+    medicaid = models.SmallIntegerField()
+    medicare = models.SmallIntegerField(blank=True, null=True)
+    private = models.SmallIntegerField(blank=True, null=True)
+    dementia = models.SmallIntegerField(blank=True, null=True)

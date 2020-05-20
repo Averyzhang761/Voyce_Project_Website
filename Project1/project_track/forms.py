@@ -1,11 +1,5 @@
-from django.contrib.auth.models import User
-from django.db import models
-import django.shortcuts
-from django.shortcuts import render
-import pymysql as Database
-Database.install_as_MySQLdb()
-
-# Create your models here.
+from django.forms import ModelForm
+from .models import User
 
 FACILITY_CHOICES = (
     ('Avalon Garden', 'Avalon Garden'),
@@ -50,41 +44,14 @@ FACILITY_CHOICES = (
     ('Windsor Estates of St. Charles', 'Windsor Estates of St. Charles')
 )
 
+class FacilityForm(ModelForm):
 
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=60)
-    user_password = models.CharField(max_length=60)
-    facility = models.CharField(
-        max_length=100, choices=FACILITY_CHOICES, default='Avalon Garden')
+    class Meta:
+        model = User
 
-
-class Test(models.Model):
-    user_id = models.IntegerField(
-        unique=True, db_index=True, primary_key=True, auto_created=True)
-    user_name = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=60)
-    user_password = models.CharField(max_length=60)
-
-
-class Sample(models.Model):
-    Facility_Name = models.CharField(
-        unique=True, db_index=False, primary_key=True, auto_created=False, max_length=45)
-    As_of = models.DateField()
-    Open_Female_Medicaid_Beds = models.IntegerField()
-    Open_Male_Medicaid_Beds = models.IntegerField()
-    Open_Female_Medicare_Beds = models.IntegerField()
-    Open_Male_Medicare_Beds = models.IntegerField()
-    Open_Female_Private_Pay_Beds = models.IntegerField()
-    Open_Male_Private_Pay_Beds = models.IntegerField()
-    Open_Female_Dementia_Beds = models.IntegerField()
-    Open_Male_Dementia_Beds = models.IntegerField()
-    Notes = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return self.Facility_Name
+        fields = ['user_name',
+        'first_name',
+        'last_name',
+        'email',
+        'user_password',
+        'facility']
