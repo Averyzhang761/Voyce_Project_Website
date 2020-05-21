@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 ]
 
 
-PASSWORD_RESET_TIMEOUT_DAYS = 0
+PASSWORD_RESET_TIMEOUT = 10
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
