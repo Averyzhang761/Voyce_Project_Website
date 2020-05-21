@@ -2,6 +2,8 @@ from django.contrib.auth.models import User
 from django.db import models
 import django.shortcuts
 from django.shortcuts import render
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import pymysql as Database
 Database.install_as_MySQLdb()
 
@@ -51,6 +53,7 @@ FACILITY_CHOICES = (
 )
 
 
+'''
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
     user_name = models.CharField(max_length=30)
@@ -60,6 +63,19 @@ class User(models.Model):
     user_password = models.CharField(max_length=60)
     facility = models.CharField(
         max_length=100, choices=FACILITY_CHOICES, default='Avalon Garden')
+'''
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    facility = models.CharField(max_length=60)
+    email_confirmed = models.BooleanField(default=False)
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
 
 
 class Test(models.Model):

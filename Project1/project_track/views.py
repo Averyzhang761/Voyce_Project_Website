@@ -1,17 +1,28 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from datetime import datetime
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.views.generic.edit import CreateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
+from .forms import SignUpForm
+from django.contrib.auth.models import User
 
-from .models import User
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from .tokens import account_activation_token
+from django.template.loader import render_to_string
+
+
+
+#from .models import User
 from .models import Sample
-from .forms import FacilityForm
 
 # Create your views here.
 
@@ -38,10 +49,10 @@ def login(request):
     if request.method == "POST":
         try:
 
-            user_email = request.POST.get('email')
-            user_password = request.POST.get('password')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
             user_object = User.objects.get(
-                email=user_email, user_password=user_password)
+                email=email, password=password)
             context = {"objects": user_object}
             return render(request, 'welcome.html', context)
 
@@ -54,27 +65,53 @@ def login(request):
         return render(request, 'login.html')
 
 
-class CreateFacilityView(CreateView):
-    
-    form_class = FacilityForm
+def signup(request):
 
-    def get(self, request, *args, **kwargs):
-        context = {'form': FacilityForm()}
-        return render(request, 'signup3.html', context)
+    form = SignUpForm(request.POST)
 
-    def post(self, request, *args, **kwargs):
-        form = FacilityForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user.save()
-            #fix this
-            #return HttpResponseRedirect("#")
-            return HttpResponseRedirect(reverse_lazy('user:detail', args=[user.id]))
-        return render(request, 'signup3.html', {'form': form})
+    if form.is_valid():
+        user = form.save()
+        user.refresh_from_db()
+        user.profile.first_name = form.cleaned_data.get('first_name')
+        user.profile.last_name = form.cleaned_data.get('last_name')
+        user.profile.facility = form.cleaned_data.get('facility')        
+        # user can't login until link confirmed
+        user.is_active = False
+        user.save()
+        current_site = get_current_site(request)
+        subject = 'Activate Your Account'
+        message = render_to_string('account_activation_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        user.email_user(subject, message)
+        return redirect('account_activation_sent')
 
-    
+    return render(request, 'signup3.html', {'form': form})
 
 
+def account_activation_sent(request):
+    return render(request, 'account_activation_email.html')
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.profile.email_confirmed = True
+        user.save()
+        auth_login(request, user)
+        return redirect('home')
+    else:
+        return render(request, 'account_activation_invalid.html')
+
+'''
 def signup(request):
 
     if request.method == "POST":
@@ -95,6 +132,7 @@ def signup(request):
         return render(request, 'welcome.html', context)
     else:
         return render(request, 'signup.html')
+'''
 
 
 def test(request):

@@ -1,5 +1,9 @@
 from django.forms import ModelForm
-from .models import User
+from django import forms
+#from .models import User
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
 
 FACILITY_CHOICES = (
     ('Avalon Garden', 'Avalon Garden'),
@@ -44,14 +48,20 @@ FACILITY_CHOICES = (
     ('Windsor Estates of St. Charles', 'Windsor Estates of St. Charles')
 )
 
-class FacilityForm(ModelForm):
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    facility = forms.ChoiceField(choices=FACILITY_CHOICES)
+    email = forms.EmailField(
+        max_length=254, help_text='Required. Inform a valid email address.')
 
     class Meta:
         model = User
 
-        fields = ['user_name',
+        fields = ('username',
         'first_name',
         'last_name',
         'email',
-        'user_password',
-        'facility']
+        'password1',
+        'password2',
+        'facility')
