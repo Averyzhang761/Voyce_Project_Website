@@ -1,21 +1,26 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
-from datetime import datetime
-from django.contrib.auth import authenticate, login
-# from django.contrib.auth.models import User
-
-from .models import Sample
-
 from urllib.parse import quote
-from django.utils.encoding import iri_to_uri
-from .models import User
-from . import forms
-# from Project1.settings import EMAIL_HOST_USER
 
 from django.conf import settings
 from django.core.mail import send_mail
+# from django.core.urlresolvers import *
+
+from django.shortcuts import render, redirect
+from django.utils.encoding import iri_to_uri, uri_to_iri, force_bytes
+from django.views.generic.base import View
+
+from .token import my_password_Generator
+from . import forms
+from .models import User
+
+from .utility import encryption_util
+
+from django.contrib.auth import login
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.auth.tokens import *
+
+# from django.contrib.auth.models import User
+# from Project1.settings import EMAIL_HOST_USER
 
 # Create your views here.
 
@@ -109,29 +114,57 @@ def forgetpsd(request):
     if request.method == 'POST':
         sub = forms.Subscribe(request.POST)
         subject = 'Reset your password'
-        message = 'Please use this link to reset your password, http://127.0.0.1:8000/reset'
         user_email = sub['email'].value()
-        if(User.objects.filter(email=user_email).exists()):
+        message = 'Please use this link to reset your password http://127.0.0.1:8000/reset_password/'
+        try:
+        # if User.objects.filter(email=user_email).exists():
+            user = User.objects.get(email=user_email)
+            print(user.pk)
+            token = my_password_Generator.make_token(user)
             #print(User.objects.get(email=user_email))
             recepient = str(sub['email'].value())
-            message =  message + iri_to_uri(quote('/resetpassword/%s' %quote(recepient)))
-
+            #message =  message + iri_to_uri(quote('/resetpassword/%s' %quote(recepient)))
+            message = message  + urlsafe_base64_encode(force_bytes(user.pk)) + '/' + token
             print(message)
             send_mail(subject, message, settings.EMAIL_HOST_USER,
                       [recepient], fail_silently = False)
             return render(request, 'success.html', {'recepient':recepient})
-        else:
+        except User.DoesNotExist:
             #print(sub.errors)
             return render(request, 'forgetpsd.html', {'form': sub, "message":'Your email does not exist. Please sign up first.'})
     return render(request, 'forgetpsd.html', {'form': sub})
+
+class ResetPasswordView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            print(uid)
+            user = User.objects.get(pk=uid)
+
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+            print('user problem')
+        #user is not None and
+        if my_password_Generator.check_token(user, token):
+            # user.profile.email_confirmed = True
+            # user.save()
+            # login(request, user)
+            # return redirect('reset_password.html')
+            print('finally succeed')
+            return redirect('/reset_password/')
+            # return render(request, 'reset_password.html')
+        else:
+            # invalid link
+            print("invalid link")
+            return render(request, 'test.html')
 
 def resetpsd(request):
     form = forms.PassReset()
     if request.method == "POST":
         form = forms.PassReset(request.POST)
         email = request.POST.get('email')
-        user_password = request.POST.get('user_password')
-        user_password_conf = request.POST.get('user_password_confirm')
+        user_password = request.POST.get('password')
+        user_password_conf = request.POST.get('password_conf')
         if user_password == user_password_conf:
             user_object = User.objects.get(email=email)
             user_object.user_password = user_password_conf
@@ -174,12 +207,20 @@ def test(request):
     # print(context)
     if request.method == "POST":
         context = {}
+        print(encryption_util.encrypt("lanxi.z@wustl.edu"))
         # context['form'] = PersonForm()
         # new_form = form.save()
         return render(request, 'test.html', context)
 
     else:
-        context = {}
+
+
+        # Note that for AES the key length must be either 16, 24, or 32 bytes
+
+        # print(encryption_util.encrypt("lanxi.z@wustl.edu"))
+        # print(encryption_util.decrypt('Z0FBQUFBQmV4WklIQW1UQzV6ei1PU0tBcWxsQThkQXM4WlViNVFYbUo0MVhKRVk1V2lJa2'
+        #                               'lnQnRxVmpvWk95N21jTEppY2k4c1E5RmRZZjhxMjF5MGpJWmZjUXItNzdRVXR4bEpNdkxkakhlNmhYV0tQNS1GNTA9'))
+        # Finally, to make the encrypted string safe to use in a URL we quote it
         # context['form'] = form
         users = User.objects.order_by('user_name')
     return render(request, 'welcome.html', {'objects':users})

@@ -22,6 +22,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9d+t)2%bfgq8id(hcbq971$i$7gv8b!7pm5!m$1esqs!c5dbcx'
 
+ENCRYPT_KEY = b'0KXO19_YlBafmdf_5OMMdl32LfZPepH2y9klJC1ToMY='
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -49,7 +51,11 @@ INSTALLED_APPS = [
     # very important!!!
     'project_track.apps.ProjectTrackConfig',
     'table',
+    # 'urlcrypt',
 ]
+
+
+PASSWORD_RESET_TIMEOUT_DAYS = 0
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,6 +66,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = ['urlcrypt.auth_backends.UrlCryptBackend']
+
 
 ROOT_URLCONF = 'Project1.urls'
 
