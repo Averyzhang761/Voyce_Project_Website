@@ -150,5 +150,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# This setting is to specify your email service provider. We are using the setting for Gmail.
+EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_HOST = 'smtp.outlook.com'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+# This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'khuyentran1476@gmail.com'
+EMAIL_HOST_PASSWORD = 'Cun123456'
+# Application definition
 
