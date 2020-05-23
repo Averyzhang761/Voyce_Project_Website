@@ -22,6 +22,8 @@ FACILITY_CHOICES = tuple([(facility, facility) for facility in facilities])
 '''
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
+    user_city = models.CharField(max_length=60, default="Saint Louis")
+    user_facility = models.CharField(max_length=100, default="Facility 1")
     user_name = models.CharField(max_length=30)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
