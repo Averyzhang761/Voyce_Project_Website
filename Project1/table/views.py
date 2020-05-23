@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
 from table.models import Facility, PivotFacility
 from .forms import AddDataForms
 from django.shortcuts import redirect
@@ -15,8 +16,7 @@ import csv
 def view_table(request):
 
 	# users = Facility.objects.all()
-	# Change this
-	facility = Facility.objects.all().first()
+	facility = Facility.objects.filter(name=request.user.profile_user.facility)[0]
 	female_medicaid = facility.female_medicaid
 	male_medicaid = facility.male_medicaid
 	female_medicare = facility.female_medicare

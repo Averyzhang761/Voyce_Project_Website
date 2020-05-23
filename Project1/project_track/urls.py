@@ -16,6 +16,7 @@ urlpatterns = [
         name='account_activation_sent'),
     path('activate/<slug:uidb64>/<slug:token>/',
          views.activate, name='activate'),
-    #<slug:uidb64>/<slug:token>/
-    #uidb64=uid token=token
+    path('forgetpsd/', views.forgetpsd, name='forgetpsd'),
+    path('reset/', views.resetpsd, name='resetpsd'),
+
 ]

@@ -65,3 +65,14 @@ class SignUpForm(UserCreationForm):
         'password1',
         'password2',
         'facility')
+    
+    '''
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+                raise forms.ValidationError("Email exists")
+        return self.cleaned_data
+    '''
+
+
+    User._meta.get_field('email')._unique = True

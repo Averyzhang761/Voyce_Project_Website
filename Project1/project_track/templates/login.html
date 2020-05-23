@@ -1,183 +1,211 @@
 {% extends "base.html" %}
-
-{% block page_content %}v
 {% load static %}
 <!DOCTYPE html>
+{% block page_content %}
 <html lang="'en">
+
 <head>
-{#    <link rel="stylesheet" href='../static/styles.css'>#}
-    <title>Voyce Login</title>
-    <link href="https://cdn1.cloud-database.co/renderer/css/jquery.fancybox-1.3.4.css" rel="stylesheet" class="lazyload" charset="utf-8">
-    <link href="https://cdn1.cloud-database.co/renderer/css/v2/renderer_566a62b954debc6ede2dbe212474be311016c46f.v2.min.css" rel="stylesheet" class="lazyload" charset="utf-8">
-    <link href="https://cdn1.cloud-database.co/renderer/css/fonts.css" rel="stylesheet" class="lazyload" charset="utf-8">
-    <link href="https://cdn1.cloud-database.co/renderer/css/v2/themes/theme-kn-beta_566a62b954debc6ede2dbe212474be311016c46f.min.css" rel="stylesheet" class="lazyload" charset="utf-8">
+  {#    <link rel="stylesheet" href='../static/styles.css'>#}
+  <title>Voyce Login</title>
+  <link href="https://cdn1.cloud-database.co/renderer/css/jquery.fancybox-1.3.4.css" rel="stylesheet" class="lazyload"
+    charset="utf-8">
+  <link
+    href="https://cdn1.cloud-database.co/renderer/css/v2/renderer_566a62b954debc6ede2dbe212474be311016c46f.v2.min.css"
+    rel="stylesheet" class="lazyload" charset="utf-8">
+  <link href="https://cdn1.cloud-database.co/renderer/css/fonts.css" rel="stylesheet" class="lazyload" charset="utf-8">
+  <link
+    href="https://cdn1.cloud-database.co/renderer/css/v2/themes/theme-kn-beta_566a62b954debc6ede2dbe212474be311016c46f.min.css"
+    rel="stylesheet" class="lazyload" charset="utf-8">
 
-    <link rel="stylesheet" href='../static/login_styles.css'>
+  <link rel="stylesheet" href='../static/login_styles.css'>
 </head>
-<body id="knack-body" data-gr-c-s-loaded="true"><div id="knack-dist_1" class="kn-content">
+
+<body id="knack-body" data-gr-c-s-loaded="true">
+  <div id="knack-dist_1" class="kn-content">
     <header id="kn-app-header">
-  <div class="kn-container">
+      <div class="kn-container">
 
-    <!---->
+        <!---->
 
-    <div id="kn-app-mobile-container">
-      <h1 id="knack-logo" style="">
-        <a href="#facility-status-samples" class="kn-title" address="true">Voyce</a>
-      </h1>
+        <div id="kn-app-mobile-container">
+          <h1 id="knack-logo" style="">
+            <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
+          </h1>
+          <div>
+            <img id="logo-img" src="../static/images/voyce-logo.jpg" alt="">
+          </div>
+          <div class="kn-mobile-controls">
+            <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
+              <i class="fa fa-bars"></i>
+            </label>
+            {#        <input type="checkbox" id="menu-show-dropdown">#}
+          </div>
+        </div>
 
-      <div class="kn-mobile-controls">
-        <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
-          <i class="fa fa-bars"></i>
-        </label>
-{#        <input type="checkbox" id="menu-show-dropdown">#}
+        <section id="app-menu-container">
+          <div class="kn-menu-arrow is-left"></div>
+          <div id="kn-app-menu" style="display: none;">
+            <div class="kn-navigation-bar">
+
+              <nav class="buttons is-nav">
+
+                {#    <ul id="app-menu-list">#}
+                {##}
+                {#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
+                {##}
+                {#    </ul>#}
+              </nav>
+            </div>
+          </div> <!-- Injected by SceneView.js -->
+          <div class="kn-menu-arrow is-right"></div>
+        </section>
+      </div>
+    </header>
+
+    <div class="kn-info-bar" style="display: none;">
+      <div class="kn-info kn-container">
+        <div class="kn-crumbtrail" style="visibility: hidden;">
+
+
+          <a href="#facility-status-samples?" address="true">Facility Status Samples</a>
+
+        </div>
+
+
+      </div> <!-- .kn-info appended to via SceneView.js -->
+    </div>
+
+    <div id="kn-loading-spinner" style="display: none;"></div>
+
+    <a name="kn-scenes-top"></a>
+    <div class="kn-scenes kn-section">
+      <div class="kn-scene kn-container" id="kn-scene_11" style="display: block;">
+        <div class="kn-login kn-view view_38" id="view_38">
+
+          <div class="columns">
+            <div class="column is-half">
+
+              <div class="view-header">
+
+                <h2 class="kn-title">Login</h2>
+
+                <p class="kn-description">Enter your email and password to login.</p>
+
+              </div>
+
+
+
+              <div class="kn-login-form">
+                {% if form.errors %}
+                <p>Your email and password didn't match. Please try again.</p>
+                {% endif %}
+                <form class="login_form control" action="#" method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <div class="control">
+                    <label class="kn-label" for="username">Email</label>
+                    <input class="input" tabindex="1" id="email" name="email" type="email" value="">
+                  </div>
+                  <div class="control">
+                    <label class="kn-label" for="password">
+                      Password
+                    </label>
+                    <input class="input" tabindex="2" id="password" name="password" type="password" value="">
+
+                    <div class="control">
+                      <label class="remember">
+                        <input class="checkbox" tabindex="3" type="checkbox" name="remember"> Remember me
+                      </label>
+                    </div>
+                  </div>
+                  <input class="kn-button is-primary" tabindex="4" type="submit" value="Sign In">
+                  <a tabindex="5" class="ang-link" id="forgot-pass" href="forgetpsd">(forgot password?)</a>
+                  <div>
+                    {% if message %}
+                    <div style="color:red" id="emailHelp" class="form-text text-muted">{{ message }}</div>
+                    {% endif %}
+                  </div>
+                </form>
+
+
+                <div class="register">
+                  <div class="control" id="need-account">
+                    <span class="kn-label">Need an account?</span>
+
+                    <a class="register kn-button" href="../signup">
+                      Sign Up
+                    </a>
+
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+            <div class="column is-1"></div>
+            <div class="kn-sso-container column is-narrow">
+
+            </div>
+
+          </div>
+        </div>
+        <div class="kn-view">
+          <div id="kn-powered-link" style="margin-top: 45px;">
+            <a href="https://www.voycestl.org/?gclid=Cj0KCQjwhtT1BRCiARIsAGlY51K5a87Ns00VjJ62OM-ovdPPlEIrZrxD9bxAT1wov5pPFrVCnohc2QEaAjI9EALw_wcB"
+              target="_blank" title="Build your own online databases and web apps">
+              <em>Know more about Voyce</em></a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <section id="app-menu-container">
-      <div class="kn-menu-arrow is-left"></div>
-      <div id="kn-app-menu" style="display: none;"><div class="kn-navigation-bar">
-
-    <nav class="buttons is-nav">
-
-{#    <ul id="app-menu-list">#}
-{##}
-{#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
-{##}
-{#    </ul>#}
-  </nav>
-</div>
-</div> <!-- Injected by SceneView.js -->
-      <div class="kn-menu-arrow is-right"></div>
+    <div id="kn-popover"></div>
+    <div id="kn-overlay" class="overlay"></div>
+    <section id="kn-mobile-menu">
+      {#    <ul id="app-menu-list-mobile" class="kn-menu-list">#}
+      {##}
+      {#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
+      {##}
+      {#    </ul>#}
     </section>
   </div>
-</header>
-
-<div class="kn-info-bar" style="display: none;">
-  <div class="kn-info kn-container"><div class="kn-crumbtrail" style="visibility: hidden;">
-
-
-    <a href="#facility-status-samples?" address="true">Facility Status Samples</a>
-
-</div>
-
-
-</div> <!-- .kn-info appended to via SceneView.js -->
-</div>
-
-<div id="kn-loading-spinner" style="display: none;"></div>
-
-<a name="kn-scenes-top"></a>
-<div class="kn-scenes kn-section"><div class="kn-scene kn-container" id="kn-scene_11" style="display: block;">
-    <div class="kn-login kn-view view_38" id="view_38">
-
-<div class="columns">
-  <div class="column is-half">
-
-      <div class="view-header">
-
-          <h2 class="kn-title">Login</h2>
-
-          <p class="kn-description">Enter your email and password to login.</p>
-
-      </div>
-
-
-
-    <div class="kn-login-form">
-        {% if form.errors %}
-            <p>Your email and password didn't match. Please try again.</p>
-        {% endif %}
-    <form class="login_form control" action="#" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-      <div class="control">
-        <label class="kn-label" for="username">Email</label>
-        <input class="input" tabindex="1" id="email" name="email" type="email" value="">
-      </div>
-      <div class="control">
-        <label class="kn-label" for="password">
-          Password
-        </label>
-        <input class="input" tabindex="2" id="password" name="password" type="password" value="">
-
-          <div class="control">
-            <label class="remember">
-              <input class="checkbox" tabindex="3" type="checkbox" name="remember"> Remember me
-            </label>
-          </div>
-      </div>
-      <input class="kn-button is-primary" tabindex="4" type="submit" value="Sign In">
-        <a tabindex="5" class="ang-link" id="forgot-pass" href="#facility-status-samples/knack-password/forgot">(forgot password?)</a>
-    </form>
-
-
-      <div class="register">
-        <div class="control" id="need-account">
-          <span class="kn-label">Need an account?</span>
-
-        <a class="register kn-button" href="../signup">
-          Sign Up
-        </a>
-
-        </div>
-      </div>
-
-
+  <div id="fancybox-tmp"></div>
+  <div id="fancybox-loading">
+    <div></div>
   </div>
-</div>
-
-
-  <div class="column is-1"></div>
-  <div class="kn-sso-container column is-narrow">
-
-  </div>
-
-</div>
-</div><div class="kn-view">
-    <div id="kn-powered-link" style="margin-top: 45px;">
-    <a href="https://www.voycestl.org/?gclid=Cj0KCQjwhtT1BRCiARIsAGlY51K5a87Ns00VjJ62OM-ovdPPlEIrZrxD9bxAT1wov5pPFrVCnohc2QEaAjI9EALw_wcB"
-       target="_blank" title="Build your own online databases and web apps">
-        <em>Know more about Voyce</em></a>
-</div>
-</div>
-</div>
-</div>
-
-<div id="kn-popover"></div>
-<div id="kn-overlay" class="overlay"></div>
-<section id="kn-mobile-menu">
-{#    <ul id="app-menu-list-mobile" class="kn-menu-list">#}
-{##}
-{#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
-{##}
-{#    </ul>#}
-</section>
-</div><div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div>
-<div id="fancybox-wrap">
+  <div id="fancybox-overlay"></div>
+  <div id="fancybox-wrap">
     <div id="fancybox-outer">
-        <div class="fancybox-bg" id="fancybox-bg-n"></div>
-        <div class="fancybox-bg" id="fancybox-bg-ne"></div>
-        <div class="fancybox-bg" id="fancybox-bg-e"></div>
-        <div class="fancybox-bg" id="fancybox-bg-se"></div>
-        <div class="fancybox-bg" id="fancybox-bg-s"></div>
-        <div class="fancybox-bg" id="fancybox-bg-sw"></div>
-        <div class="fancybox-bg" id="fancybox-bg-w"></div>
-        <div class="fancybox-bg" id="fancybox-bg-nw"></div>
-        <div id="fancybox-content"></div>
-        <a id="fancybox-close"></a>
-        <div id="fancybox-title"></div>
-        <a href="javascript:;" id="fancybox-left">
-            <span class="fancy-ico" id="fancybox-left-ico"></span>
-        </a>
-        <a href="javascript:;" id="fancybox-right">
-            <span class="fancy-ico" id="fancybox-right-ico"></span>
-        </a>
-    </div></div>
-<iframe name="easyXDM_default5542_provider" id="easyXDM_default5542_provider" src="https://us-east-1-renderer-read.knack.com/api/xdc.html?xdm_e=https%3A%2F%2Fwustl.knack.com&amp;xdm_c=default5542&amp;xdm_p=1" frameborder="0" style="position: absolute; top: -2000px; visibility: hidden; left: 0px;">
-    </iframe>
-<iframe name="easyXDM_default5543_provider" id="easyXDM_default5543_provider" src="https://us-east-1-renderer-write.knack.com/api/xdc.html?xdm_e=https%3A%2F%2Fwustl.knack.com&amp;xdm_c=default5543&amp;xdm_p=1" frameborder="0" style="position: absolute; top: -2000px; visibility: hidden; left: 0px;">
+      <div class="fancybox-bg" id="fancybox-bg-n"></div>
+      <div class="fancybox-bg" id="fancybox-bg-ne"></div>
+      <div class="fancybox-bg" id="fancybox-bg-e"></div>
+      <div class="fancybox-bg" id="fancybox-bg-se"></div>
+      <div class="fancybox-bg" id="fancybox-bg-s"></div>
+      <div class="fancybox-bg" id="fancybox-bg-sw"></div>
+      <div class="fancybox-bg" id="fancybox-bg-w"></div>
+      <div class="fancybox-bg" id="fancybox-bg-nw"></div>
+      <div id="fancybox-content"></div>
+      <a id="fancybox-close"></a>
+      <div id="fancybox-title"></div>
+      <a href="javascript:;" id="fancybox-left">
+        <span class="fancy-ico" id="fancybox-left-ico"></span>
+      </a>
+      <a href="javascript:;" id="fancybox-right">
+        <span class="fancy-ico" id="fancybox-right-ico"></span>
+      </a>
+    </div>
+  </div>
+  <iframe name="easyXDM_default5542_provider" id="easyXDM_default5542_provider"
+    src="https://us-east-1-renderer-read.knack.com/api/xdc.html?xdm_e=https%3A%2F%2Fwustl.knack.com&amp;xdm_c=default5542&amp;xdm_p=1"
+    frameborder="0" style="position: absolute; top: -2000px; visibility: hidden; left: 0px;">
+  </iframe>
+  <iframe name="easyXDM_default5543_provider" id="easyXDM_default5543_provider"
+    src="https://us-east-1-renderer-write.knack.com/api/xdc.html?xdm_e=https%3A%2F%2Fwustl.knack.com&amp;xdm_c=default5543&amp;xdm_p=1"
+    frameborder="0" style="position: absolute; top: -2000px; visibility: hidden; left: 0px;">
 
-</iframe>
+  </iframe>
 
 </body>
 

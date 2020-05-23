@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-
-{% block page_content %}
 {% load static %}
 <!DOCTYPE html>
+{% block page_content %}
+
 <html lang="en" style="overflow: hidden auto;">
 
 <head>
@@ -13,8 +13,21 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   {#<link rel="manifest" href="/manifest.json">#}
   <!--[if lt IE 9]>
-<script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+<script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
   <title>Voyce Signup</title>
+  {#    <script type="text/javascript">knack_production_mode = 'production';#}
+    {#app_id = '5ea7759fc9ffcb001591691d';# }
+    {#region = 'us-east';# }
+    {#api_domain = 'knack.com';# }
+    {#cdn_url = 'https://cdn1.cloud-database.co';# }
+    {#assets = 'cdn.cloud-database.co';# }
+    {#api_subdomain = 'us-api';# }
+    {#s3 = '{"domain":"s3.amazonaws.com","bucket":"assets.knackhq.com"}'; s3_secure = '{"domain":"s3.amazonaws.com","bucket":"cdn.cloud-database.co"}';# }
+    {#client_sha = '566a62b954debc6ede2dbe212474be311016c46f';# }
+    {#socket_url = 'https://sockets.knack.com';# }
+    {#use_multiple_api_subdomains = 'false';</script>#}
+  {#    <script src="https://cdn1.cloud-database.co/namespace/scripts/k_566a62b954debc6ede2dbe212474be311016c46f.js"></script>#}
   <link href="https://cdn1.cloud-database.co/renderer/css/jquery.fancybox-1.3.4.css" rel="stylesheet" class="lazyload"
     charset="utf-8">
   <link
@@ -24,23 +37,23 @@
   <link
     href="https://cdn1.cloud-database.co/renderer/css/v2/themes/theme-kn-beta_566a62b954debc6ede2dbe212474be311016c46f.min.css"
     rel="stylesheet" class="lazyload" charset="utf-8">
+
   <link rel="stylesheet" href='../static/signup_styles.css'>
-  <style id="kn-dynamic-styles" type="text/css"></style>
-</head>
-{#<body id="knack-body" data-gr-c-s-loaded="true">#}
+  {#<body id="knack-body" data-gr-c-s-loaded="true">#}
 
 <body id="knack-body" data-gr-c-s-loaded="true">
   <div id="knack-dist_1" class="kn-content">
     <header id="kn-app-header">
       <div class="kn-container">
 
-        <!---->
 
         <div id="kn-app-mobile-container">
           <h1 id="knack-logo" style="">
-            <a href="#facility-status-samples" class="kn-title" address="true">Voyce</a>
+            <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
           </h1>
-
+          <div>
+            <img id="logo-img" src="../static/images/voyce-logo.jpg" alt="">
+          </div>
           <div class="kn-mobile-controls">
             <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
               <i class="fa fa-bars"></i>
@@ -115,9 +128,20 @@
             <ul class="kn-form-group columns kn-form-group-1">
               <li class="kn-form-col column is-constrained">
                 <div class="kn-input kn-input-name control" id="kn-input-field_53" data-input-id="field_53">
+                  <label for="field_53" class="label kn-label"><span>City</span> <span
+                      class="kn-required">*</span></label>
+                  <p class="control">
+                    <input class="input" id="city" name="city" type="text" value="" placeholder="City">
+                  </p>
+                  <label for="field_53" class="label kn-label"><span>Facility</span> <span
+                      class="kn-required">*</span></label>
+                  <p class="control">
+                    <input class="input" id="facility" name="facility" type="text" value="" placeholder="Facility">
+                  </p>
 
                   <label for="field_53" class="label kn-label"><span>Full Name</span> <span
                       class="kn-required">*</span></label>
+
 
 
                   <div class="control is-grouped">
@@ -131,21 +155,6 @@
                       <input class="input" id="last_name" name="last_name" type="text" value="" placeholder="Last name">
                     </p>
                     <input name="key" type="hidden" value="field_53">
-                  </div>
-
-                  <p class="kn-instructions" style="display: none;"></p>
-                </div>
-
-                <div class="kn-input kn-input-email control" id="kn-input-field_facility"
-                  data-input-id="field_facility">
-
-                  <label for="field_facility" class="label kn-label"><span>Facility</span> <span
-                      class="kn-required">*</span></label>
-                  <div class="control">
-
-                    <input class="input" id="field_facility" name="facility" value="">
-
-                    {#  <input name="key" type="hidden" value="field_facility">#}
                   </div>
 
                   <p class="kn-instructions" style="display: none;"></p>
@@ -193,7 +202,7 @@
                     </div>
 
                     <div class="control">
-                      <input name="user_password" type="password" placeholder="Confirm Password" class="input">
+                      <input name="password_confirmation" type="password" placeholder="Confirm Password" class="input">
                     </div>
 
                   </div>
@@ -202,6 +211,7 @@
 
               </li>
             </ul>
+
 
             <div class="kn-submit">
 
