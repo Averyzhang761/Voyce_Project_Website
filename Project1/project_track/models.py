@@ -38,7 +38,10 @@ class User(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="profile_user")
-    first_name = models.CharField(max_length=100, blank=True)
+    #user = models.OneToOneField(
+    #    User, on_delete=models.CASCADE, related_name="profile_user")
+    first_name = models.CharField(
+        max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
     facility = models.CharField(max_length=60)
     email_confirmed = models.BooleanField(default=False)

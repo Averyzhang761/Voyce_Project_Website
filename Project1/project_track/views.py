@@ -101,7 +101,7 @@ def signup(request):
     form = SignUpForm(request.POST)
 
     if form.is_valid():
-        user = form.save(commit=False)
+        user = form.save()
         user.refresh_from_db()
         user.profile.first_name = form.cleaned_data.get('first_name')
         user.profile.last_name = form.cleaned_data.get('last_name')
@@ -138,7 +138,7 @@ def activate(request, uidb64, token):
 
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
-        user.profile.email_confirmed = True
+        #user.profile.email_confirmed = True
         user.save()
         auth_login(request, user)
         return redirect('login')
