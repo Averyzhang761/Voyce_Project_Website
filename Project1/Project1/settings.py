@@ -11,166 +11,149 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import hydra
+import yaml
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+with open("Project1/config.yaml") as file:
 
+    # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
+    config = yaml.full_load(file)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '9d+t)2%bfgq8id(hcbq971$i$7gv8b!7pm5!m$1esqs!c5dbcx'
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = config['secret_key']
 
-ALLOWED_HOSTS = []
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# This setting is to specify your email service provider. We are using the setting for Gmail.
-#EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST = 'smtp.outlook.com'
-EMAIL_USE_TLS = True
-#EMAIL_USE_SSL = False
-# This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'aubrey.lan@outlook.com'
-EMAIL_HOST_PASSWORD = 'Z!izhim2iaoao'
-# Application definition
+    ALLOWED_HOSTS = []
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    # very important!!!
-    'project_track.apps.ProjectTrackConfig',
-    'table',
-    'six'
-]
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # This setting is to specify your email service provider. We are using the setting for Gmail.
+    EMAIL_HOST = config['email']['type']['gmail']
+    EMAIL_USE_TLS = config['email']['use']['tls']
+    EMAIL_USE_SSL = config['email']['use']['ssl']
+    # This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
+    EMAIL_PORT = config['email']['port']
+    EMAIL_HOST_USER = config['email']['host_user']
+    EMAIL_HOST_PASSWORD = config['email']['host_password']
+ 
+    # Application definition
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        # very important!!!
+        'project_track.apps.ProjectTrackConfig',
+        'table',
+        'six'
+    ]
 
-ROOT_URLCONF = 'Project1.urls'
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        'django.middleware.csrf.CsrfViewMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware',
+        'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["Project1/templates/"],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+    ROOT_URLCONF = 'Project1.urls'
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': ["Project1/templates/"],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
         },
-    },
-]
+    ]
 
-WSGI_APPLICATION = 'Project1.wsgi.application'
+    WSGI_APPLICATION = 'Project1.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'voyce_project',
-        'USER': 'admin',
-        'PASSWORD': '12345678',
-        'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
+    # Database
+    # https://docs.djangoproject.com/en/3.0/ref/settings/['databases']['
+    DATABASES = {
+ 
+        'default': {
+            'ENGINE': config['databases']['engine'],
+            'NAME': config['databases']['name'],
+            'USER': config['databases']['user'],
+            'PASSWORD': config['databases']['password'],
+            'HOST': config['databases']['host'],
+            'PORT': config['databases']['port'],
+        }
     }
 
-    #     'default': {
-    #             'ENGINE': 'django.db.backends.mysql',
-    #             'NAME': 'voyce',
-    #             'USER': 'voycedb',
-    #             'PASSWORD': '12345678',
-    #             # 'HOST': '',
-    #             'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
-    #             'PORT': '3306',
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'voyce',
-        'USER': 'khuyentran',
-        'PASSWORD': 'Cun123456',
-        # 'HOST': '',
-        'HOST': 'voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com',
-        'PORT': '3306',
-    }
-}
+
+    # Password validation
+    # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+
+    AUTH_PASSWORD_VALIDATORS = [
+        {
+            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        },
+        {
+            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        },
+    ]
 
 
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
+    # Internationalization
+    # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+    LANGUAGE_CODE = 'en-us'
+
+    TIME_ZONE = 'UTC'
+
+    USE_I18N = True
+
+    USE_L10N = True
+
+    USE_TZ = True
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-LANGUAGE_CODE = 'en-us'
+    STATIC_URL = '/static/'
 
-TIME_ZONE = 'UTC'
+    '''
+    #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-USE_I18N = True
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    # This setting is to specify your email service provider. We are using the setting for Gmail.
+    EMAIL_HOST = 'smtp.gmail.com'
+    #EMAIL_HOST = 'smtp.outlook.com'
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
+    # This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'khuyentran1476@gmail.com'
+    EMAIL_HOST_PASSWORD = 'Cun123456'
+    # Application definition
+    '''
 
-USE_L10N = True
-
-USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
-
-'''
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# This setting is to specify your email service provider. We are using the setting for Gmail.
-EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_HOST = 'smtp.outlook.com'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-# This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'khuyentran1476@gmail.com'
-EMAIL_HOST_PASSWORD = 'Cun123456'
-# Application definition
-'''

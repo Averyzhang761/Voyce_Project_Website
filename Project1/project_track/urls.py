@@ -13,7 +13,7 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('test/', views.test, name="test"),
     path('sent/', views.account_activation_sent,
-        name='account_activation_sent'),
+         name='account_activation_sent'),
     path('activate/<slug:uidb64>/<slug:token>/',
          views.activate, name='activate'),
     path('forgetpsd/', views.forgetpsd, name='forgetpsd'),

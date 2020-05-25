@@ -1,3 +1,4 @@
+from table.models import Facility
 from django.contrib.auth.models import User
 from django.db import models
 import django.shortcuts
@@ -6,9 +7,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import pymysql as Database
 
-import sys, os
+import sys
+import os
 sys.path.append(os.path.abspath(os.path.join('..', 'table')))
-from table.models import Facility
 Database.install_as_MySQLdb()
 
 # Create your models here.
@@ -30,6 +31,8 @@ class User(models.Model):
     facility = models.CharField(
         max_length=100, choices=FACILITY_CHOICES, default='Avalon Garden')
 '''
+
+
 class Profile(models.Model):
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name="profile_user")

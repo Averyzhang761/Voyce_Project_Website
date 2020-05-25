@@ -72,8 +72,9 @@ To get your branch up to date with the current master use
 ``` 
 git checkout <your branch>
 ```
-Up to date with the origin
+If you got the error, commit your branch first. Then try git checkout again
+
+Up to date with the origin master
 ```
-git fetch
-git rebase origin/master
+git pull origin master
 ```

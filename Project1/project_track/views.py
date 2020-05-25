@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from datetime import datetime
 from django.contrib.auth import authenticate
-#I import login as auth_login so be careful here
+# I import login as auth_login so be careful here
 from django.contrib.auth import login as auth_login
 from django.views.generic.edit import CreateView
 from django.http import HttpResponse, HttpResponseRedirect
@@ -21,19 +21,18 @@ from .tokens import account_activation_token
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
+
 from urllib.parse import quote
 from django.utils.encoding import iri_to_uri
-from .models import User
+#from .models import User
 from . import forms
 # from Project1.settings import EMAIL_HOST_USER
 
 from django.conf import settings
 from django.core.mail import send_mail
 
-
-
-#from .models import User
 from .models import Sample
+
 
 # Create your views here.
 
@@ -68,7 +67,7 @@ def login(request):
             user_email = request.POST.get('email')
             user_password = request.POST.get('password')
             user_object = User.objects.get(
-                email=user_email, user_password=user_password)
+                email=user_email, password=user_password)
             context = {"objects": user_object}
             # login(request)
             return render(request, 'welcome.html', context)
@@ -97,7 +96,6 @@ def login(request):
         return render(request, 'login.html', {'form': form})
 
 
-
 def signup(request):
 
     form = SignUpForm(request.POST)
@@ -107,7 +105,7 @@ def signup(request):
         user.refresh_from_db()
         user.profile.first_name = form.cleaned_data.get('first_name')
         user.profile.last_name = form.cleaned_data.get('last_name')
-        user.profile.facility = form.cleaned_data.get('facility')        
+        user.profile.facility = form.cleaned_data.get('facility')
         # user can't login until link confirmed
         user.is_active = False
         user.save()
@@ -151,29 +149,6 @@ def activate(request, uidb64, token):
             request, ('The confirmation link was invalid, possibly because it has already been used.'))
         return redirect('signup')
 
-'''
-def signup(request):
-
-    if request.method == "POST":
-        form = FacilityForm(request.POST)
-     
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        user_name = request.POST.get('user_name')
-        user_email = request.POST.get('email')
-        user_password = request.POST.get('user_password')
-        facility = request.POST.get('facility')
-        
-        print('success')
-        object = User.objects.create(user_name=user_name, first_name=first_name, last_name=last_name,
-                                     email=user_email, user_password=user_password, facility=facility)
-        
-        context = {"objects": object}
-        return render(request, 'welcome.html', context)
-    else:
-        return render(request, 'signup.html')
-'''
-
 
 def forgetpsd(request):
     sub = forms.Subscribe()
@@ -183,7 +158,7 @@ def forgetpsd(request):
         message = 'Please use this link to reset your password, http://127.0.0.1:8000/reset'
         user_email = sub['email'].value()
         if(User.objects.filter(email=user_email).exists()):
-            #print(User.objects.get(email=user_email))
+            # print(User.objects.get(email=user_email))
             recepient = str(sub['email'].value())
             message = message + \
                 iri_to_uri(quote('/resetpassword/%s' % quote(recepient)))
@@ -193,7 +168,7 @@ def forgetpsd(request):
                       [recepient], fail_silently=False)
             return render(request, 'success.html', {'recepient': recepient})
         else:
-            #print(sub.errors)
+            # print(sub.errors)
             return render(request, 'forgetpsd.html', {'form': sub, "message": 'Your email does not exist. Please sign up first.'})
     return render(request, 'forgetpsd.html', {'form': sub})
 
@@ -242,6 +217,10 @@ def test(request):
     # objects=User.objects.get(user_id=2)
     # objects.delete()
     # objects=User.objects.get(user_name='jamesz')
+    # objects = User.objects.all().values
+    # context = {"objects": objects}
+    #
+    # print(context)
     if request.method == "POST":
         context = {}
         # context['form'] = PersonForm()

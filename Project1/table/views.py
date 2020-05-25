@@ -25,16 +25,16 @@ def view_table(request):
 	male_private = facility.male_private
 	female_dementia = facility.female_dementia
 	male_dementia = facility.male_dementia
-	female = PivotFacility.objects.create(gender = 'female', 
-												medicaid = female_medicaid,
-												medicare = female_medicare,
-												private = female_private,
-												dementia = female_dementia)
-	male = PivotFacility.objects.create(gender = 'male', 
-												medicaid = male_medicaid,
-												medicare = male_medicare,
-												private = male_private,
-												dementia = male_dementia)	
+	female = PivotFacility.objects.create(gender='female',
+                                       medicaid=female_medicaid,
+                                       medicare=female_medicare,
+                                       private=female_private,
+                                       dementia=female_dementia)
+	male = PivotFacility.objects.create(gender='male',
+                                     medicaid=male_medicaid,
+                                     medicare=male_medicare,
+                                     private=male_private,
+                                     dementia=male_dementia)
 
 	context = {
 		'female': female,
@@ -42,6 +42,7 @@ def view_table(request):
 		'facility': facility,
 	}
 	return render(request, 'table.html', context)
+
 
 def add_data(request):
 	form = AddDataForms()
@@ -59,8 +60,10 @@ def add_data(request):
 
 	return render(request, 'newdata.html', context)
 
+
 class SearchView(TemplateView):
     template_name = 'table.html'
+
 
 class SearchResultsView(ListView):
 	model = Facility
@@ -73,5 +76,4 @@ class SearchResultsView(ListView):
 			Q(facility__icontains=queryset))
 
 		return objects
-
 

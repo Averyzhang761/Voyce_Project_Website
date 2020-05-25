@@ -27,38 +27,18 @@
 
         <!---->
 
-        <div id="kn-app-mobile-container">
-          <h1 id="knack-logo" style="">
-            <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
-          </h1>
-          <div>
-            <img id="logo-img" src="../static/images/voyce-logo.jpg" alt="">
-          </div>
-          <div class="kn-mobile-controls">
-            <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
-              <i class="fa fa-bars"></i>
-            </label>
-            {#        <input type="checkbox" id="menu-show-dropdown">#}
-          </div>
+    <div id="kn-app-mobile-container">
+      <h1 id="knack-logo" style="">
+        <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
+      </h1>
+        <div>
+        <img id = "logo-img" src="../static/images/voyce-logo.jpg" alt="">
         </div>
-
-        <section id="app-menu-container">
-          <div class="kn-menu-arrow is-left"></div>
-          <div id="kn-app-menu" style="display: none;">
-            <div class="kn-navigation-bar">
-
-              <nav class="buttons is-nav">
-
-                {#    <ul id="app-menu-list">#}
-                {##}
-                {#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
-                {##}
-                {#    </ul>#}
-              </nav>
-            </div>
-          </div> <!-- Injected by SceneView.js -->
-          <div class="kn-menu-arrow is-right"></div>
-        </section>
+      <div class="kn-mobile-controls">
+        <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
+          <i class="fa fa-bars"></i>
+        </label>
+{#        <input type="checkbox" id="menu-show-dropdown">#}
       </div>
     </header>
 
@@ -126,11 +106,6 @@
                     {% endif %}
                   </div>
                 </form>
-
-
-                <div class="register">
-                  <div class="control" id="need-account">
-                    <span class="kn-label">Need an account?</span>
 
                     <a class="register kn-button" href="../signup">
                       Sign Up
