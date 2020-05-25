@@ -27,18 +27,38 @@
 
         <!---->
 
-    <div id="kn-app-mobile-container">
-      <h1 id="knack-logo" style="">
-        <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
-      </h1>
-        <div>
-        <img id = "logo-img" src="../static/images/voyce-logo.jpg" alt="">
+        <div id="kn-app-mobile-container">
+          <h1 id="knack-logo" style="">
+            <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
+          </h1>
+          <div>
+            <img id="logo-img" src="../static/images/voyce-logo.jpg" alt="">
+          </div>
+          <div class="kn-mobile-controls">
+            <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
+              <i class="fa fa-bars"></i>
+            </label>
+            {#        <input type="checkbox" id="menu-show-dropdown">#}
+          </div>
         </div>
-      <div class="kn-mobile-controls">
-        <label class="kn-mobile-nav-toggle" for="menu-show-dropdown">
-          <i class="fa fa-bars"></i>
-        </label>
-{#        <input type="checkbox" id="menu-show-dropdown">#}
+
+        <section id="app-menu-container">
+          <div class="kn-menu-arrow is-left"></div>
+          <div id="kn-app-menu" style="display: none;">
+            <div class="kn-navigation-bar">
+
+              <nav class="buttons is-nav">
+
+                {#    <ul id="app-menu-list">#}
+                {##}
+                {#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
+                {##}
+                {#    </ul>#}
+              </nav>
+            </div>
+          </div> <!-- Injected by SceneView.js -->
+          <div class="kn-menu-arrow is-right"></div>
+        </section>
       </div>
     </header>
 
@@ -106,6 +126,11 @@
                     {% endif %}
                   </div>
                 </form>
+
+
+                <div class="register">
+                  <div class="control" id="need-account">
+                    <span class="kn-label">Need an account?</span>
 
                     <a class="register kn-button" href="../signup">
                       Sign Up
@@ -186,86 +211,3 @@
 
 </html>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{#---------------------------old code-----------------------------#}
-{#{% block content %}#}
-{#  <h2>Login</h2>#}
-{#  <form method="post">#}
-{#  <table class="table">#}
-{#                    <tr>#}
-{#                        <td><label for="id_username">Username</label></td>#}
-{#                        <td><input id="id_username" name="username"#}
-{#                                   type="text" class="form-control"></td>#}
-{#                    </tr>#}
-{#                    <tr>#}
-{#                        <td><label for="id_password">Password</label></td>#}
-{#                        <td><input id="id_password" name="password"#}
-{#                                   type="password" class="form-control"></td>#}
-{#                    </tr>#}
-{#                </table>#}
-{#    {% csrf_token %}#}
-{#    {{ form.as_p }}#}
-{#    <button type="submit">Login</button>#}
-{#  </form>#}
-{#{% endblock %}#}
-
-
-{#{% block content %}#}
-{#<form method="POST" action="{% url 'login' %}">#}
-{#{% csrf_token %}#}
-{##}
-{#    <table style="border:1px solid black;" class="table">#}
-{#                    <tr>#}
-{#                        <td><label for="id_username">Username</label></td>#}
-{#                        <td><input id="id_username" name="username"#}
-{#                                   type="text" class="form-control"></td>#}
-{#                    </tr>#}
-{##}
-{#                    <tr>#}
-{#                        <td><label for="id_password">Password</label></td>#}
-{#                        <td><input id="id_password" name="password"#}
-{#                                   type="password" class="form-control"></td>#}
-{#                    </tr>#}
-{#                </table>#}
-{##}
-{#<input align="center" type="submit" value="login">#}
-{#<input type="hidden" name="next" value="{{ next }}">#}
-{#</form>#}
-{##}
-{# Assumes you setup the password_reset view in your URLconf#}
-{#<p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
-{#{% if form.errors %}#}
-{#<p>Your username and password didn't match. Please try again.</p>#}
-{#{% endif %}#}
-{##}
-{#{% if next %}#}
-{#    {% if user.is_authenticated %}#}
-{#    <p>Your account doesn't have access to this page. To proceed,#}
-{#    please login with an account that has access.</p>#}
-{#    {% else %}#}
-{#    <p>Please login to see this page.</p>#}
-{#    {% endif %}#}
-{#{% endif %}#}
-{#{% endblock %}#}
