@@ -1,48 +1,48 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-
-
-<a href="{% url 'new' %}"  class="btn btn-primary btn-lg active" role="button">Insert new data</a>
-
+<!--
 <form action="{% url 'searchresults' %}" method="get">
   <input name="q" type="text" placeholder="Search...">
 </form>
+-->
 
-<h1>Facility</h1>
+<p class="text-lg-left" style="font-size:160%;">Facility: {{facility.name}}</p>
+<p class="text-left" style="font-size:160%;">Date: {{facility.date}}</p>
+
+
+
+<h1>Data</h1>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Facility Name</th>
-      <th scope="col">Open Female Medicaid Beds</th>
-      <th scope="col">Open Male Medicaid Beds</th>
-      <th scope="col">Open Female Medicare Beds</th>
-      <th scope="col">Open Male Medicare Beds</th>
-      <th scope="col">Open Female Private Pay Beds</th>
-      <th scope="col">Open Male Private Pay Beds</th>
-      <th scope="col">Open Female Dementia Beds</th>
-      <th scope="col">Open Male Dementia Beds</th>
-
+      <th scope="col">Gender</th>
+      <th scope="col">Open Medicaid Beds</th>
+      <th scope="col">Open Medicare Beds</th>
+      <th scope="col">Open Private Pay Beds</th>
+      <th scope="col">Open Dementia Beds</th>
     </tr>
   </thead>
   <tbody>
-  {% for user in users %}
     <tr>
-      <th scope="row">{{ forloop.counter}}</th>
-      <td>{{user.name}}</td>
-      <td>{{user.date}}</td>
-      <td>{{user.female_medicaid}}</td>
-      <td>{{user.male_medicaid}}</td>
-      <td>{{user.female_medicare}}</td>
-      <td>{{user.male_medicare}}</td>
-      <td>{{user.female_private}}</td>
-      <td>{{user.male_private}}</td>
-      <td>{{user.female_dementia}}</td>
-      <td>{{user.male_dementia}}</td>
+      <td>{{female.gender}}</td>
+      <td>{{female.medicaid}}</td>
+      <td>{{female.medicare}}</td>
+      <td>{{female.private}}</td>
+      <td>{{female.dementia}}</td>
     </tr>
-  {% endfor %}
+    <tr>
+      <td>{{male.gender}}</td>
+      <td>{{male.medicaid}}</td>
+      <td>{{male.medicare}}</td>
+      <td>{{male.private}}</td>
+      <td>{{male.dementia}}</td>
+    </tr>
   </tbody>
 </table>
+
+<a href="{% url 'new' %}" class="btn btn-primary btn-lg active" role="button">Insert new data</a>
+
 
 
 

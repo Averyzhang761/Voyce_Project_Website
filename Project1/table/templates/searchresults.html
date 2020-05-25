@@ -13,34 +13,21 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Facility Name</th>
-      <th scope="col">Open Female Medicaid Beds</th>
-      <th scope="col">Open Male Medicaid Beds</th>
-      <th scope="col">Open Female Medicare Beds</th>
-      <th scope="col">Open Male Medicare Beds</th>
-      <th scope="col">Open Female Private Pay Beds</th>
-      <th scope="col">Open Male Private Pay Beds</th>
-      <th scope="col">Open Female Dementia Beds</th>
-      <th scope="col">Open Male Dementia Beds</th>
-
+      <th scope="col">Gender</th>
+      <th scope="col">Medicaid Beds</th>
+      <th scope="col"> Medicare Beds</th>
+      <th scope="col"> Private Pay Beds</th>
+      <th scope="col"> Dementia Beds</th>
     </tr>
   </thead>
   <tbody>
-    {% for user in users %}
     <tr>
-      <th scope="row">{{ forloop.counter}}</th>
-      <td>{{user.name}}</td>
-      <td>{{user.date}}</td>
-      <td>{{user.female_medicaid}}</td>
-      <td>{{user.male_medicaid}}</td>
-      <td>{{user.female_medicare}}</td>
-      <td>{{user.male_medicare}}</td>
-      <td>{{user.female_private}}</td>
-      <td>{{user.male_private}}</td>
-      <td>{{user.female_dementia}}</td>
-      <td>{{user.male_dementia}}</td>
+      <td>{{female.gender}}</td>
+      <td>{{female.female_medicaid}}</td>
+      <td>{{female.female_medicare}}</td>
+      <td>{{female.female_private}}</td>
+      <td>{{female.female_dementia}}</td>
     </tr>
-    {% endfor %}
   </tbody>
 </table>
 
