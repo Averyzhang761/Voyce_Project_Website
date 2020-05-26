@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # very important!!!
-    'project_track.apps.ProjectTrackConfig',
-    'table',
     'page_look',
     'widget_tweaks',
 ]
@@ -81,22 +79,12 @@ WSGI_APPLICATION = 'Project1.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
- #     'default': {
- #             'ENGINE': 'django.db.backends.mysql',
- #             'NAME': 'voyce',
- #             'USER': 'voycedb',
- #             'PASSWORD': '12345678',
- #             # 'HOST': '',
- #             'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
- #             'PORT': '3306',
- # }
-
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'voyce',
-        'USER': 'khuyentran',
-        'PASSWORD': 'Cun123456',
-        'HOST': 'voyce-1.c0nnd7z7ktdl.us-east-2.rds.amazonaws.com',
+        'USER': 'admin',
+        'PASSWORD': 'archtalentsvoyce',
+        'HOST': 'voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com',
         'PORT': '3306',
     }
 }
@@ -141,5 +129,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/img/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'page_look/static')
+    os.path.join(BASE_DIR, 'page_look/../static')
 ]

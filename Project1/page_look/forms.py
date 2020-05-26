@@ -1,17 +1,19 @@
 from django import forms
+from .models import Facility
 
-from .models import Contact
 
-
-class ContactForm(forms.ModelForm):
+class AddDataForms(forms.ModelForm):
     class Meta:
-        model = Contact
-        fields = ['name', 'email', 'purpose', 'message']
-
-        '''
-        widgets = {
-            'name' : forms.TextInput(attrs={'class': 'input', 'placeholder' : 'Your Name'}),
-            'email' : forms.EmailInput(attrs={'class': 'input', 'placeholder' : 'you@email.com'}),
-            'message': forms.Textarea(attrs={'class': 'textarea', 'rows': 10, 'placeholder' : 'Your message...'}),
-        }
-        '''
+        model = Facility
+        fields = ["name",
+                  "date",
+                  "female_medicaid",
+                  "male_medicaid",
+                  "female_medicare",
+                  "male_medicare",
+                  "female_private",
+                  "male_private",
+                  "female_dementia",
+                  "male_dementia",
+                  "notes",
+                  ]
