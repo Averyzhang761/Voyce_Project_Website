@@ -27,16 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # This setting is to specify your email service provider. We are using the setting for Gmail.
-#EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST = 'smtp.outlook.com'
 EMAIL_USE_TLS = True
-#EMAIL_USE_SSL = False
+# EMAIL_USE_SSL = False
 # This is the setting for Gmail, you can get yours on the web. It is the port used by the SMTP server.
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'aubrey.lan@outlook.com'
-EMAIL_HOST_PASSWORD = 'Z!izhim2iaoao'
+EMAIL_HOST_USER = 'your_email'
+EMAIL_HOST_PASSWORD = 'your_password'
 # Application definition
 
 INSTALLED_APPS = [
@@ -90,33 +90,34 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'voyce_project',
-            'USER': 'admin',
-            'PASSWORD': '12345678',
-            'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
-            'PORT': '3306',
-        }
 
- #     'default': {
- #             'ENGINE': 'django.db.backends.mysql',
- #             'NAME': 'voyce',
- #             'USER': 'voycedb',
- #             'PASSWORD': '12345678',
- #             # 'HOST': '',
- #             'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
- #             'PORT': '3306',
- # }
- #    'default': {
- #        'ENGINE': 'django.db.backends.mysql',
- #        'NAME': 'voyce',
- #        'USER': 'khuyentran',
- #        'PASSWORD': 'Cun123456',
- #        # 'HOST': '',
- #        'HOST': 'voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com',
- #        'PORT': '3306',
- #    }
+    #       'default': {
+    #           'ENGINE': 'django.db.backends.mysql',
+    #           'NAME': 'voyce_project',
+    #           'USER': 'admin',
+    #           'PASSWORD': '12345678',
+    #           'HOST': 'database-1.c09j5wm8siig.us-east-2.rds.amazonaws.com',
+    #           'PORT': '3306',
+
+
+    #     'default': {
+    #             'ENGINE': 'django.db.backends.mysql',
+    #             'NAME': 'voyce',
+    #             'USER': 'voycedb',
+    #             'PASSWORD': '12345678',
+    #             # 'HOST': '',
+    #             'HOST': 'database-1.crm225sa5sg2.us-east-2.rds.amazonaws.com',
+    #             'PORT': '3306',
+    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'voyce',
+        'USER': 'khuyentran',
+        'PASSWORD': 'Cun123456',
+        # 'HOST': '',
+        'HOST': 'voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com',
+        'PORT': '3306',
+    }
 }
 
 

@@ -41,7 +41,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Project1/project_track/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
+            <state relative-caret-position="288">
               <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
             </state>
           </provider>
@@ -275,7 +275,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="27852000" />
+=======
+    <option name="totallyTimeSpent" value="27857000" />
+>>>>>>> 2ddb8e3a507fb64f9a011f1b70cd51feaa77466c
   </component>
   <component name="ToolWindowManager">
     <frame x="100" y="23" width="1614" height="988" extended-state="0" />
@@ -488,7 +492,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Project1/project_track/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
+        <state relative-caret-position="288">
           <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
         </state>
       </provider>
