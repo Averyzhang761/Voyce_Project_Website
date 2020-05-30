@@ -6,24 +6,29 @@
 </head>
 
 <body>
-welcome!!!
+This link expired, You need to get another link.
 
-<h2>Person Form</h2>
 
   <form method="POST" id="personForm" novalidate>
     {% csrf_token %}
-    <table>
-      {{ form.as_table }}
+{#    <table>#}
+{#      {{ form.as_table }}#}
+{##}
+{##}
+{#    </table>#}
+{#      <option value="">---------</option>#}
+{#        {% for user in users %}#}
+{#        <option>{{ user.user_name }}</option>#}
+{#        {% endfor %}#}
+{#    <button type="submit">Save</button>#}
+{#    <a href="{% url 'test' %}">Nevermind</a>#}
 
-    </table>
-      <option value="">---------</option>
-        {% for user in users %}
-        <option>{{ user.user_name }}</option>
-        {% endfor %}
-    <button type="submit">Save</button>
-    <a href="{% url 'test' %}">Nevermind</a>
 
 
+
+{#<a class="register kn-button" href="../forgetpsd">#}
+{#          Return to forget password page#}
+{#        </a>#}
   </form>
 
 

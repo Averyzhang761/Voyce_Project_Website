@@ -1,8 +1,10 @@
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.serializers import json
+from django.forms import model_to_dict
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime
 from django.contrib.auth import authenticate
 # I import login as auth_login so be careful here
@@ -22,6 +24,11 @@ from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.auth.tokens import *
+from .token import reset_password_Generator, account_activation_token
+from django.views.generic.base import View
 
 from urllib.parse import quote
 from django.utils.encoding import iri_to_uri
@@ -31,12 +38,18 @@ from . import forms
 
 from django.conf import settings
 from django.core.mail import send_mail
+from table.models import Facility, PivotFacility
+
+from django.http import JsonResponse
 
 from .models import Sample
 
 
 # Create your views here.
 
+# class User(AbstractUser):
+#
+#     pass
 
 def home(request):
     # #project_track="I am the project_track application"
@@ -55,7 +68,7 @@ def upload(request):
     return render(request, 'home.html')
 
 
-def login(request):
+def log_in(request):
     # username = request.POST.get('username')
     # password = request.POST.get('password')
     # User.objects.create(username=request.POST.get('username'),
@@ -68,10 +81,37 @@ def login(request):
             user_email = request.POST.get('email')
             user_password = request.POST.get('password')
             user_object = User.objects.get(
-                email=user_email, user_password=user_password)
+                email=user_email, password=user_password)
             context = {"objects": user_object}
+            request.session['email'] = user_email
             # login(request)
-            return render(request, 'welcome.html', context)
+            user = User.objects.get(email=user_email)
+            facility = Facility.objects.filter(name=user.profile.facility)[0]
+            female_medicaid = facility.female_medicaid
+            male_medicaid = facility.male_medicaid
+            female_medicare = facility.female_medicare
+            male_medicare = facility.male_medicare
+            female_private = facility.female_private
+            male_private = facility.male_private
+            female_dementia = facility.female_dementia
+            male_dementia = facility.male_dementia
+            female = PivotFacility.objects.create(gender='female',
+                                                  medicaid=female_medicaid,
+                                                  medicare=female_medicare,
+                                                  private=female_private,
+                                                  dementia=female_dementia)
+            male = PivotFacility.objects.create(gender='male',
+                                                medicaid=male_medicaid,
+                                                medicare=male_medicare,
+                                                private=male_private,
+                                                dementia=male_dementia)
+
+            context = {
+                'female': female,
+                'male': male,
+                'facility': facility,
+            }
+            return render(request, 'table.html', context)
             #user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
             # user=authenticate(request, email=user_email, password=request.POST.get('password'))
             # if user.is_authenticated:
@@ -97,34 +137,89 @@ def login(request):
         return render(request, 'login.html', {'form': form})
 
 
-def signup(request):
+def sign_up(request):
 
-    form = SignUpForm(request.POST)
-
-    if form.is_valid():
-        user = form.save(commit=False)
-        user.refresh_from_db()
-        user.profile.first_name = form.cleaned_data.get('first_name')
-        user.profile.last_name = form.cleaned_data.get('last_name')
-        user.profile.facility = form.cleaned_data.get('facility')
-        # user can't login until link confirmed
-        user.is_active = False
-        user.save()
-        current_site = get_current_site(request)
-        subject = 'Activate Your Account'
-        message = render_to_string('account_activation_email.html', {
-            'user': user,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': account_activation_token.make_token(user),
-        })
-        #user.email_user(subject, message)
-        to_email = form.cleaned_data.get('email')
-        email = EmailMessage(subject, message, to=[to_email])
-        email.send()
-        return redirect('account_activation_sent')
+    form = SignUpForm()
+    #form = SignUpForm()
+    #print(form)
+    if request.method == "POST":
+        # data = {'first_name':'zhang',
+        #           'last_name':'zhang',
+        #           'email':'aubrey.lan@outlook.com',
+        #           'password1':'111222333zzz',
+        #           'password2':'111222333zzz',
+        #           'county':'county_C',
+        #           'facility':'Avalon Garden'}
+        # form = SignUpForm(data)
+        # print(form.is_valid())
+        # print(form.profile)
+        # form = SignUpForm(request.POST)
+        # # print(form.counties)
+        # # print(form.facilities)
+        # print(request.POST.get('counties'))
+        # print(request.POST.get('facilities'))
+        #
+        # print(form.cleaned_data)
+        if form.is_valid():
+            print("right here, valid")
+            user = form.save(commit=False)
+            user.refresh_from_db()
+            user = User.objects.create_user(form)
+            # user.profile.first_name = form.cleaned_data.get('first_name')
+            # user.profile.last_name = form.cleaned_data.get('last_name')
+            # user.profile.county = form.cleaned_data.get('county')
+            # user.profile.facility = form.cleaned_data.get('facility')
+            user.profile.first_name = form.cleaned_data.get('first_name')
+            user.profile.last_name = form.cleaned_data.get('last_name')
+            user.profile.county = form.cleaned_data.get('counties')
+            user.profile.facility = form.cleaned_data.get('facilities')
+            # user can't login until link confirmed
+            user.is_active = False
+            user.profile.save()
+            user.save()
+            current_site = get_current_site(request)
+            subject = 'Activate Your Account'
+            message = render_to_string('account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            #user.email_user(subject, message)
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(subject, message, to=[to_email])
+            email.send()
+            return redirect('account_activation_sent')
 
     return render(request, 'signup3.html', {'form': form})
+
+
+def load_facilities(request):
+    user_county = request.GET.get('countyID')
+    if request.is_ajax():
+        print("it is Ajax")
+    # user_county = request.GET.get('countyID')
+    # user_county = "county_B"
+    print(user_county)
+    facilities = Facility.objects.filter(county=user_county).values('name').order_by('name')
+    # for item in facilities:
+    #     item['name'] = model_to_dict(item['name'])
+
+    #print(list(facilities))
+    #choice = forms.ModelChoiceField(queryset=facilities)
+    #faci_names = [f for f in facilities]
+    #print(faci_names)
+    # test_faci = [name['name'] for name in facilities]
+    #print(test_faci)
+    #facilities = 'Avalon Garden'
+    #facilities = Facility.objects.filter(county=user_county)
+    data = {
+        'facility': list(facilities),
+        'error_message':'you have been through this place!!!'
+    }
+    #print(data)
+    return JsonResponse(data)
+    #return render(request,'signup3.html', {'facilities': test_faci})
 
 
 def account_activation_sent(request):
@@ -141,6 +236,8 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.profile.email_confirmed = True
+
+        user.profile.save()
         user.save()
         auth_login(request, user)
         return redirect('login')
@@ -180,44 +277,96 @@ def signup(request):
 '''
 
 
-def forgetpsd(request):
+# def forgetpsd(request):
+#     sub = forms.Subscribe()
+#     if request.method == 'POST':
+#         sub = forms.Subscribe(request.POST)
+#         subject = 'Reset your password'
+#         message = 'Please use this link to reset your password, http://127.0.0.1:8000/reset'
+#         user_email = sub['email'].value()
+#         if(User.objects.filter(email=user_email).exists()):
+#             # print(User.objects.get(email=user_email))
+#             recepient = str(sub['email'].value())
+#             message = message + \
+#                 iri_to_uri(quote('/resetpassword/%s' % quote(recepient)))
+#
+#             print(message)
+#             send_mail(subject, message, settings.EMAIL_HOST_USER,
+#                       [recepient], fail_silently=False)
+#             return render(request, 'success.html', {'recepient': recepient})
+#         else:
+#             # print(sub.errors)
+#             return render(request, 'forgetpsd.html', {'form': sub, "message": 'Your email does not exist. Please sign up first.'})
+#     return render(request, 'forgetpsd.html', {'form': sub})
+def forget_password(request):
     sub = forms.Subscribe()
     if request.method == 'POST':
         sub = forms.Subscribe(request.POST)
         subject = 'Reset your password'
-        message = 'Please use this link to reset your password, http://127.0.0.1:8000/reset'
         user_email = sub['email'].value()
-        if(User.objects.filter(email=user_email).exists()):
-            # print(User.objects.get(email=user_email))
+        message = 'Please use this link to reset your password. This link will expire in 10 minutes. http://127.0.0.1:8000/reset_password/'
+        try:
+        # if User.objects.filter(email=user_email).exists():
+            user = User.objects.get(email=user_email)
+            print(user.pk)
+            token = reset_password_Generator.make_token(user)
+            #print(User.objects.get(email=user_email))
             recepient = str(sub['email'].value())
-            message = message + \
-                iri_to_uri(quote('/resetpassword/%s' % quote(recepient)))
-
+            #message =  message + iri_to_uri(quote('/resetpassword/%s' %quote(recepient)))
+            message = message  + urlsafe_base64_encode(force_bytes(user.pk)) + '/' + token
             print(message)
             send_mail(subject, message, settings.EMAIL_HOST_USER,
-                      [recepient], fail_silently=False)
-            return render(request, 'success.html', {'recepient': recepient})
-        else:
-            # print(sub.errors)
-            return render(request, 'forgetpsd.html', {'form': sub, "message": 'Your email does not exist. Please sign up first.'})
+                      [recepient], fail_silently = False)
+            return render(request, 'success.html', {'recepient':recepient})
+        except User.DoesNotExist:
+            #print(sub.errors)
+            return render(request, 'forgetpsd.html', {'form': sub, "message":'Your email does not exist. Please sign up first.'})
     return render(request, 'forgetpsd.html', {'form': sub})
 
 
-def resetpsd(request):
+def reset_password(request):
     form = forms.PassReset()
     if request.method == "POST":
         form = forms.PassReset(request.POST)
         email = request.POST.get('email')
         user_password = request.POST.get('user_password')
         user_password_conf = request.POST.get('user_password_confirm')
+
         if user_password == user_password_conf:
             user_object = User.objects.get(email=email)
-            user_object.user_password = user_password_conf
+            user_object.refresh_from_db()
+            user_object.profile.email_confirmed = True
+            user_object.password = user_password_conf
+            #user_object.profile_user.save()
             user_object.save()
             return render(request, 'login.html', {"message": 'Password reset, please log in again'})
         return render(request, 'reset_password.html', {'form': form})
     return render(request, 'reset_password.html', {'form': form})
 
+
+class ResetPasswordView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            print(uid)
+            user = User.objects.get(pk=uid)
+
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+            print('user problem')
+        #user is not None and
+        if reset_password_Generator.check_token(user, token):
+            # user.profile.email_confirmed = True
+            # user.save()
+            # login(request, user)
+            # return redirect('reset_password.html')
+            print('finally succeed')
+            return redirect('/reset_password/')
+            # return render(request, 'reset_password.html')
+        else:
+            # invalid link
+            print("invalid link")
+            return render(request, 'test.html')
 
 def test(request):
     # objects, created=User.objects.get_or_create(user_id=2, user_name = 'archt', first_name = 'arch', last_name = 'talents',
@@ -251,14 +400,15 @@ def test(request):
     # context = {"objects": objects}
     #
     # print(context)
-    if request.method == "POST":
-        context = {}
-        # context['form'] = PersonForm()
-        # new_form = form.save()
-        return render(request, 'test.html', context)
-
-    else:
-        context = {}
-        # context['form'] = form
-        users = User.objects.order_by('user_name')
-    return render(request, 'welcome.html', {'objects': users})
+    # if request.method == "POST":
+    #     context = {}
+    #     # context['form'] = PersonForm()
+    #     # new_form = form.save()
+    #     return render(request, 'test.html', context)
+    #
+    # else:
+    #     context = {}
+    #     # context['form'] = form
+    #     users = User.objects.order_by('user_name')
+    print(request.GET.get('countyID'))
+    return render(request, 'test_js.html')

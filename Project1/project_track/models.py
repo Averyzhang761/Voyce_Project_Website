@@ -35,28 +35,33 @@ class User(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="profile_user")
+        User, on_delete=models.CASCADE, related_name='profile')
     first_name = models.CharField(max_length=100, blank=True)
     last_name = models.CharField(max_length=100, blank=True)
-    facility = models.CharField(max_length=60)
+    county = models.CharField(max_length=100)
+    facility = models.CharField(max_length=100)
     email_confirmed = models.BooleanField(default=False)
 
+    class Meta:
+        managed = False
+        db_table = 'profile'
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+    #instance.profile.save()
 
-
-class Test(models.Model):
-    user_id = models.IntegerField(
-        unique=True, db_index=True, primary_key=True, auto_created=True)
-    user_name = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=60)
-    user_password = models.CharField(max_length=60)
+#
+# class Test(models.Model):
+#     user_id = models.IntegerField(
+#         unique=True, db_index=True, primary_key=True, auto_created=True)
+#     user_name = models.CharField(max_length=30)
+#     first_name = models.CharField(max_length=30)
+#     last_name = models.CharField(max_length=30)
+#     email = models.CharField(max_length=60)
+#     user_password = models.CharField(max_length=60)
 
 
 class Sample(models.Model):
