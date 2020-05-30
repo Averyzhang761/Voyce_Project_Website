@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-import hydra
 import yaml
 
 with open("Project1/config.yaml") as file:

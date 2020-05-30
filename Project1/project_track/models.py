@@ -37,7 +37,7 @@ class User(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(
-        User, on_delete=models.CASCADE, related_name="profile_user")
+        User, on_delete=models.CASCADE, related_name="profile")
     #user = models.OneToOneField(
     #    User, on_delete=models.CASCADE, related_name="profile_user")
     first_name = models.CharField(

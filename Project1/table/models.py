@@ -31,3 +31,5 @@ class PivotFacility(models.Model):
     medicare = models.SmallIntegerField(blank=True, null=True)
     private = models.SmallIntegerField(blank=True, null=True)
     dementia = models.SmallIntegerField(blank=True, null=True)
+
+

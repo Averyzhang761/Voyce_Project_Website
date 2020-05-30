@@ -38,7 +38,6 @@
   <div class="kn-container">
 
 
-
     <div id="kn-app-mobile-container">
       <h1 id="knack-logo" style="">
         <a href="#facility-status-samples" class="kn-title" address="true">VOYCE</a>
@@ -54,8 +53,32 @@
       </div>
     </div>
 
+    <section id="app-menu-container">
+      <div class="kn-menu-arrow is-left"></div>
+      <div id="kn-app-menu" style="display: none;"><div class="kn-navigation-bar">
+
+{#    <nav class="buttons is-nav">#}
+{##}
+{#    <ul id="app-menu-list">#}
+{##}
+{#          <li><a href="#home" data-kn-slug="#home"><span>Orders</span></a></li>#}
+{##}
+{#    </ul>#}
+{#  </nav>#}
+</div>
+</div> <!-- Injected by SceneView.js -->
+      <div class="kn-menu-arrow is-right"></div>
+    </section>
+  </div>
+</header>
+
+<div class="kn-info-bar" style="display: none;">
+  <div class="kn-info kn-container">
+      <div class="kn-crumbtrail" style="visibility: hidden;">
+
     <a href="#facility-status-samples?" address="true">Facility Status Samples</a>
 
+</div>
 
 </div>
 
@@ -76,7 +99,6 @@
       <p class="kn-description">Please register</p>
 
   </div>
-
 
 
   <div class="kn-form-confirmation" style="display: none">
@@ -105,22 +127,13 @@
 
       <label for="field_53" class="label kn-label"><span>Full Name</span> <span class="kn-required">*</span></label>
 
-<ul class="kn-form-group columns kn-form-group-1"><li class="kn-form-col column is-constrained">
-    <div class="kn-input kn-input-name control" id="kn-input-field_53" data-input-id="field_53">
-<label for="field_53" class="label kn-label"><span>City</span> <span class="kn-required">*</span></label>
-        <p class="control">
-      <input class="input" id="city" name="city" type="text" value="" placeholder="City">
-    </p>
-<label for="field_53" class="label kn-label"><span>Facility</span> <span class="kn-required">*</span></label>
-<p class="control">
-      <input class="input" id="facility" name="facility" type="text" value="" placeholder="Facility">
-    </p>
 
 
 <div class="control is-grouped">
 
-
-<div class="control is-grouped">
+    <p class="control is-expanded">
+      <input class="input" id="first_name" name="first_name" type="text" value="" placeholder="First name">
+    </p>
 
   <p class="control is-expanded">
     <input class="input" id="last_name" name="last_name" type="text" value="" placeholder="Last name">
