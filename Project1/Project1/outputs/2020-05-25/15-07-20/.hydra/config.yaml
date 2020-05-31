@@ -1,0 +1,2 @@
+EMAIL_HOST: smtp.outlook.com
+EMAIL_USE_TLS: true

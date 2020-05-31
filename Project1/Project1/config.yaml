@@ -1,0 +1,25 @@
+secret_key: 9d+t)2%bfgq8id(hcbq971$i$7gv8b!7pm5!m$1esqs!c5dbcx
+
+email:
+  type:
+    outlook: smtp.outlook.com
+    gmail: smtp.gmail.com
+
+  use:
+    tls: True
+    ssl: False
+
+  port: 587
+
+  host_user: khuyentran1476@gmail.com
+
+  host_password: Cun123456
+
+databases:
+  engine: django.db.backends.mysql
+  name: voyce
+  user: khuyentran
+  password: Cun123456
+  host: voycedb.cfkp0jdrl8vs.us-east-2.rds.amazonaws.com
+  port: 3306
+  

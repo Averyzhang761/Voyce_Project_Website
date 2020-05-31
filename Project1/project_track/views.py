@@ -143,23 +143,7 @@ def sign_up(request):
     #form = SignUpForm()
     #print(form)
     if request.method == "POST":
-        # data = {'first_name':'zhang',
-        #           'last_name':'zhang',
-        #           'email':'aubrey.lan@outlook.com',
-        #           'password1':'111222333zzz',
-        #           'password2':'111222333zzz',
-        #           'county':'county_C',
-        #           'facility':'Avalon Garden'}
-        # form = SignUpForm(data)
-        # print(form.is_valid())
-        # print(form.profile)
-        # form = SignUpForm(request.POST)
-        # # print(form.counties)
-        # # print(form.facilities)
-        # print(request.POST.get('counties'))
-        # print(request.POST.get('facilities'))
-        #
-        # print(form.cleaned_data)
+  
         if form.is_valid():
             print("right here, valid")
             user = form.save(commit=False)
