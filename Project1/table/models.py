@@ -9,17 +9,19 @@ from django.db import models
 
 
 class Facility(models.Model):
-    name = models.CharField(max_length=100)
-    date = models.CharField(max_length=30, blank=True, null=True)
-    female_medicaid = models.SmallIntegerField()
-    male_medicaid = models.SmallIntegerField(blank=True, null=True)
-    female_medicare = models.SmallIntegerField(blank=True, null=True)
-    male_medicare = models.SmallIntegerField(blank=True, null=True)
-    female_private = models.SmallIntegerField(blank=True, null=True)
-    male_private = models.SmallIntegerField(blank=True, null=True)
-    female_dementia = models.SmallIntegerField(blank=True, null=True)
-    male_dementia = models.SmallIntegerField(blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
+    # county = models.CharField(max_length=100,null=False)
+    name = models.CharField(max_length=100, null=False)
+    date = models.CharField(max_length=30, blank=True, null=False)
+    female_medicaid = models.SmallIntegerField(blank=True)
+    male_medicaid = models.SmallIntegerField(blank=True)
+    female_medicare = models.SmallIntegerField(blank=True)
+    male_medicare = models.SmallIntegerField(blank=True)
+    female_private = models.SmallIntegerField(blank=True)
+    male_private = models.SmallIntegerField(blank=True)
+    female_dementia = models.SmallIntegerField(blank=True)
+    male_dementia = models.SmallIntegerField(blank=True)
+    notes = models.TextField(blank=True, null=False)
+    county = models.CharField(max_length=100, null=False, default="county_C")
 
     class Meta:
         managed = False
@@ -31,5 +33,3 @@ class PivotFacility(models.Model):
     medicare = models.SmallIntegerField(blank=True, null=True)
     private = models.SmallIntegerField(blank=True, null=True)
     dementia = models.SmallIntegerField(blank=True, null=True)
-
-

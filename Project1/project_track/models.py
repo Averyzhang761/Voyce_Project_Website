@@ -23,8 +23,6 @@ FACILITY_CHOICES = tuple([(facility, facility) for facility in facilities])
 '''
 class User(models.Model):
     user_id = models.AutoField(primary_key=True)
-    user_city = models.CharField(max_length=60, default="Saint Louis")
-    user_facility = models.CharField(max_length=100, default="Facility 1")
     user_name = models.CharField(max_length=30)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -33,6 +31,7 @@ class User(models.Model):
     facility = models.CharField(
         max_length=100, choices=FACILITY_CHOICES, default='Avalon Garden')
 '''
+<<<<<<< HEAD
 
 
 class Profile(models.Model):
@@ -51,16 +50,39 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+=======
+>>>>>>> e4d80701d310282763ea3a03944de5fb1938e2b4
 
 
-class Test(models.Model):
-    user_id = models.IntegerField(
-        unique=True, db_index=True, primary_key=True, auto_created=True)
-    user_name = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=60)
-    user_password = models.CharField(max_length=60)
+class Profile(models.Model):
+    user = models.OneToOneField(
+        User, on_delete=models.CASCADE, related_name='profile')
+    first_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100, blank=True)
+    county = models.CharField(max_length=100)
+    facility = models.CharField(max_length=100)
+    email_confirmed = models.BooleanField(default=False)
+
+    class Meta:
+        managed = False
+        #db_table = 'profile'
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+    #instance.profile.save()
+
+#
+# class Test(models.Model):
+#     user_id = models.IntegerField(
+#         unique=True, db_index=True, primary_key=True, auto_created=True)
+#     user_name = models.CharField(max_length=30)
+#     first_name = models.CharField(max_length=30)
+#     last_name = models.CharField(max_length=30)
+#     email = models.CharField(max_length=60)
+#     user_password = models.CharField(max_length=60)
 
 
 class Sample(models.Model):
