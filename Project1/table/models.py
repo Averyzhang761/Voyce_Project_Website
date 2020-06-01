@@ -48,5 +48,5 @@ class PivotFacility(models.Model):
 #class ExtendedFacility(models.Model):
 #      class Meta:
 #    managed = False
-#    db_table = 'extendedb'
+#    db_table = 'extended'
 #
