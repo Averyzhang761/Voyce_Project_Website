@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # very important!!!
     'project_track.apps.ProjectTrackConfig',
     'table',
+    'six'
 ]
 
 MIDDLEWARE = [
@@ -160,3 +161,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/img/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'table/../static')
+]

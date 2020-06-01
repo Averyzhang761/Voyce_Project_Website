@@ -9,6 +9,8 @@ import os
 import csv
 
 
+def index(request):
+    return render(request, 'index.html')
 # Create your views here.
 # request is HttpRequestObject that is created whenever a page is loaded
 # render looks for HTML templates inside a directory called templates
