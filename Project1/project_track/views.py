@@ -45,6 +45,9 @@ from django.http import JsonResponse
 from .models import Sample
 
 
+from .models import Sample
+
+
 # Create your views here.
 
 # class User(AbstractUser):
@@ -235,27 +238,53 @@ def activate(request, uidb64, token):
 
 '''
 def signup(request):
-    # #project_track="I am the project_track application"
-    # current_user="Avery Zhang"
-    # return render(request, 'home .html',{
-    #     'date':datetime.now(),'login':current_user
-    # })
-    if request.method == "POST":
-        subject = 'New VOYCE User Sign up'
-        message = 'Please check this new user, and approve or reject their sign-up request.'
-        recepient = 'lanxi.z@wustl.edu'
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        user_name = request.POST.get('user_name')
-        user_email = request.POST.get('email')
-        user_password = request.POST.get('password_confirmation')
-        print('success')
-        object = User.objects.create(user_name=user_name, first_name=first_name, last_name=last_name,
-                                     email=user_email, user_password=user_password)
-        context = {"objects": object}
-        send_mail(subject, message, settings.EMAIL_HOST_USER,
-                  [recepient], fail_silently=False)
-        return render(request, 'welcome.html', context)
+
+    form = SignUpForm(request.POST)
+
+    if form.is_valid():
+        user = form.save()
+        user.refresh_from_db()
+        user.profile.first_name = form.cleaned_data.get('first_name')
+        user.profile.last_name = form.cleaned_data.get('last_name')
+        user.profile.facility = form.cleaned_data.get('facility')
+        # user can't login until link confirmed
+        user.is_active = False
+        user.save()
+        current_site = get_current_site(request)
+        subject = 'Activate Your Account'
+        message = render_to_string('account_activation_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        #user.email_user(subject, message)
+        to_email = form.cleaned_data.get('email')
+        email = EmailMessage(subject, message, to=[to_email])
+        email.send()
+        return redirect('account_activation_sent')
+
+    return render(request, 'signup3.html', {'form': form})
+
+
+def account_activation_sent(request):
+    return render(request, 'account_activation_sent.html')
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        #user.profile.email_confirmed = True
+        user.save()
+        auth_login(request, user)
+        return redirect('login')
+        #context = {'uidb64': uidb64, 'token': token}
+       # return render(request, 'account_activation_email.html', context)
     else:
         return render(request, 'signup.html')
 '''

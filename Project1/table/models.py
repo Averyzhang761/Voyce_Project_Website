@@ -38,7 +38,6 @@ class Facility(models.Model):
         managed = False
         db_table = 'facility'
 
-
 class PivotFacility(models.Model):
     gender = models.CharField(max_length=10)
     medicaid = models.SmallIntegerField()

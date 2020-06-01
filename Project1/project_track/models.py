@@ -20,18 +20,6 @@ facilities = [name['name'] for name in names]
 FACILITY_CHOICES = tuple([(facility, facility) for facility in facilities])
 
 
-'''
-class User(models.Model):
-    user_id = models.AutoField(primary_key=True)
-    user_name = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    email = models.CharField(max_length=60)
-    user_password = models.CharField(max_length=60)
-    facility = models.CharField(
-        max_length=100, choices=FACILITY_CHOICES, default='Avalon Garden')
-'''
-
 
 class Profile(models.Model):
     user = models.OneToOneField(
@@ -46,12 +34,13 @@ class Profile(models.Model):
         managed = False
         #db_table = 'profile'
 
+
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
-    #instance.profile.save()
+    # instance.profile.save()
 
 #
 # class Test(models.Model):
