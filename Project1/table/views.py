@@ -16,102 +16,69 @@ def index(request):
 # request is HttpRequestObject that is created whenever a page is loaded
 # render looks for HTML templates inside a directory called templates
 
-# def view_table(request):
-#
-# 	# users = Facility.objects.all()
-# 	#facility = Facility.objects.filter(name=request.user.profile_user.facility)[0]
-# 	print(Facility.objects.all())
-# 	#user = User.objects.get(email=request.POST.get('email'))
-# 	print(request.session.get("email"))
-# 	#print(request.POST.get('email'))
-# 	facility = Facility.objects.filter(name=request.user.profile.facility)[0]
-# 	female_medicaid = facility.female_medicaid
-# 	male_medicaid = facility.male_medicaid
-# 	female_medicare = facility.female_medicare
-# 	male_medicare = facility.male_medicare
-# 	female_private = facility.female_private
-# 	male_private = facility.male_private
-# 	female_dementia = facility.female_dementia
-# 	male_dementia = facility.male_dementia
-# 	female = PivotFacility.objects.create(gender='female',
-#                                        medicaid=female_medicaid,
-#                                        medicare=female_medicare,
-#                                        private=female_private,
-#                                        dementia=female_dementia)
-# 	male = PivotFacility.objects.create(gender='male',
-#                                      medicaid=male_medicaid,
-#                                      medicare=male_medicare,
-#                                      private=male_private,
-#                                      dementia=male_dementia)
-#
-# 	context = {
-# 		'female': female,
-# 		'male': male,
-# 		'facility': facility,
-# 	}
-# 	return render(request, 'table.html', context)
 
-	# users = Facility.objects.all().first()
-#	facility = Facility.objects.filter(
-#		name=request.user.profile.facility)[0]
-#	female_medicaid = facility.female_medicaid
-#	male_medicaid = facility.male_medicaid
-#	female_medicare = facility.female_medicare
-#	male_medicare = facility.male_medicare
-#	female_private = facility.female_private
-#	male_private = facility.male_private
-#	female_dementia = facility.female_dementia
-#	male_dementia = facility.male_dementia
-#	female = PivotFacility.objects.create(gender='female',
-#										  medicaid=female_medicaid,
-#										  medicare=female_medicare,
-#										  private=female_private,
-#										  dementia=female_dementia)
-#	male = PivotFacility.objects.create(gender='male',
-#										medicaid=male_medicaid,
-#										medicare=male_medicare,
-#										private=male_private,
-#										dementia=male_dementia)
-#
-#	context = {
-#		'female': female,
-#		'male': male,
-#		'facility': facility,
-#	}
-#	return render(request, 'table.html', context)
+def view_table(request):
 
+	facility = Facility.objects.filter(name=request.user.profile.facility)[0]
+	female_medicaid = facility.female_medicaid
+	male_medicaid = facility.male_medicaid
+	female_medicare = facility.female_medicare
+	male_medicare = facility.male_medicare
+	female_private = facility.female_private
+	male_private = facility.male_private
+	female_dementia = facility.female_dementia
+	male_dementia = facility.male_dementia
+	female = PivotFacility.objects.create(gender='female',
+                                      medicaid=female_medicaid,
+                                      medicare=female_medicare,
+                                      private=female_private,
+                                      dementia=female_dementia)
+	male = PivotFacility.objects.create(gender='male',
+                                    medicaid=male_medicaid,
+                                    medicare=male_medicare,
+                                    private=male_private,
+                                    dementia=male_dementia)
+	context = {
+		'female': female,
+		'male': male,
+		'facility': facility,
+	}
+
+	return render(request, 'table.html', context)
+	
+	
 
 def update_data(request):
-	facility = Facility.objects.filter(
-		name=request.user.profile.facility)[0]
+	facility=Facility.objects.filter(name=request.user.profile.facility)[0]
 
-	form = AddDataForms(instance=facility)
+	form=AddDataForms(instance=facility)
 
 	if request.method == 'POST':
-		form = AddDataForms(request.POST, instance=facility)
+		form=AddDataForms(request.POST, instance=facility)
 
 		if form.is_valid():
 			form.save()
 
 			return redirect('view_table')
 
-	context = {
-		'form': form
+	context={
+		'form': form,
+		'facility': facility
 	}
 
 	return render(request, 'newdata.html', context)
 
 
 def add_data(request):
-	form = AddDataForms()
+	form=AddDataForms()
 	if request.method == 'POST':
-		form = AddDataForms(request.POST)
+		form=AddDataForms(request.POST)
 		if form.is_valid():
 			form.save()
 
 			return redirect('view_table')
 	# users1 = Table.objects.all()
-	context = {
+	context={
 		# 'users': users1,
 		'form': form,
 	}
@@ -119,19 +86,19 @@ def add_data(request):
 	return render(request, 'newdata.html', context)
 
 
-class SearchView(TemplateView):
-	template_name = 'table.html'
-
-
-
+#class SearchView(TemplateView):
+#	template_name='table.html'
+#
+#
+#
 class SearchResultsView(ListView):
-	model = Facility
-	template_name = 'searchresults.html'
+	model=Facility
+	template_name='searchresults.html'
 
 	def get_queryset(self):
 
-		queryset = self.request.GET.get('q')
-		objects = Facility.objects.filter(
+		queryset=self.request.GET.get('q')
+		objects=Facility.objects.filter(
 			Q(facility__icontains=queryset))
 
 		return objects

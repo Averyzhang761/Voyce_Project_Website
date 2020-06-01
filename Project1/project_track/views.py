@@ -46,6 +46,7 @@ from .models import Sample
 
 
 from .models import Sample
+from table.forms import AddDataForms
 
 
 # Create your views here.
@@ -86,7 +87,7 @@ def log_in(request):
             user_object = User.objects.get(
                 email=user_email, password=user_password)
             context = {"objects": user_object}
-            request.session['email'] = user_email
+            #request.session['email'] = user_email
             # login(request)
             user = User.objects.get(email=user_email)
             facility = Facility.objects.filter(name=user.profile.facility)[0]
@@ -115,6 +116,26 @@ def log_in(request):
                 'facility': facility,
             }
             return render(request, 'table.html', context)
+
+            
+            '''form = AddDataForms(instance=facility)
+
+            if request.method == 'POST':
+                form = AddDataForms(request.POST, instance=facility)
+
+                if form.is_valid():
+                    form.save()
+
+                    return redirect('new')
+
+            context = {
+                'form': form,
+                'facility': facility
+            }
+            '''
+
+            return render(request, 'newdata.html', context)
+
             #user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
             # user=authenticate(request, email=user_email, password=request.POST.get('password'))
             # if user.is_authenticated:

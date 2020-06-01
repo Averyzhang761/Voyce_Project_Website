@@ -32,7 +32,7 @@ class Profile(models.Model):
 
     class Meta:
         managed = False
-        #db_table = 'profile'
+        
 
 
 @receiver(post_save, sender=User)
