@@ -32,8 +32,7 @@ class Profile(models.Model):
 
     class Meta:
         managed = False
-        
-
+        #db_table = 'profile'
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):

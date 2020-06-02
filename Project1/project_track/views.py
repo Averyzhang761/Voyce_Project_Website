@@ -167,11 +167,26 @@ def sign_up(request):
     #form = SignUpForm()
     #print(form)
     if request.method == "POST":
-  
+        # data = {'first_name':'zhang',
+        #           'last_name':'zhang',
+        #           'email':'aubrey.lan@outlook.com',
+        #           'password1':'111222333zzz',
+        #           'password2':'111222333zzz',
+        #           'county':'county_C',
+        #           'facility':'Avalon Garden'}
+        # form = SignUpForm(data)
+        # print(form.is_valid())
+
+        form = SignUpForm(request.POST)
+        # print(form['county'])
+        # print(form['facility'])
+        # print(request.POST.get('counties'))
+        # print(request.POST.get('facilities'))
+        #print(form.cleaned_data)
         if form.is_valid():
             print("right here, valid")
             user = form.save(commit=False)
-            user.refresh_from_db()
+            #user.refresh_from_db()
             user = User.objects.create_user(form)
             # user.profile.first_name = form.cleaned_data.get('first_name')
             # user.profile.last_name = form.cleaned_data.get('last_name')
@@ -179,10 +194,24 @@ def sign_up(request):
             # user.profile.facility = form.cleaned_data.get('facility')
             user.profile.first_name = form.cleaned_data.get('first_name')
             user.profile.last_name = form.cleaned_data.get('last_name')
-            user.profile.county = form.cleaned_data.get('counties')
-            user.profile.facility = form.cleaned_data.get('facilities')
-            # user can't login until link confirmed
+            user.profile.county = form.cleaned_data.get('county')
+            user.profile.facility = form.cleaned_data.get('facility')
+            user.email = form.cleaned_data.get('email')
+            user.password = form.cleaned_data.get('password2')
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+        # user.profile.first_name = request.POST.get('first_name')
+        # user.profile.last_name = request.POST.get('last_name')
+        # user.profile.county = request.POST.get('counties')
+        # user.profile.facility = request.POST.get('facilities')
+        # user.first_name = request.POST.get('first_name')
+        # user.last_name = request.POST.get('last_name')
+        # user.email = request.POST.get('email')
+        # user.password = request.POST.get('password2')
+
+        # user can't login until link confirmed
             user.is_active = False
+            user.username = None
             user.profile.save()
             user.save()
             current_site = get_current_site(request)
@@ -193,8 +222,10 @@ def sign_up(request):
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
+            print(message)
             #user.email_user(subject, message)
-            to_email = form.cleaned_data.get('email')
+            # to_email = form.cleaned_data.get('email')
+            to_email = request.POST.get('email')
             email = EmailMessage(subject, message, to=[to_email])
             email.send()
             return redirect('account_activation_sent')
@@ -445,4 +476,4 @@ def test(request):
     #     # context['form'] = form
     #     users = User.objects.order_by('user_name')
     print(request.GET.get('countyID'))
-    return render(request, 'test_js.html')
+    return render(request, 'signup.html')
