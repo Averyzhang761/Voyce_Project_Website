@@ -99,7 +99,6 @@ def add_data(request):
 
 	return render(request, 'newdata.html', context)
 
-
 #class SearchView(TemplateView):
 #	template_name='table.html'
 #

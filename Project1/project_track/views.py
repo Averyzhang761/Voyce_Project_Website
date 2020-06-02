@@ -99,12 +99,12 @@ def log_in(request):
             male_private = facility.male_private
             female_dementia = facility.female_dementia
             male_dementia = facility.male_dementia
-            female = PivotFacility.objects.create(gender='female',
+            female = PivotFacility.objects.create(gender='Female',
                                                   medicaid=female_medicaid,
                                                   medicare=female_medicare,
                                                   private=female_private,
                                                   dementia=female_dementia)
-            male = PivotFacility.objects.create(gender='male',
+            male = PivotFacility.objects.create(gender='Male',
                                                 medicaid=male_medicaid,
                                                 medicare=male_medicare,
                                                 private=male_private,
