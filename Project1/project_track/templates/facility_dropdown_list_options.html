@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+</head>
+<body>
+<select name="facilities">
+<option value="">---------</option>
+{% for facility in facilities %}
+<option>{{ facility.name }}</option>
+{% endfor %}
+</select>
+</body>
+</html>
+
+
+

@@ -21,3 +21,4 @@ urlpatterns = [
     path('',include('project_track.urls')),
     path('table/', include('table.urls'))
 ]
+#urlpatterns += staticfiles_urlpatterns()

@@ -8,6 +8,10 @@ db.sqlite3
 media
 **/*.csv
 
+**/*.yaml
+
+**/tokens.py
+
 *.sql
 
 # Backup files # 

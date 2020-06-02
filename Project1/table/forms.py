@@ -5,9 +5,7 @@ from .models import Facility
 class AddDataForms(forms.ModelForm):
     class Meta:
         model = Facility
-        fields = ["name",
-                  "date",
-                  "female_medicaid",
+        fields = ["female_medicaid",
                   "male_medicaid",
                   "female_medicare",
                   "male_medicare",
@@ -17,3 +15,6 @@ class AddDataForms(forms.ModelForm):
                   "male_dementia",
                   "notes",
                   ]
+
+    
+
