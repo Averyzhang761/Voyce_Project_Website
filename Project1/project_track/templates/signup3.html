@@ -5,6 +5,7 @@
 
 <html lang="en" style="overflow: hidden auto;">
 <head>
+    <link rel="stylesheet" href='../static/signup_styles.css'>
 {#    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
 {#    <script src="https://code.jquery.com/jquery-3.5.0.min.js"#}
 {#            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>#}
@@ -16,6 +17,7 @@
             //print()
             var url = $("#signupForm").attr("data-facilities-url");  // get the url of the `load_cities` view
             var countyID = $("select#county option:selected").val();  // get the selected country ID from the HTML input
+            console.log(countyID);
             //$(this)
             // $("#username").add(countyID);
             //print();
@@ -35,15 +37,15 @@
                     //}
                     var output = [];
                     $.each(data.facility, function(key, value) {
-                        console.log(key);
-                        console.log(value.name);
+                        //console.log(key);
+                        //console.log(value.name);
                         //console.log(text.value);
                         //console.log(text.text);
                         //$('select#facility').append(
                         //    $('<option></option>').val(index).html(text)
                         //);
                         //{
-                        output.push('<option value="'+ value.name +'">'+ value.name +'</option>');
+                        output.push('<option selected value="'+ value.name +'">'+ value.name +'</option>');
                         });
                     $('select#facility').html(output.join(''));
                     //});
@@ -57,8 +59,9 @@
                 error: function(e) {
                     alert('error; failed');
                     console.log(e)
-
+                    //e.preventDefault();
                 }
+        });   });
             {#$.ajax({#}
             {#  type: 'GET',#}
             {#  url: "test/",#}
@@ -68,17 +71,64 @@
             {#  error: function(data) { alert('fail') }#}
             {##}
             {#    });#}
+            {##}
+           // });
+            //e.preventDefault();
 
-            });
-            e.preventDefault();
-        });
+        {#$( "submit" ).click(function( event ) {#}
+        {#    event.preventDefault();});#}
+    {#    function Validate() {#}
+    {#    var ddlFruits = document.getElementById("facility");#}
+    {#        if (ddlFruits.value == "") {#}
+    {#            console.log('wrong');#}
+    {#            //If the "Please Select" option is selected display error.#}
+    {#            alert("Please select an option!");#}
+    {#            return false;#}
+    {#        }#}
+    {#        console.log('right here');#}
+    {#        return true;#}
 
+
+        {#$("#signupForm").validate({#}
+        {#rules: {#}
+        {#    select_field: {#}
+        {#        required: {#}
+        {#            depends: function (element) {#}
+        {#                if('' == $('#facility').val()){#}
+        {#                //Set predefined value to blank.#}
+        {#                    alert("Please select an facility!");#}
+        {#                    return false;#}
+        {#                //$('select#facility').val('Union Manor RCF_2');#}
+        {#                }else{#}
+        {#                    alert("select an facility!");#}
+        {#                    return true;#}
+        {#                }#}
+        {##}
+        {#            }}}}});#}
+
+    {##}
+
+        //$('#county').on('click', function() {
+        //        $("#signupForm").validate();
+        //});
+        $("#submit").click(function () {
+            var ddlFruits = $("#facility");
+            if (ddlFruits.val() == "") {
+                //If the "Please Select" option is selected display error.
+                alert("Please select an option!");
+                return false;
+            }
+            //alert("selected an option!" + ddlFruits.val());
+            return true;});
     });
+
   </script>
+
 </head>
+<body id="knack-body" data-gr-c-s-loaded="true">
 
 <h2 xmlns="http://www.w3.org/1999/html">Sign up Form</h2>
-<form method="post" id="signupForm" data-facilities-url="{% url 'ajax_load_facilities' %}">
+<form method="post" id="signupForm" data-facilities-url="{% url 'ajax_load_facilities' %}" novalidate>
     {% csrf_token %}
 {#    {% for field in form %}#}
 {#<p>#}
@@ -96,40 +146,36 @@
 {#    </p>#}
 <p>
     {{ form.county.label_tag }}<br>
-    <select name="counties" id = "county">
-    <option disabled value="">---------</option>
-{#        {% county_list = list(set(form.county)) %}#}
+    <select name="county" id = "county" autofocus required>
+    <option selected value="">---------</option>
         {% for county in form.county%}
-        <option selected disabled>{{ county }}</option>
+        <option hidden>{{ county }}</option>
         {% endfor %}
     </select>
     {% if form.county.help_text %}
         <small style="color: grey">{{ form.county.help_text }}</small>
         {% endif %}
 
-        {% for error in form.county.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
+{#        {% for error in form.county.errors %}#}
+{#    <p style="color: red">{{ error }}</p>#}
+{#    {% endfor %}#}
 </p>
 
     <p>
     {{ form.facility.label_tag }}<br>
-    <select name="facilities" id = "facility">
-    <option disabled value="">---------</option>
-{#    {% for facility in form.facility %}#}
-{#    <option>{{ facility }}</option>#}
+    <select name="facility" id = "facility" required>
+    <option selected value="">---------</option>
     {% for facility in form.facility %}
-      <option selected disabled value="facility">
-          {{ facility }}
+      <option hidden>{{ facility }}
       </option>
     {% endfor %}
     </select>
     {% if form.facility.help_text %}
         <small style="color: grey">{{ form.facility.help_text }}</small>
         {% endif %}
-        {% for error in form.facility.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
+{#        {% for error in form.facility.errors %}#}
+{#    <p style="color: red">{{ error }}</p>#}
+{#    {% endfor %}#}
 </p>
 {#    <p>#}
 {#        {{ form.username.label_tag }}<br>#}
@@ -264,13 +310,11 @@
 {#</P>#}
 {#    {% endfor %}#}
 
-    <input type="submit" value = "Sign up"></input>
+    <input type="submit" value = "Sign up" id = 'submit'></input>
 {#<a class="register kn-button" href="../signup">#}
 {#          Sign Up#}
 {#        </a>#}
 </form>
-
-
 
 
 </body>

@@ -27,9 +27,9 @@ FACILITY_CHOICES = tuple([(facility, facility) for facility in facilities])
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
-    county = forms.ChoiceField(choices=COUNTY_CHOICE)
+    county = forms.ChoiceField(widget = forms.Select, choices=COUNTY_CHOICE, required=True)
     #county = forms.ModelChoiceField(queryset=Facility.objects.order_by('county').values_list('county', flat=True).distinct())
-    facility = forms.ChoiceField(choices=FACILITY_CHOICES)
+    facility = forms.ChoiceField(widget = forms.Select, choices=FACILITY_CHOICES, required=True)
     print(Facility.objects.order_by('county').values_list('county', flat=True).distinct())
     # queryset=Add_Site.objects.order_by('subnet').values_list('subnet', flat=True).distinct()
     # facility = forms.ChoiceField(choices=FACILITY_CHOICES)
@@ -68,8 +68,8 @@ class SignUpForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['county'].queryset = Facility.objects.values('county').all()
-        self.fields['facility'].queryset = Facility.objects.values('name').all()
+        # self.fields['county'].queryset = Facility.objects.values('county').all()
+        # self.fields['facility'].queryset = Facility.objects.all().distinct()
 
 
     User._meta.get_field('email')._unique = True
