@@ -82,34 +82,6 @@ def log_in(request):
 	# password = request.POST.get('password')
 	# User.objects.create(username=request.POST.get('username'),
 	#                     password=request.POST.get('password'))
-<<<<<<< HEAD
-=======
-	'''
-	if request.method == 'POST':
-		form = AuthenticationForm(None, data=request.POST)
-		if form.is_valid():
-			print('Valid')
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				print('Not none')
-				login(request, user)
-				messages.info(request, f"You are now logged in as {username}")
-				return redirect('view_table')
-			else:
-				print('none')
-				messages.error(request, "Invalid username or password.")
-		else:
-			print('Sth')
-			messages.error(request, "Invalid username or password.")
-	form = AuthenticationForm()
-
-	return render(request = request,
-					template_name = "login2.html",
-					context={"form":form})
-	'''
->>>>>>> some commit
 	form = forms.UserForm()
 	if request.method == "POST":
 		message = 'Your email and password did not match. Please try again.'
