@@ -46,8 +46,8 @@ class PivotFacility(models.Model):
     private = models.SmallIntegerField(blank=True, null=True)
     dementia = models.SmallIntegerField(blank=True, null=True)
 
-class ExtendedFacility(models.Model):
-    
-    class Meta:
-        managed = False
-        db_table = 'project_track_info'
+#class ExtendedFacility(models.Model):
+#    
+#    class Meta:
+#        managed = False
+#        db_table = 'project_track_info'
