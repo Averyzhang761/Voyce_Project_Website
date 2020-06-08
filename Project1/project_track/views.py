@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import authenticate, login
 from datetime import datetime
 from django.contrib.auth import authenticate
 # I import login as auth_login so be careful here
@@ -14,6 +15,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+from table.views import view_table
+
 
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
@@ -34,6 +38,7 @@ from urllib.parse import quote
 from django.utils.encoding import iri_to_uri
 #from .models import User
 from . import forms
+from django.contrib import messages
 # from Project1.settings import EMAIL_HOST_USER
 
 from django.conf import settings
@@ -77,6 +82,34 @@ def log_in(request):
 	# password = request.POST.get('password')
 	# User.objects.create(username=request.POST.get('username'),
 	#                     password=request.POST.get('password'))
+<<<<<<< HEAD
+=======
+	'''
+	if request.method == 'POST':
+		form = AuthenticationForm(None, data=request.POST)
+		if form.is_valid():
+			print('Valid')
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				print('Not none')
+				login(request, user)
+				messages.info(request, f"You are now logged in as {username}")
+				return redirect('view_table')
+			else:
+				print('none')
+				messages.error(request, "Invalid username or password.")
+		else:
+			print('Sth')
+			messages.error(request, "Invalid username or password.")
+	form = AuthenticationForm()
+
+	return render(request = request,
+					template_name = "login2.html",
+					context={"form":form})
+	'''
+>>>>>>> some commit
 	form = forms.UserForm()
 	if request.method == "POST":
 		message = 'Your email and password did not match. Please try again.'

@@ -22,7 +22,8 @@ class Contact(models.Model):
 class Facility(models.Model):
     # county = models.CharField(max_length=100,null=False)
     name = models.CharField(max_length=100, null=False)
-    date = models.CharField(max_length=30, blank=True, null=False)
+    county = models.CharField(max_length=100, null=False)
+    date = models.DateTimeField(auto_now=True)
     female_medicaid = models.SmallIntegerField(blank=True)
     male_medicaid = models.SmallIntegerField(blank=True)
     female_medicare = models.SmallIntegerField(blank=True)
@@ -32,7 +33,7 @@ class Facility(models.Model):
     female_dementia = models.SmallIntegerField(blank=True)
     male_dementia = models.SmallIntegerField(blank=True)
     notes = models.TextField(blank=True, null=False)
-    county = models.CharField(max_length=100, null=False, default="county_C")
+
 
     class Meta:
         managed = False
@@ -45,8 +46,8 @@ class PivotFacility(models.Model):
     private = models.SmallIntegerField(blank=True, null=True)
     dementia = models.SmallIntegerField(blank=True, null=True)
 
-#class ExtendedFacility(models.Model):
-#      class Meta:
-#    managed = False
-#    db_table = 'extended'
-#
+class ExtendedFacility(models.Model):
+    
+    class Meta:
+        managed = False
+        db_table = 'project_track_info'
