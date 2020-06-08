@@ -23,7 +23,7 @@ def index(request):
 
 def view_table(request):
 
-	facility = Facility.objects.filter(name=request.user.profile.facility)[0]
+	facility = Facility.objects.filter(name=request.session['user.profile.facility'])[0]
 	female_medicaid = facility.female_medicaid
 	male_medicaid = facility.male_medicaid
 	female_medicare = facility.female_medicare
@@ -53,7 +53,8 @@ def view_table(request):
 	
 
 def update_data(request):
-	facility=Facility.objects.filter(name=request.user.profile.facility)[0]
+	facility = Facility.objects.filter(
+		name=request.session['user.profile.facility'])[0]
 
 	form=AddDataForms(instance=facility)
 
