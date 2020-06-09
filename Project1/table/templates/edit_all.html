@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<!--
+<form action="{% url 'searchresults' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+</form>
+-->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Extended Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {#	<link rel="stylesheet" type="text/css" href="{% static '/css/main.html' %}">#}
+
+</head>
+
+<body>
+    {%  include 'navbar2.html' %}
+    <div class="container-fluid">
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</html>
+<p class="text-lg-left" style="font-size:160%;">Facility: {{facility.Facility_Name}}</p>
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+
+    th {
+        display: table-cell;
+        vertical-align: inherit;
+        font-weight: bold;
+        text-align: left;
+    }
+</style>
+
+<form action="" method="post">
+    {% csrf_token %}
+<h1>Data</h1>
+<table style="width:100%" class="table table-striped">
+    <tr>
+        <th style="width:50%">Facility Name</th>
+        <td>{{form.Facility_Name}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Type</th>
+        <td>{{form.Type}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">County</th>
+        <td>{{form.County}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Address</th>
+        <td>{{form.Address}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">City</th>
+        <td>{{form.City}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">State</th>
+        <td>{{form.State}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Zipcode</th>
+        <td>{{form.Zipcode}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Telephone</th>
+        <td>{{form.Telephone}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Fax</th>
+        <td>{{form.Fax}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin</th>
+        <td>{{form.Admin}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin Email</th>
+        <td>{{form.Admin_Email}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Facility Name</th>
+        <td>{{form.Facility_Name}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Social Worker</th>
+        <td>{{form.Social_Worker}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">SW Email</th>
+        <td>{{form.SW_Email}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">vMarkt or Admission</th>
+        <td>{{form.Markt_or_Admission}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Markt or Admission Email</th>
+        <td>{{form.Markt_or_Admission_Email}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin</th>
+        <td>{{form.Admin}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept New Residents</th>
+        <td>{{form.Accept_New_Residents}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Number_of_Beds</th>
+        <td>{{form.Number_of_Beds}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin</th>
+        <td>{{form.Admin}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Age Limit</th>
+        <td>{{form.Age_Limit}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Memory Care</th>
+        <td>{{form.Memory_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Behavior or Psych Unit</th>
+        <td>{{form.Behavior_or_Psych_Unit}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Payments</th>
+        <td>{{form.Payments}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept Quadriplegic and Paraplegic</th>
+        <td>{{form.Accept_Quadriplegic_and_Paraplegic}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept Patients with Chemical Dependence History</th>
+        <td>{{form.Accept_Patients_with_Chemical_Dependence_History}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept Chemical Dependence</th>
+        <td>{{form.Accept_Chemical_Dependence}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Hearing Impairment Accommodation</th>
+        <td>{{form.Hearing_Impairment_Accommodation}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Visual Impairment Accommodation</th>
+        <td>{{form.Visual_Impairment_Accommodation}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Wound Care</th>
+        <td>{{form.Wound_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Wound Care</th>
+        <td>{{form.Wound_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">VA Contracts</th>
+        <td>{{form.VA_Contracts}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Respite Care</th>
+        <td>{{form.Respite_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Bariatric Care</th>
+        <td>{{form.Bariatric_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">IV Therapy</th>
+        <td>{{form.IV_Therapy}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Trach Tube or Ventilator</th>
+        <td>{{form.Trach_Tube_or_Ventilator}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Dialysis</th>
+        <td>{{form.Dialysis}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Notes</th>
+        <td>{{form.Notes}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept COVID Patients</th>
+        <td>{{form.Accept_COVID_Patients}}</td>
+    </tr>
+
+
+</table>
+
+<button class="btn btn-primary" type="submit">Submit</button>
+
+<button class="btn btn-secondary" type="submit" name='cancel'>Cancel</button>
+
+
+{% endblock %}

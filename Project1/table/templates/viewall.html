@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+<!--
+<facility action="{% url 'searchresults' %}" method="get">
+  <input name="q" type="text" placeholder="Search...">
+</facility>
+-->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Extended Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {#	<link rel="stylesheet" type="text/css" href="{% static '/css/main.html' %}">#}
+
+</head>
+
+<body>
+    {%  include 'navbar2.html' %}
+    <div class="container-fluid">
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</html>
+<p class="text-lg-left" style="font-size:160%;">Facility: {{facility.Facility_Name}}</p>
+
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+    
+    th {
+  display: table-cell;
+  vertical-align: inherit;
+  font-weight: bold;
+  text-align: left;
+}
+</style>
+
+
+
+<h1>Data</h1>
+<table style="width:100%" class="table table-striped">
+    <tr>
+        <th style="width:50%">Facility Name</th>
+        <td>{{facility.Facility_Name}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Type</th>
+        <td>{{facility.Type}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">County</th>
+        <td>{{facility.County}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Address</th>
+        <td>{{facility.Address}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">City</th>
+        <td>{{facility.City}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">State</th>
+        <td>{{facility.State}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Zipcode</th>
+        <td>{{facility.Zipcode}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Telephone</th>
+        <td>{{facility.Telephone}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Fax</th>
+        <td>{{facility.Fax}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin</th>
+        <td>{{facility.Admin}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin Email</th>
+        <td>{{facility.Admin_Email}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Facility Name</th>
+        <td>{{facility.Facility_Name}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Social Worker</th>
+        <td>{{facility.Social_Worker}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">SW Email</th>
+        <td>{{facility.SW_Email}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">vMarkt or Admission</th>
+        <td>{{facility.Markt_or_Admission}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Markt or Admission Email</th>
+        <td>{{facility.Markt_or_Admission_Email}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin</th>
+        <td>{{facility.Admin}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept New Residents</th>
+        <td>{{facility.Accept_New_Residents}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Number_of_Beds</th>
+        <td>{{facility.Number_of_Beds}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Admin</th>
+        <td>{{facility.Admin}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Age Limit</th>
+        <td>{{facility.Age_Limit}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Memory Care</th>
+        <td>{{facility.Memory_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Behavior or Psych Unit</th>
+        <td>{{facility.Behavior_or_Psych_Unit}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Payments</th>
+        <td>{{facility.Payments}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept Quadriplegic and Paraplegic</th>
+        <td>{{facility.Accept_Quadriplegic_and_Paraplegic}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept Patients with Chemical Dependence History</th>
+        <td>{{facility.Accept_Patients_with_Chemical_Dependence_History}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept Chemical Dependence</th>
+        <td>{{facility.Accept_Chemical_Dependence}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Hearing Impairment Accommodation</th>
+        <td>{{facility.Hearing_Impairment_Accommodation}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Visual Impairment Accommodation</th>
+        <td>{{facility.Visual_Impairment_Accommodation}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Wound Care</th>
+        <td>{{facility.Wound_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Wound Care</th>
+        <td>{{facility.Wound_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">VA Contracts</th>
+        <td>{{facility.VA_Contracts}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Respite Care</th>
+        <td>{{facility.Respite_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Bariatric Care</th>
+        <td>{{facility.Bariatric_Care}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">IV Therapy</th>
+        <td>{{facility.IV_Therapy}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Trach Tube or Ventilator</th>
+        <td>{{facility.Trach_Tube_or_Ventilator}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Dialysis</th>
+        <td>{{facility.Dialysis}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Notes</th>
+        <td>{{facility.Notes}}</td>
+    </tr>
+    <tr>
+        <th style="width:50%">Accept COVID Patients</th>
+        <td>{{facility.Accept_COVID_Patients}}</td>
+    </tr>
+
+
+</table>
+
+<a href="{% url 'newextension' %}" class="btn btn-primary btn-lg active" role="button">Edit data</a>
+
+
+
+{% endblock %}
