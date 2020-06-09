@@ -14,6 +14,8 @@ urlpatterns=[
          name='account_activation_sent'),
     path('activate/<slug:uidb64>/<slug:token>/',
          views.activate, name='activate'),
+    path('monitor/<slug:uidb64>/<slug:token>/',
+         views.monitor, name='monitor'),
     path('forgetpsd/', views.forget_password, name='forgetpsd'),
     path('reset/', views.reset_password, name='resetpsd'),
     # (r'^r/', include('urlcrypt.urls')),

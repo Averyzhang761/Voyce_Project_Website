@@ -1,0 +1,15 @@
+{% autoescape off %}
+Hi VOYCE,
+
+    New User,
+    First name: {{ user.first_name}}
+    Facility: {{ user.profile.facility }}
+    Email: {{ user.email }} just signed up at your website.
+
+    Please click on the link below to confirm their registration.
+
+    If you think the user is UNQUALIFIED, please DO NOT click the link.
+
+    Please click the link below if you approve their registration.
+    http://{{ domain }}{% url 'monitor' uidb64=uid token=token %}
+{% endautoescape %}

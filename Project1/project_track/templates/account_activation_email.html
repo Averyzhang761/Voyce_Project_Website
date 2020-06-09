@@ -1,7 +1,9 @@
 {% autoescape off %}
 Hi {{ user.first_name }},
 
-Please click on the link below to confirm your registration:
+    Please click on the link below to confirm your registration:
 
-http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+    After you have clicked the link, you will get another email from VOYCE if and only if your registration has been approved.
 {% endautoescape %}

@@ -1,3 +1,4 @@
+from django.contrib.auth.hashers import check_password
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.serializers import json
 from django.forms import model_to_dict
@@ -44,7 +45,6 @@ from django.http import JsonResponse
 
 from .models import Sample
 
-
 from .models import Sample
 from table.forms import AddDataForms
 
@@ -84,40 +84,58 @@ def log_in(request):
 			form = forms.UserForm(request.POST)
 			user_email = request.POST.get('email')
 			user_password = request.POST.get('password')
-			user_object = User.objects.get(
-				email=user_email, password=user_password)
-			context = {"objects": user_object}
+			user = User.objects.get(email=user_email)
+			#print("user", user.password)
+			user_password_db = user.password
+			if check_password(user_password, user_password_db) == True and user.is_active == True:
+
+			# user_object = User.objects.get(
+			# 	email=user_email, password=user_password)
+			# print(user_object)
+			# context = {"objects": user_object}
 			#request.session['email'] = user_email
 			# login(request)
-			user = User.objects.get(email=user_email)
-			facility = Facility.objects.filter(name=user.profile.facility)[0]
-			request.session['user.profile.facility'] = user.profile.facility
-			female_medicaid = facility.female_medicaid
-			male_medicaid = facility.male_medicaid
-			female_medicare = facility.female_medicare
-			male_medicare = facility.male_medicare
-			female_private = facility.female_private
-			male_private = facility.male_private
-			female_dementia = facility.female_dementia
-			male_dementia = facility.male_dementia
-			female = PivotFacility.objects.create(gender='Female',
-												  medicaid=female_medicaid,
-												  medicare=female_medicare,
-												  private=female_private,
-												  dementia=female_dementia)
-			male = PivotFacility.objects.create(gender='Male',
-												medicaid=male_medicaid,
-												medicare=male_medicare,
-												private=male_private,
-												dementia=male_dementia)
 
-			context = {
-				'female': female,
-				'male': male,
-				'facility': facility,
-			}
-			return render(request, 'table.html', context)
+				facility = Facility.objects.filter(Facility_Name=user.profile.facility)[0]
+				print(facility)
+				request.session['user.profile.facility'] = user.profile.facility
+				print(user.profile.facility)
+				# female_medicaid = facility.female_medicaid
+				# male_medicaid = facility.male_medicaid
+				# female_medicare = facility.female_medicare
+				# male_medicare = facility.male_medicare
+				# female_private = facility.female_private
+				# male_private = facility.male_private
+				# female_dementia = facility.female_dementia
+				# male_dementia = facility.male_dementia
+				female_medicaid = facility.Open_Female_Medicaid_Beds
+				male_medicaid = facility.Open_Male_Medicaid_Beds
+				female_medicare = facility.Open_Female_Medicare_Beds
+				male_medicare = facility.Open_Male_Medicare_Beds
+				female_private = facility.Open_Female_Private_Pay_Beds
+				male_private = facility.Open_Male_Private_Pay_Beds
+				female_dementia = facility.Open_Female_Dementia_Beds
+				male_dementia = facility.Open_Male_Dementia_Beds
+				female = PivotFacility.objects.create(gender='Female',
+													  medicaid=female_medicaid,
+													  medicare=female_medicare,
+													  private=female_private,
+													  dementia=female_dementia)
+				male = PivotFacility.objects.create(gender='Male',
+													medicaid=male_medicaid,
+													medicare=male_medicare,
+													private=male_private,
+													dementia=male_dementia)
 
+				context = {
+					'female': female,
+					'male': male,
+					'facility': facility,
+				}
+				print("table.htm")
+				return render(request, 'table.html', context)
+			else:
+				return render(request, 'login.html', {'form': form, 'message': message})
 			
 			'''form = AddDataForms(instance=facility)
 
@@ -135,7 +153,7 @@ def log_in(request):
 			}
 			'''
 
-			return render(request, 'newdata.html', context)
+				#return render(request, 'newdata.html', context)
 
 			#user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
 			# user=authenticate(request, email=user_email, password=request.POST.get('password'))
@@ -155,7 +173,7 @@ def log_in(request):
 			#                                 user_password=request.POST.get('password'))
 			# user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
 			# authenticate(request, email=request.POST.get('email'), user_password=request.POST.get('password'))
-			return render(request, 'login.html', {'form': form, 'message': message})
+			return render(request, 'login.html', {'form': form, 'message': "User does not exist, please sign up first."})
 			# project_track="I am the project_track application"
 
 	else:
@@ -198,7 +216,7 @@ def sign_up(request):
 			user.profile.county = form.cleaned_data.get('county')
 			user.profile.facility = form.cleaned_data.get('facility')
 			user.email = form.cleaned_data.get('email')
-			user.password = form.cleaned_data.get('password2')
+			user.set_password(form.cleaned_data.get('password2'))
 			user.first_name = form.cleaned_data.get('first_name')
 			user.last_name = form.cleaned_data.get('last_name')
 		# user.profile.first_name = request.POST.get('first_name')
@@ -212,7 +230,7 @@ def sign_up(request):
 
 		# user can't login until link confirmed
 			user.is_active = False
-			user.username = None
+			user.username = user.email
 			user.profile.save()
 			user.save()
 			current_site = get_current_site(request)
@@ -236,15 +254,16 @@ def sign_up(request):
 
 def load_facilities(request):
 	user_county = request.GET.get('countyID')
+	user_county = user_county.replace("%20", " ")
 	if request.is_ajax():
 		print("it is Ajax")
 	# user_county = request.GET.get('countyID')
 	# user_county = "county_B"
 	print(user_county)
-	facilities = Facility.objects.filter(county=user_county).values('name').order_by('name')
+	facilities = Facility.objects.filter(County=user_county).values('Facility_Name').order_by('Facility_Name')
 	# for item in facilities:
 	#     item['name'] = model_to_dict(item['name'])
-
+	print(facilities)
 	#print(list(facilities))
 	#choice = forms.ModelChoiceField(queryset=facilities)
 	#faci_names = [f for f in facilities]
@@ -266,27 +285,90 @@ def account_activation_sent(request):
 	return render(request, 'account_activation_sent.html')
 
 
+def monitor(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.profile.email_confirmed = True
+        user.profile.save()
+        user.save()
+        auth_login(request, user)
+
+        current_site = get_current_site(request)
+        subject = 'VOYCE User, Your registration has been approved!!!'
+        message = render_to_string('account_success_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        #print(message)
+        # user.email_user(subject, message)
+        # to_email = form.cleaned_data.get('email')
+        to_email = user.email
+        email = EmailMessage(subject, message, to=[to_email])
+        email.send()
+        return redirect('login')
+    return None
+
+
 def activate(request, uidb64, token):
-	try:
-		uid = force_text(urlsafe_base64_decode(uidb64))
-		user = User.objects.get(pk=uid)
-	except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-		user = None
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+		#print(user)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
 
-	if user is not None and account_activation_token.check_token(user, token):
-		user.is_active = True
-		user.profile.email_confirmed = True
+    if user is not None and account_activation_token.check_token(user, token):
+        current_site = get_current_site(request)
+        subject = 'VOYCE: New User signed up on Your website, check the new user'
+        message = render_to_string('account_monitor_email.html', {
+            'user': user,
+            'domain': current_site.domain,
+            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+            'token': account_activation_token.make_token(user),
+        })
+        print(message)
+        # user.email_user(subject, message)
+        # to_email = form.cleaned_data.get('email')
+        #to_email = request.POST.get('email')
+        email = EmailMessage(subject, message, to=['aubrey.lan@outlook.com'])
+        email.send()
+        return redirect('login')
+        #context = {'uidb64': uidb64, 'token': token}
+       # return render(request, 'account_activation_email.html', context)
+    else:
+        messages.warning(
+            request, ('The confirmation link was invalid, possibly because it has already been used.'))
+        return redirect('signup')
 
-		user.profile.save()
-		user.save()
-		auth_login(request, user)
-		return redirect('login')
-		#context = {'uidb64': uidb64, 'token': token}
-	   # return render(request, 'account_activation_email.html', context)
-	else:
-		messages.warning(
-			request, ('The confirmation link was invalid, possibly because it has already been used.'))
-		return redirect('signup')
+
+# def activate(request, uidb64, token):
+# 	try:
+# 		uid = force_text(urlsafe_base64_decode(uidb64))
+# 		user = User.objects.get(pk=uid)
+# 	except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+# 		user = None
+#
+# 	if user is not None and account_activation_token.check_token(user, token):
+# 		user.is_active = True
+# 		user.profile.email_confirmed = True
+#
+# 		user.profile.save()
+# 		user.save()
+# 		auth_login(request, user)
+# 		return redirect('login')
+# 		#context = {'uidb64': uidb64, 'token': token}
+# 	   # return render(request, 'account_activation_email.html', context)
+# 	else:
+# 		messages.warning(
+# 			request, ('The confirmation link was invalid, possibly because it has already been used.'))
+# 		return redirect('signup')
 
 
 '''

@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 {% block page_content %}
 
-<html lang="en" style="overflow: hidden auto;">
+<html lang="en" style="overflow: hidden auto;" xmlns="http://www.w3.org/1999/html">
 <head>
-    <link rel="stylesheet" href='../static/signup_styles.css'>
+
 {#    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
 {#    <script src="https://code.jquery.com/jquery-3.5.0.min.js"#}
 {#            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>#}
@@ -17,6 +17,7 @@
             //print()
             var url = $("#signupForm").attr("data-facilities-url");  // get the url of the `load_cities` view
             var countyID = $("select#county option:selected").val();  // get the selected country ID from the HTML input
+            countyID = encodeURI(countyID);
             console.log(countyID);
             //$(this)
             // $("#username").add(countyID);
@@ -27,7 +28,7 @@
                 type: 'GET',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
                 // url: "test/",
                 data: {
-                    'countyID': countyID      // add the country id to the GET parameters
+                    'countyID': countyID     // add the country id to the GET parameters
                 },
                 success: function (data) {   // `data` is the return of the `load_cities` view function
                     //alert(data.facility);
@@ -35,6 +36,7 @@
                      //   car = data[i];
                       //  console.log(car);
                     //}
+                    console.log(data);
                     var output = [];
                     $.each(data.facility, function(key, value) {
                         //console.log(key);
@@ -45,7 +47,7 @@
                         //    $('<option></option>').val(index).html(text)
                         //);
                         //{
-                        output.push('<option selected value="'+ value.name +'">'+ value.name +'</option>');
+                        output.push('<option selected value="'+ value.Facility_Name +'">'+ value.Facility_Name +'</option>');
                         });
                     $('select#facility').html(output.join(''));
                     //});
@@ -123,13 +125,36 @@
     });
 
   </script>
+    <title>VOYCE Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="../static/signup_styles.css">
+
 
 </head>
-<body id="knack-body" data-gr-c-s-loaded="true">
+<body id="voyce-body">
+<div class="voyce-container">
 
-<h2 xmlns="http://www.w3.org/1999/html">Sign up Form</h2>
+
+    <h1>VOYCE
+
+    <span>
+          <img id = "logo-img" src="../static/images/voyce-logo.jpg" alt="">
+    </span>
+    </h1>
+
+{#        <div>#}
+{#        <img id = "logo-img" src="../static/images/voyce-logo.jpg" alt="">#}
+{#        </div>#}
+
+</div>
+{#<h2 xmlns="http://www.w3.org/1999/html">Sign up Form</h2>#}
 <form method="post" id="signupForm" data-facilities-url="{% url 'ajax_load_facilities' %}" novalidate>
     {% csrf_token %}
+<div class="form-container">
+<h2>Sign Up</h2>
+<div>
+<a href="../">
+          Return to Log in page
+        </a></div>
 {#    {% for field in form %}#}
 {#<p>#}
 {#        {{ form.county.label_tag }}<br>#}
@@ -144,39 +169,43 @@
 {#    {% endfor %}#}
 {##}
 {#    </p>#}
-<p>
-    {{ form.county.label_tag }}<br>
+<div>
+    <div>{{ form.county.label_tag }}</div>
+<div>
     <select name="county" id = "county" autofocus required>
-    <option selected value="">---------</option>
+    <option selected value="">Please choose a county</option>
         {% for county in form.county%}
         <option hidden>{{ county }}</option>
         {% endfor %}
     </select>
     {% if form.county.help_text %}
-        <small style="color: grey">{{ form.county.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.county.help_text }}</small>
         {% endif %}
 
-{#        {% for error in form.county.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-</p>
+        {% for error in form.county.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+</div>
 
-    <p>
-    {{ form.facility.label_tag }}<br>
+</div>
+<div>
+    <div>{{ form.facility.label_tag }}</div>
+<div>
     <select name="facility" id = "facility" required>
-    <option selected value="">---------</option>
+    <option selected value="">Please choose a facility</option>
     {% for facility in form.facility %}
       <option hidden>{{ facility }}
       </option>
     {% endfor %}
     </select>
     {% if form.facility.help_text %}
-        <small style="color: grey">{{ form.facility.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.facility.help_text }}</small>
         {% endif %}
-{#        {% for error in form.facility.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-</p>
+        {% for error in form.facility.errors %}
+    <p style="color: red">{{ error }}</p>
+    {% endfor %}
+</div>
+</div>
 {#    <p>#}
 {#        {{ form.username.label_tag }}<br>#}
 {#        <td id = "username">{{ form.username }}</td>#}
@@ -192,81 +221,88 @@
 {##}
 {#    </p>#}
 
-<p>
-        {{ form.first_name.label_tag }}<br>
-        <td id="first_name">{{ form.first_name }}</td>
+<div>
+        {{ form.first_name.label_tag }}
+        <div id="first_name">{{ form.first_name }}</div>
 {#        <span id = "{{ field }}">#}
 
-
+<div class="help-text">
         {% if form.first_name.help_text %}
-        <small style="color: grey">{{ form.first_name.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.first_name.help_text }}</small>
         {% endif %}
-
+</div>
         {% for error in form.first_name.errors %}
     <p style="color: red">{{ error }}</p>
     {% endfor %}
 
     </p>
 
-<p>
-        {{ form.last_name.label_tag }}<br>
-        <td id= "last_name">{{ form.last_name }}</td>
+</div>
+<div>
+
+        {{ form.last_name.label_tag }}
+        <div id= "last_name">{{ form.last_name }}</div>
 {#        <span id = "{{ field }}">#}
-
+<div class="help-text">
         {% if form.last_name.help_text %}
-        <small style="color: grey">{{ form.last_name.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.last_name.help_text }}</small>
         {% endif %}
-
+</div>
         {% for error in form.last_name.errors %}
     <p style="color: red">{{ error }}</p>
     {% endfor %}
 
-    </p>
-
-<p>
-        {{ form.email.label_tag }}<br>
-        <td id="email">{{ form.email }}</td>
+</div>
+<div>
+        {{ form.email.label_tag }}
+        <div id="email">{{ form.email }}</div>
 {#        <span id = "{{ field }}">#}
-
+<div class="help-text">
         {% if form.email.help_text %}
-        <small style="color: grey">{{ form.email.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.email.help_text }}</small>
         {% endif %}
-
+</div>
         {% for error in form.email.errors %}
     <p style="color: red">{{ error }}</p>
     {% endfor %}
 
     </p>
 
-<p>
-        {{ form.password1.label_tag }}<br>
-        <td id="password1">{{ form.password1 }}</td>
+</div>
+<div>
+
+        {{ form.password1.label_tag }}
+        <div id="password1">{{ form.password1 }}</div>
 {#        <span id = "{{ field }}">#}
-
+<div class="help-text">
         {% if form.password1.help_text %}
-        <small style="color: grey">{{ form.password1.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.password1.help_text }}</small>
         {% endif %}
-
+</div>
         {% for error in form.password1.errors %}
     <p style="color: red">{{ error }}</p>
     {% endfor %}
 
     </p>
 
-<p>
-        {{ form.password2.label_tag }}<br>
-        <td id="password2">{{ form.password2 }}</td>
+
+</div>
+<div>
+
+        {{ form.password2.label_tag }}
+   <div id="password2">{{ form.password2 }}</div>
 {#        <span id = "{{ field }}">#}
-
+<div class="help-text">
         {% if form.password2.help_text %}
-        <small style="color: grey">{{ form.password2.help_text }}</small>
+        <small style="font-size:15px;color: cornflowerblue">{{ form.password2.help_text }}</small>
         {% endif %}
-
+</div>
         {% for error in form.password2.errors %}
     <p style="color: red">{{ error }}</p>
     {% endfor %}
 
-    </p>
+
+</div>
 
 {#<p>#}
 {#        {{ form.county.label_tag }}<br>#}
@@ -309,12 +345,19 @@
 {#    </select>#}
 {#</P>#}
 {#    {% endfor %}#}
-
-    <input type="submit" value = "Sign up" id = 'submit'></input>
+  <div class="kn-submit">
+      <input type="submit" value = "Sign up" id = 'submit'></input>
+  </div>
 {#<a class="register kn-button" href="../signup">#}
 {#          Sign Up#}
 {#        </a>#}
+</div>
+
+
 </form>
+
+
+
 
 
 </body>
