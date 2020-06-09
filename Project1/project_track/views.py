@@ -95,16 +95,16 @@ def log_in(request):
 			#request.session['email'] = user_email
 			# login(request)
 			user = User.objects.get(email=user_email)
-			facility = Facility.objects.filter(name=user.profile.facility)[0]
+			facility = Facility.objects.filter(Facility_Name=user.profile.facility)[0]
 			request.session['user.profile.facility'] = user.profile.facility
-			female_medicaid = facility.female_medicaid
-			male_medicaid = facility.male_medicaid
-			female_medicare = facility.female_medicare
-			male_medicare = facility.male_medicare
-			female_private = facility.female_private
-			male_private = facility.male_private
-			female_dementia = facility.female_dementia
-			male_dementia = facility.male_dementia
+			female_medicaid = facility.Open_Female_Medicaid_Beds
+			male_medicaid = facility.Open_Male_Medicaid_Beds
+			female_medicare = facility.Open_Female_Medicare_Beds
+			male_medicare = facility.Open_Male_Medicare_Beds
+			female_private = facility.Open_Female_Private_Pay_Beds
+			male_private = facility.Open_Male_Private_Pay_Beds
+			female_dementia = facility.Open_Female_Dementia_Beds
+			male_dementia = facility.Open_Male_Dementia_Beds
 			female = PivotFacility.objects.create(gender='Female',
 												  medicaid=female_medicaid,
 												  medicare=female_medicare,

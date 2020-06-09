@@ -14,8 +14,8 @@ Database.install_as_MySQLdb()
 
 # Create your models here.
 
-names = Facility.objects.values('name')
-facilities = [name['name'] for name in names]
+names = Facility.objects.values('Facility_Name')
+facilities = [name['Facility_Name'] for name in names]
 
 FACILITY_CHOICES = tuple([(facility, facility) for facility in facilities])
 

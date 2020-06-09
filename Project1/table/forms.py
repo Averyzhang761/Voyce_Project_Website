@@ -5,15 +5,15 @@ from .models import Facility, All
 class AddDataForms(forms.ModelForm):
     class Meta:
         model = Facility
-        fields = ["female_medicaid",
-                  "male_medicaid",
-                  "female_medicare",
-                  "male_medicare",
-                  "female_private",
-                  "male_private",
-                  "female_dementia",
-                  "male_dementia",
-                  "notes",
+        fields = ["Open_Female_Medicaid_Beds",
+                  "Open_Male_Medicaid_Beds",
+                  "Open_Female_Medicare_Beds",
+                  "Open_Male_Medicare_Beds",
+                  "Open_Female_Private_Pay_Beds",
+                  "Open_Male_Private_Pay_Beds",
+                  "Open_Female_Dementia_Beds",
+                  "Open_Male_Dementia_Beds",
+                  "Notes",
                   ]
 
 

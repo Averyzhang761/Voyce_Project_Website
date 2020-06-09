@@ -12,12 +12,12 @@ sys.path.append(os.path.abspath(os.path.join('..', 'table')))
 
 # Create your models here.
 
-names = Facility.objects.values('name')
-facilities = [name['name'] for name in names]
-county_names = Facility.objects.values('county')
+names = Facility.objects.values('Facility_Name')
+facilities = [name['Facility_Name'] for name in names]
+county_names = Facility.objects.values('County')
 print(type(county_names))
 #counties = list(set(county_names['county']))
-counties = [name['county'] for name in county_names]
+counties = [name['County'] for name in county_names]
 uniqu_counties = list(set(counties))
 #uniqu_counties = ['County_A','County_B']
 #counties = uniqu_counties
@@ -30,7 +30,8 @@ class SignUpForm(UserCreationForm):
     county = forms.ChoiceField(widget = forms.Select, choices=COUNTY_CHOICE, required=True)
     #county = forms.ModelChoiceField(queryset=Facility.objects.order_by('county').values_list('county', flat=True).distinct())
     facility = forms.ChoiceField(widget = forms.Select, choices=FACILITY_CHOICES, required=True)
-    print(Facility.objects.order_by('county').values_list('county', flat=True).distinct())
+    print(Facility.objects.order_by('County').values_list(
+        'County', flat=True).distinct())
     # queryset=Add_Site.objects.order_by('subnet').values_list('subnet', flat=True).distinct()
     # facility = forms.ChoiceField(choices=FACILITY_CHOICES)
     # county = forms.ModelChoiceField(

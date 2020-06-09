@@ -21,23 +21,28 @@ class Contact(models.Model):
     message = models.TextField()
 class Facility(models.Model):
     # county = models.CharField(max_length=100,null=False)
-    name = models.CharField(max_length=100, null=False)
-    county = models.CharField(max_length=100, null=False)
-    date = models.CharField(max_length=30, blank=True, null=False)
-    female_medicaid = models.SmallIntegerField(blank=True)
-    male_medicaid = models.SmallIntegerField(blank=True)
-    female_medicare = models.SmallIntegerField(blank=True)
-    male_medicare = models.SmallIntegerField(blank=True)
-    female_private = models.SmallIntegerField(blank=True)
-    male_private = models.SmallIntegerField(blank=True)
-    female_dementia = models.SmallIntegerField(blank=True)
-    male_dementia = models.SmallIntegerField(blank=True)
-    notes = models.TextField(blank=True, null=False)
+    Facility_Name = models.CharField(
+        unique=True, db_index=False, auto_created=False, max_length=50)
+    County = models.CharField(max_length=50)
+    Timestamp = models.DateTimeField(max_length=50)
+    As_of = models.DateField(max_length=30)
+    Open_Female_Medicaid_Beds = models.IntegerField(max_length=11, blank=True)
+    Open_Male_Medicaid_Beds = models.IntegerField(max_length=11, blank=True)
+    Open_Female_Medicare_Beds = models.IntegerField(max_length=11, blank=True)
+    Open_Male_Medicare_Beds = models.IntegerField(max_length=11, blank=True)
+    Open_Female_Private_Pay_Beds = models.IntegerField(
+        max_length=11, blank=True)
+    Open_Male_Private_Pay_Beds = models.IntegerField(max_length=11, blank=True)
+    Open_Female_Dementia_Beds = models.IntegerField(max_length=11, blank=True)
+    Open_Male_Dementia_Beds = models.IntegerField(max_length=11, blank=True)
+    Notes = models.CharField(max_length=200, blank=True)
 
+    def __unicode__(self):
+        return self.Facility_Name + ' ' + self.County + ' ' + self.As_of
 
     class Meta:
         managed = False
-        db_table = 'facility'
+        db_table = 'project_track_sample'
 
 
 class PivotFacility(models.Model):
