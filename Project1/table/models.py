@@ -19,6 +19,7 @@ class Contact(models.Model):
     email = models.EmailField(max_length=100)
     purpose = models.CharField(max_length=2, choices=PURPOSE_CHOICES)
     message = models.TextField()
+'''
 class Facility(models.Model):
     # county = models.CharField(max_length=100,null=False)
     Facility_Name = models.CharField(max_length=50, null=False, unique=True)
@@ -103,3 +104,4 @@ class All(models.Model):
     class Meta:
         managed = False 
         db_table = 'project_track_info'
+'''

@@ -17,6 +17,8 @@ from .forms import SignUpForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from table.views import view_table
+from django.contrib.auth.hashers import check_password
+
 
 
 from django.utils.encoding import force_text
@@ -146,7 +148,7 @@ def log_in(request):
 			#                                 user_password=request.POST.get('password'))
 			# user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
 			# authenticate(request, email=request.POST.get('email'), user_password=request.POST.get('password'))
-			return render(request, 'login.html', {'form': form, 'message': message})
+			return render(request, 'login.html', {'form': form, 'message': "User does not exist, please sign up first."})
 			# project_track="I am the project_track application"
 
 	else:
@@ -189,7 +191,7 @@ def sign_up(request):
 			user.profile.county = form.cleaned_data.get('county')
 			user.profile.facility = form.cleaned_data.get('facility')
 			user.email = form.cleaned_data.get('email')
-			user.password = form.cleaned_data.get('password2')
+			user.set_password = form.cleaned_data.get('password2')
 			user.first_name = form.cleaned_data.get('first_name')
 			user.last_name = form.cleaned_data.get('last_name')
 		# user.profile.first_name = request.POST.get('first_name')
@@ -203,7 +205,7 @@ def sign_up(request):
 
 		# user can't login until link confirmed
 			user.is_active = False
-			user.username = None
+			user.username = user.email
 			user.profile.save()
 			user.save()
 			current_site = get_current_site(request)
@@ -227,6 +229,7 @@ def sign_up(request):
 
 def load_facilities(request):
 	user_county = request.GET.get('countyID')
+	user_county = user_county.replace("%20", " ")
 	if request.is_ajax():
 		print("it is Ajax")
 	# user_county = request.GET.get('countyID')
@@ -257,7 +260,7 @@ def account_activation_sent(request):
 	return render(request, 'account_activation_sent.html')
 
 
-def activate(request, uidb64, token):
+def monitor(request, uidb64, token):
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))
 		user = User.objects.get(pk=uid)
@@ -271,6 +274,48 @@ def activate(request, uidb64, token):
 		user.profile.save()
 		user.save()
 		auth_login(request, user)
+
+		current_site = get_current_site(request)
+		subject = 'VOYCE User, Your registration has been approved!!!'
+		message = render_to_string('account_success_email.html', {
+			'user': user,
+			'domain': current_site.domain,
+			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+			'token': account_activation_token.make_token(user),
+		})
+		#print(message)
+		# user.email_user(subject, message)
+		# to_email = form.cleaned_data.get('email')
+		to_email = user.email
+		email = EmailMessage(subject, message, to=[to_email])
+		email.send()
+		return redirect('login')
+	return None
+
+
+def activate(request, uidb64, token):
+	try:
+		uid = force_text(urlsafe_base64_decode(uidb64))
+		user = User.objects.get(pk=uid)
+		#print(user)
+	except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+		user = None
+
+	if user is not None and account_activation_token.check_token(user, token):
+		current_site = get_current_site(request)
+		subject = 'VOYCE: New User signed up on Your website, check the new user'
+		message = render_to_string('account_monitor_email.html', {
+			'user': user,
+			'domain': current_site.domain,
+			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+			'token': account_activation_token.make_token(user),
+		})
+		print(message)
+		# user.email_user(subject, message)
+		# to_email = form.cleaned_data.get('email')
+		#to_email = request.POST.get('email')
+		email = EmailMessage(subject, message, to=['aubrey.lan@outlook.com'])
+		email.send()
 		return redirect('login')
 		#context = {'uidb64': uidb64, 'token': token}
 	   # return render(request, 'account_activation_email.html', context)

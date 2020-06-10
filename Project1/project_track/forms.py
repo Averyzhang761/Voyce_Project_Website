@@ -29,8 +29,7 @@ class SignUpForm(UserCreationForm):
     last_name = forms.CharField(max_length=30)
     county = forms.ChoiceField(widget = forms.Select, choices=COUNTY_CHOICE, required=True)
     facility = forms.ChoiceField(widget = forms.Select, choices=FACILITY_CHOICES, required=True)
-    print(Sample.objects.order_by('County').values_list(
-        'County', flat=True).distinct())
+    
     # queryset=Add_Site.objects.order_by('subnet').values_list('subnet', flat=True).distinct()
     # facility = forms.ChoiceField(choices=FACILITY_CHOICES)
     # county = forms.ModelChoiceField(
@@ -53,7 +52,7 @@ class SignUpForm(UserCreationForm):
     #     )
     # )
     email = forms.EmailField(
-        max_length=254, help_text='Required. Inform a valid email address.')
+        max_length=254, help_text='Please provide a valid email address.')
 
     class Meta:
         model = User

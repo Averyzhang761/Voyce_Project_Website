@@ -3,110 +3,122 @@
 <!DOCTYPE html>
 {% block page_content %}
 
-<html lang="en" style="overflow: hidden auto;">
+<html lang="en" style="overflow: hidden auto;" xmlns="http://www.w3.org/1999/html">
+
 <head>
-    <link rel="stylesheet" href='../static/signup_styles.css'>
-{#    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
-{#    <script src="https://code.jquery.com/jquery-3.5.0.min.js"#}
-{#            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>#}
-{#    <script type="text/javascript" src="{{ '../static/' }}js/jquery.js" />#}
+
+    {#    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
+    {#    <script src="https://code.jquery.com/jquery-3.5.0.min.js"#}
+    {#            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>#}
+    {#    <script type="text/javascript" src="{{ '../static/' }}js/jquery.js" />#}
     <script src="{% static "js/jquery-3.5.1.min.js" %}"></script>
     <script>
-    $( document ).ready(function(){
-        $("select#county").change(function (e) {
-            //print()
-            var url = $("#signupForm").attr("data-facilities-url");  // get the url of the `load_cities` view
-            var countyID = $("select#county option:selected").val();  // get the selected country ID from the HTML input
-            console.log(countyID);
-            //$(this)
-            // $("#username").add(countyID);
-            //print();
-            $.ajax({
-                // initialize an AJAX request
-                url: '../ajax/load-facilities/',
-                type: 'GET',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-                // url: "test/",
-                data: {
-                    'countyID': countyID      // add the country id to the GET parameters
-                },
-                success: function (data) {   // `data` is the return of the `load_cities` view function
-                    //alert(data.facility);
-                    //for (var i in data) {
-                     //   car = data[i];
-                      //  console.log(car);
-                    //}
-                    var output = [];
-                    $.each(data.facility, function(key, value) {
-                        //console.log(key);
-                        //console.log(value.name);
-                        //console.log(text.value);
-                        //console.log(text.text);
-                        //$('select#facility').append(
-                        //    $('<option></option>').val(index).html(text)
-                        //);
-                        //{
-                        output.push('<option selected value="'+ value.name +'">'+ value.name +'</option>');
+        $(document).ready(function () {
+            $("select#county").change(function (e) {
+                //print()
+                var url = $("#signupForm").attr("data-facilities-url");  // get the url of the `load_cities` view
+                var countyID = $("select#county option:selected").val();  // get the selected country ID from the HTML input
+                countyID = encodeURI(countyID);
+                console.log(countyID);
+                //$(this)
+                // $("#username").add(countyID);
+                //print();
+                $.ajax({
+                    // initialize an AJAX request
+                    url: '../ajax/load-facilities/',
+                    type: 'GET',                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                    // url: "test/",
+                    data: {
+                        'countyID': countyID     // add the country id to the GET parameters
+                    },
+                    success: function (data) {   // `data` is the return of the `load_cities` view function
+                        //alert(data.facility);
+                        //for (var i in data) {
+                        //   car = data[i];
+                        //  console.log(car);
+                        //}
+                        console.log(data);
+                        var output = [];
+                        $.each(data.facility, function (key, value) {
+                            //console.log(key);
+                            //console.log(value.name);
+                            //console.log(text.value);
+                            //console.log(text.text);
+                            //$('select#facility').append(
+                            //    $('<option></option>').val(index).html(text)
+                            //);
+                            //{
+                            output.push('<option selected value="' + value.Facility_Name + '">' + value.Facility_Name + '</option>');
                         });
-                    $('select#facility').html(output.join(''));
-                    //});
-                    //var data = '<option value="-1">Please Select a Facility</option>';
-                    //$("select#facility").html(data.facility);  // replace the contents of the city input with the data that came from the server#
-                    //$('select#facility').append($('<option>', {
-                    //value: car.id,
-                    //text: car.name
-                //}));
-                },
-                error: function(e) {
-                    alert('error; failed');
-                    console.log(e)
-                    //e.preventDefault();
-                }
-        });   });
-            {#$.ajax({#}
-            {#  type: 'GET',#}
-            {#  url: "test/",#}
-            {#  dataType: 'text',#}
-            {#  async: true,#}
-            {#  success: function(data) { var output = data;  alert(output)},#}
-            {#  error: function(data) { alert('fail') }#}
-            {##}
-            {#    });#}
-            {##}
-           // });
+                        $('select#facility').html(output.join(''));
+                        //});
+                        //var data = '<option value="-1">Please Select a Facility</option>';
+                        //$("select#facility").html(data.facility);  // replace the contents of the city input with the data that came from the server#
+                        //$('select#facility').append($('<option>', {
+                        //value: car.id,
+                        //text: car.name
+                        //}));
+                    },
+                    error: function (e) {
+                        alert('error; failed');
+                        console.log(e)
+                        //e.preventDefault();
+                    }
+                });
+            });
+            {#$.ajax({ # }
+            { #  type: 'GET', # }
+            { #  url: "test/", # }
+            { #  dataType: 'text', # }
+            { #  async: true, # }
+            { #  success: function(data) { var output = data; alert(output) }, # }
+            { #  error: function(data) { alert('fail') }#}
+            { ## }
+            { #    });#
+            }
+            {## }
+            // });
             //e.preventDefault();
 
-        {#$( "submit" ).click(function( event ) {#}
-        {#    event.preventDefault();});#}
-    {#    function Validate() {#}
-    {#    var ddlFruits = document.getElementById("facility");#}
-    {#        if (ddlFruits.value == "") {#}
-    {#            console.log('wrong');#}
-    {#            //If the "Please Select" option is selected display error.#}
-    {#            alert("Please select an option!");#}
-    {#            return false;#}
-    {#        }#}
-    {#        console.log('right here');#}
-    {#        return true;#}
+            {#$("submit").click(function (event) {# }
+        { #    event.preventDefault(); });#
+            }
+            {#    function Validate() {# }
+                {#    var ddlFruits = document.getElementById("facility");# }
+                {#        if (ddlFruits.value == "") {# }
+                    {#            console.log('wrong');# }
+                    {#            //If the "Please Select" option is selected display error.#}
+                        {#            alert("Please select an option!");# }
+                        {#            return false;# }
+                        {# }#
+                    }
+                    {#        console.log('right here');# }
+                    {#        return true;# }
 
 
-        {#$("#signupForm").validate({#}
-        {#rules: {#}
-        {#    select_field: {#}
-        {#        required: {#}
-        {#            depends: function (element) {#}
-        {#                if('' == $('#facility').val()){#}
-        {#                //Set predefined value to blank.#}
-        {#                    alert("Please select an facility!");#}
-        {#                    return false;#}
-        {#                //$('select#facility').val('Union Manor RCF_2');#}
-        {#                }else{#}
-        {#                    alert("select an facility!");#}
-        {#                    return true;#}
-        {#                }#}
-        {##}
-        {#            }}}}});#}
+                    {#$("#signupForm").validate({ # }
+        { #rules: { # }
+        { #    select_field: { # }
+        { #        required: { # }
+        { #            depends: function(element) {# }
+        { #                if('' == $('#facility').val()){# }
+                        {#                //Set predefined value to blank.#}
+                            {#                    alert("Please select an facility!");# }
+                            {#                    return false;# }
+                            {#                //$('select#facility').val('Union Manor RCF_2');#}
+                                {# }else {# }
+                                {#                    alert("select an facility!");# }
+                                {#                    return true;# }
+                                {# }#
+                            }
+                            {## }
+                            {# }
+                        }
+                    }
+                }
+            });#}
 
-    {##}
+        {## }
 
         //$('#county').on('click', function() {
         //        $("#signupForm").validate();
@@ -119,204 +131,248 @@
                 return false;
             }
             //alert("selected an option!" + ddlFruits.val());
-            return true;});
+            return true;
+        });
     });
 
-  </script>
+    </script>
+    <title>VOYCE Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="../static/signup_styles.css">
+
 
 </head>
-<body id="knack-body" data-gr-c-s-loaded="true">
 
-<h2 xmlns="http://www.w3.org/1999/html">Sign up Form</h2>
-<form method="post" id="signupForm" data-facilities-url="{% url 'ajax_load_facilities' %}" novalidate>
-    {% csrf_token %}
-{#    {% for field in form %}#}
-{#<p>#}
-{#        {{ form.county.label_tag }}<br>#}
-{#        <td id="county">{{ form.county }}</td>#}
-{##}
-{#        {% if form.county.help_text %}#}
-{#        <small style="color: grey">{{ form.county.help_text }}</small>#}
-{#        {% endif %}#}
-{##}
-{#        {% for error in form.county.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-{##}
-{#    </p>#}
-<p>
-    {{ form.county.label_tag }}<br>
-    <select name="county" id = "county" autofocus required>
-    <option selected value="">---------</option>
-        {% for county in form.county%}
-        <option hidden>{{ county }}</option>
-        {% endfor %}
-    </select>
-    {% if form.county.help_text %}
-        <small style="color: grey">{{ form.county.help_text }}</small>
-        {% endif %}
-
-{#        {% for error in form.county.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-</p>
-
-    <p>
-    {{ form.facility.label_tag }}<br>
-    <select name="facility" id = "facility" required>
-    <option selected value="">---------</option>
-    {% for facility in form.facility %}
-      <option hidden>{{ facility }}
-      </option>
-    {% endfor %}
-    </select>
-    {% if form.facility.help_text %}
-        <small style="color: grey">{{ form.facility.help_text }}</small>
-        {% endif %}
-{#        {% for error in form.facility.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-</p>
-{#    <p>#}
-{#        {{ form.username.label_tag }}<br>#}
-{#        <td id = "username">{{ form.username }}</td>#}
-{#        <span id = "{{ field }}">#}
-{##}
-{#        {% if form.username.help_text %}#}
-{#        <small style="color: grey">{{ form.username.help_text }}</small>#}
-{#        {% endif %}#}
-{##}
-{#        {% for error in form.username.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-{##}
-{#    </p>#}
-
-<p>
-        {{ form.first_name.label_tag }}<br>
-        <td id="first_name">{{ form.first_name }}</td>
-{#        <span id = "{{ field }}">#}
+<body id="voyce-body">
+    <div class="voyce-container">
 
 
-        {% if form.first_name.help_text %}
-        <small style="color: grey">{{ form.first_name.help_text }}</small>
-        {% endif %}
+        <h1>VOYCE
 
-        {% for error in form.first_name.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
+            <span>
+                <img id="logo-img" src="../static/images/voyce-logo.jpg" alt="">
+            </span>
+        </h1>
 
-    </p>
+        {#        <div>#}
+        {#        <img id = "logo-img" src="../static/images/voyce-logo.jpg" alt="">#}
+        {#        </div>#}
 
-<p>
-        {{ form.last_name.label_tag }}<br>
-        <td id= "last_name">{{ form.last_name }}</td>
-{#        <span id = "{{ field }}">#}
+    </div>
+    {#<h2 xmlns="http://www.w3.org/1999/html">Sign up Form</h2>#}
+    <form method="post" id="signupForm" data-facilities-url="{% url 'ajax_load_facilities' %}" novalidate>
+        {% csrf_token %}
+        <div class="form-container">
+            <h2>Sign Up</h2>
+            <div>
+                <a href="../">
+                    Return to Log in page
+                </a></div>
+            {#    {% for field in form %}#}
+            {#<p>#}
+            {#        {{ form.county.label_tag }}<br>#}
+            {#        <td id="county">{{ form.county }}</td>#}
+            {##}
+            {#        {% if form.county.help_text %}#}
+            {#        <small style="color: grey">{{ form.county.help_text }}</small>#}
+            {#        {% endif %}#}
+            {##}
+            {#        {% for error in form.county.errors %}#}
+            {#    <p style="color: red">{{ error }}</p>#}
+            {#    {% endfor %}#}
+            {##}
+            {#    </p>#}
+            <div>
+                <div>{{ form.county.label_tag }}</div>
+                <div>
+                    <select name="county" id="county" autofocus required>
+                        <option selected value="">Please choose a county</option>
+                        {% for county in form.county%}
+                        <option hidden>{{ county }}</option>
+                        {% endfor %}
+                    </select>
+                    {% if form.county.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.county.help_text }}</small>
+                    {% endif %}
 
-        {% if form.last_name.help_text %}
-        <small style="color: grey">{{ form.last_name.help_text }}</small>
-        {% endif %}
+                    {% for error in form.county.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
 
-        {% for error in form.last_name.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
+            </div>
+            <div>
+                <div>{{ form.facility.label_tag }}</div>
+                <div>
+                    <select name="facility" id="facility" required>
+                        <option selected value="">Please choose a facility</option>
+                        {% for facility in form.facility %}
+                        <option hidden>{{ facility }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    {% if form.facility.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.facility.help_text }}</small>
+                    {% endif %}
+                    {% for error in form.facility.errors %}
+                    <p style="color: red">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {#    <p>#}
+            {#        {{ form.username.label_tag }}<br>#}
+            {#        <td id = "username">{{ form.username }}</td>#}
+            {#        <span id = "{{ field }}">#}
+            {##}
+            {#        {% if form.username.help_text %}#}
+            {#        <small style="color: grey">{{ form.username.help_text }}</small>#}
+            {#        {% endif %}#}
+            {##}
+            {#        {% for error in form.username.errors %}#}
+            {#    <p style="color: red">{{ error }}</p>#}
+            {#    {% endfor %}#}
+            {##}
+            {#    </p>#}
 
-    </p>
+            <div>
+                {{ form.first_name.label_tag }}
+                <div id="first_name">{{ form.first_name }}</div>
+                {#        <span id = "{{ field }}">#}
 
-<p>
-        {{ form.email.label_tag }}<br>
-        <td id="email">{{ form.email }}</td>
-{#        <span id = "{{ field }}">#}
+                <div class="help-text">
+                    {% if form.first_name.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.first_name.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% for error in form.first_name.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
 
-        {% if form.email.help_text %}
-        <small style="color: grey">{{ form.email.help_text }}</small>
-        {% endif %}
+                </p>
 
-        {% for error in form.email.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
+            </div>
+            <div>
 
-    </p>
+                {{ form.last_name.label_tag }}
+                <div id="last_name">{{ form.last_name }}</div>
+                {#        <span id = "{{ field }}">#}
+                <div class="help-text">
+                    {% if form.last_name.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.last_name.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% for error in form.last_name.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
 
-<p>
-        {{ form.password1.label_tag }}<br>
-        <td id="password1">{{ form.password1 }}</td>
-{#        <span id = "{{ field }}">#}
+            </div>
+            <div>
+                {{ form.email.label_tag }}
+                <div id="email">{{ form.email }}</div>
+                {#        <span id = "{{ field }}">#}
+                <div class="help-text">
+                    {% if form.email.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.email.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% for error in form.email.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
 
-        {% if form.password1.help_text %}
-        <small style="color: grey">{{ form.password1.help_text }}</small>
-        {% endif %}
+                </p>
 
-        {% for error in form.password1.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
+            </div>
+            <div>
 
-    </p>
+                {{ form.password1.label_tag }}
+                <div id="password1">{{ form.password1 }}</div>
+                {#        <span id = "{{ field }}">#}
+                <div class="help-text">
+                    {% if form.password1.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.password1.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% for error in form.password1.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
 
-<p>
-        {{ form.password2.label_tag }}<br>
-        <td id="password2">{{ form.password2 }}</td>
-{#        <span id = "{{ field }}">#}
-
-        {% if form.password2.help_text %}
-        <small style="color: grey">{{ form.password2.help_text }}</small>
-        {% endif %}
-
-        {% for error in form.password2.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
-
-    </p>
-
-{#<p>#}
-{#        {{ form.county.label_tag }}<br>#}
-{#        <td id="county">{{ form.county }}</td>#}
-{##}
-{#        {% if form.county.help_text %}#}
-{#        <small style="color: grey">{{ form.county.help_text }}</small>#}
-{#        {% endif %}#}
-{##}
-{#        {% for error in form.county.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-{##}
-{#    </p>#}
-
-{#<p>#}
-{#        {{ form.facility.label_tag }}<br>#}
-{#        <td id="facility">{{ form.facility }}</td>#}
-{#        <span id = "{{ field }}">#}
-{##}
-{#        {% if form.facility.help_text %}#}
-{#        <small style="color: grey">{{ form.facility.help_text }}</small>#}
-{#        {% endif %}#}
-{##}
-{#        {% for error in form.facility.errors %}#}
-{#    <p style="color: red">{{ error }}</p>#}
-{#    {% endfor %}#}
-{##}
-{#    </p>#}
+                </p>
 
 
-{##}
-{#    <P>#}
-{#    {{ form.facility.label_tag }}<br>#}
-{#    <select name="facilities" id = "facility">#}
-{#    <option value="">---------</option>#}
-{#    {% for facility in facilities %}#}
-{#    <option>{{ facility.name }}</option>#}
-{#    {% endfor %}#}
-{#    </select>#}
-{#</P>#}
-{#    {% endfor %}#}
+            </div>
+            <div>
 
-    <input type="submit" value = "Sign up" id = 'submit'></input>
-{#<a class="register kn-button" href="../signup">#}
-{#          Sign Up#}
-{#        </a>#}
-</form>
+                {{ form.password2.label_tag }}
+                <div id="password2">{{ form.password2 }}</div>
+                {#        <span id = "{{ field }}">#}
+                <div class="help-text">
+                    {% if form.password2.help_text %}
+                    <small style="font-size:15px;color: cornflowerblue">{{ form.password2.help_text }}</small>
+                    {% endif %}
+                </div>
+                {% for error in form.password2.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+
+
+            </div>
+
+            {#<p>#}
+            {#        {{ form.county.label_tag }}<br>#}
+            {#        <td id="county">{{ form.county }}</td>#}
+            {##}
+            {#        {% if form.county.help_text %}#}
+            {#        <small style="color: grey">{{ form.county.help_text }}</small>#}
+            {#        {% endif %}#}
+            {##}
+            {#        {% for error in form.county.errors %}#}
+            {#    <p style="color: red">{{ error }}</p>#}
+            {#    {% endfor %}#}
+            {##}
+            {#    </p>#}
+
+            {#<p>#}
+            {#        {{ form.facility.label_tag }}<br>#}
+            {#        <td id="facility">{{ form.facility }}</td>#}
+            {#        <span id = "{{ field }}">#}
+            {##}
+            {#        {% if form.facility.help_text %}#}
+            {#        <small style="color: grey">{{ form.facility.help_text }}</small>#}
+            {#        {% endif %}#}
+            {##}
+            {#        {% for error in form.facility.errors %}#}
+            {#    <p style="color: red">{{ error }}</p>#}
+            {#    {% endfor %}#}
+            {##}
+            {#    </p>#}
+
+
+            {##}
+            {#    <P>#}
+            {#    {{ form.facility.label_tag }}<br>#}
+            {#    <select name="facilities" id = "facility">#}
+            {#    <option value="">---------</option>#}
+            {#    {% for facility in facilities %}#}
+            {#    <option>{{ facility.name }}</option>#}
+            {#    {% endfor %}#}
+            {#    </select>#}
+            {#</P>#}
+            {#    {% endfor %}#}
+            <div class="kn-submit">
+                <input type="submit" value="Sign up" id='submit'></input>
+            </div>
+            {#<a class="register kn-button" href="../signup">#}
+            {#          Sign Up#}
+            {#        </a>#}
+        </div>
+
+
+    </form>
+
+
+
 
 
 </body>
+
 </html>
 {% endblock %}

@@ -1,135 +1,197 @@
-#logo-img {
-    float: left;
-    position: relative;
-    margin: 10px 15px 15px 10px;
-    height: 100px;
-    width:100px;
+body{
+    background-color: white;
+    margin: 0 0;
+}
+.form-container{
+    width: 60%;
+    background-color: white;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+}
+h1{
+    margin-top: 0;
+    text-align: left;
+    padding-top: 20px;
+    padding-left:40px ;
+    color: white;
+
+}
+h2{
+    text-align: left;
+}
+.voyce-container{
+    background-color: #F3AD40;
+    height: 150px;
+    margin-top: 0;
+}
+#logo-img{
+    float: right;
+}
+input{
+    width: 50%;
+    padding: 12px 20px;
+    margin: 20px 60px;
+    box-sizing: border-box;
+
+}
+#submit{
+    width: auto;
+}
+#county ,#facility{
+    width: 50%;
+    height: 40px;
+    margin: 20px 60px;
+}
+.help-text{
+    margin-left: 50px;
+    color: red;
+}
+a:link {
+    margin-bottom: 20px;
 }
 
 
-#knack-body #kn-app-header {
-      background-color: #F3AD40;
-    }
 
-    .kn-modal>h1 {
-      background-color: #F3AD40 !important;
-    }
 
-    .kn-menu-arrow.is-right:before {
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), #F3AD40);
-    }
 
-    .kn-menu-arrow.is-left:before {
-      background: linear-gradient(to left, rgba(255, 255, 255, 0), #F3AD40);
-    }
 
-    #kn-app-menu nav.tabs li.is-active a {
-      color: #F3AD40 !important;
-    }
-    #kn-app-header,
-    #knack-logo .kn-title {
-      color: #ffffff;
-    }
-    .kn-modal>h1 {
-      color: #ffffff !important;
-    }
-    .kn-content a {
-      color: #F3AD40;
-    }
 
-    .kn-content .link-hover-color:hover {
-      color: #F3AD40;
-    }
 
-    .kn-button.is-link {
-      color: #F3AD40;
-    }
 
-    .kn-menu .kn-button {
-      color: #F3AD40;
-    }
 
-    .tabs.is-toggle .is-active a {
-      color: #F3AD40;
-    }
+/*#logo-img {*/
+/*    float: left;*/
+/*    position: relative;*/
+/*    margin: 10px 15px 15px 10px;*/
+/*    height: 100px;*/
+/*    width:100px;*/
+/*}*/
 
-    .tabs.is-toggle a {
-      color: #F3AD40;
-    }
 
-    .tabs a:hover {
-      color: #F3AD40;
-    }
-    .kn-navigation-bar a {
-      background-color: #F3AD40;
-    }
-    .kn-navigation-bar a:hover {
-      background-color: #123562 !important;
-    }
+/*#knack-body #kn-app-header {*/
+/*      background-color: #F3AD40;*/
+/*    }*/
 
-    .kn-navigation-bar .is-active a {
-      background-color: #F3AD40;
-    }
+/*    .kn-modal>h1 {*/
+/*      background-color: #F3AD40 !important;*/
+/*    }*/
 
-    .is-primary {
-      background-color: #F3AD40 !important;
-    }
+/*    .kn-menu-arrow.is-right:before {*/
+/*      background: linear-gradient(to right, rgba(255, 255, 255, 0), #F3AD40);*/
+/*    }*/
 
-    .select:after {
-      border-color: #F3AD40;
-    }
+/*    .kn-menu-arrow.is-left:before {*/
+/*      background: linear-gradient(to left, rgba(255, 255, 255, 0), #F3AD40);*/
+/*    }*/
 
-    .kn-button.is-active a {
-      background-color: #F3AD40;
-    }
+/*    #kn-app-menu nav.tabs li.is-active a {*/
+/*      color: #F3AD40 !important;*/
+/*    }*/
+/*    #kn-app-header,*/
+/*    #knack-logo .kn-title {*/
+/*      color: #ffffff;*/
+/*    }*/
+/*    .kn-modal>h1 {*/
+/*      color: #ffffff !important;*/
+/*    }*/
+/*    .kn-content a {*/
+/*      color: #F3AD40;*/
+/*    }*/
 
-    .kn-button.is-active a {
-      border-color: #F3AD40 !important;
-    }
+/*    .kn-content .link-hover-color:hover {*/
+/*      color: #F3AD40;*/
+/*    }*/
 
-    .kn-button.is-primary:hover,
-    .kn-navigation-bar a:hover {
-      background-color: #123562;
-      border-color: #123562;
-    }
+/*    .kn-button.is-link {*/
+/*      color: #F3AD40;*/
+/*    }*/
 
-    .fc-state-active {
-      border-color: #17427a !important;
-    }
+/*    .kn-menu .kn-button {*/
+/*      color: #F3AD40;*/
+/*    }*/
 
-    .kn-menu-list a {
-      border-color: #17427a !important;
-    }
+/*    .tabs.is-toggle .is-active a {*/
+/*      color: #F3AD40;*/
+/*    }*/
 
-    .kn-menu-list li.is-primary {
-      background-color: #17427a !important;
-    }
+/*    .tabs.is-toggle a {*/
+/*      color: #F3AD40;*/
+/*    }*/
 
-    #app-menu-list-mobile li.is-active {
-      background-color: #17427a;
-    }
-    #knack-body .input:focus {
-      border-color: #0F2B4F;
-    }
-    .kn-navigation-bar a {
-      color: #ffffff !important;
-    }
+/*    .tabs a:hover {*/
+/*      color: #F3AD40;*/
+/*    }*/
+/*    .kn-navigation-bar a {*/
+/*      background-color: #F3AD40;*/
+/*    }*/
+/*    .kn-navigation-bar a:hover {*/
+/*      background-color: #123562 !important;*/
+/*    }*/
 
-    .kn-navigation-bar a:hover {
-      color: #ffffff !important;
-    }
+/*    .kn-navigation-bar .is-active a {*/
+/*      background-color: #F3AD40;*/
+/*    }*/
 
-    .is-primary {
-      color: #ffffff !important;
-    }
+/*    .is-primary {*/
+/*      background-color: #F3AD40 !important;*/
+/*    }*/
 
-    .is-active a {
-      color: #ffffff;
-    }
+/*    .select:after {*/
+/*      border-color: #F3AD40;*/
+/*    }*/
 
-    .kn-menu a {
-      color: #ffffff;
-    }
+/*    .kn-button.is-active a {*/
+/*      background-color: #F3AD40;*/
+/*    }*/
 
-    .kn-button.is-loading:after {
-      border-color: transparent transparent #ffffff #ffffff !important;}
+/*    .kn-button.is-active a {*/
+/*      border-color: #F3AD40 !important;*/
+/*    }*/
+
+/*    .kn-button.is-primary:hover,*/
+/*    .kn-navigation-bar a:hover {*/
+/*      background-color: #123562;*/
+/*      border-color: #123562;*/
+/*    }*/
+
+/*    .fc-state-active {*/
+/*      border-color: #17427a !important;*/
+/*    }*/
+
+/*    .kn-menu-list a {*/
+/*      border-color: #17427a !important;*/
+/*    }*/
+
+/*    .kn-menu-list li.is-primary {*/
+/*      background-color: #17427a !important;*/
+/*    }*/
+
+/*    #app-menu-list-mobile li.is-active {*/
+/*      background-color: #17427a;*/
+/*    }*/
+/*    #knack-body .input:focus {*/
+/*      border-color: #0F2B4F;*/
+/*    }*/
+/*    .kn-navigation-bar a {*/
+/*      color: #ffffff !important;*/
+/*    }*/
+
+/*    .kn-navigation-bar a:hover {*/
+/*      color: #ffffff !important;*/
+/*    }*/
+
+/*    .is-primary {*/
+/*      color: #ffffff !important;*/
+/*    }*/
+
+/*    .is-active a {*/
+/*      color: #ffffff;*/
+/*    }*/
+
+/*    .kn-menu a {*/
+/*      color: #ffffff;*/
+/*    }*/
+
+/*    .kn-button.is-loading:after {*/
+/*      border-color: transparent transparent #ffffff #ffffff !important;}*/
