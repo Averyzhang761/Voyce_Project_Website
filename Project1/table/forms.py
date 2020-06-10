@@ -1,10 +1,10 @@
 from django import forms
-from .models import Facility, All
+from project_track.models import Sample, Info
 
 
 class AddDataForms(forms.ModelForm):
     class Meta:
-        model = Facility
+        model = Sample
         fields = ["Open_Female_Medicaid_Beds",
                   "Open_Male_Medicaid_Beds",
                   "Open_Female_Medicare_Beds",
@@ -19,7 +19,7 @@ class AddDataForms(forms.ModelForm):
 
 class AddAllForms(forms.ModelForm):
     class Meta:
-        model = All
+        model = Info
         fields =["Facility_Name",
                 "Type",
                 "County",

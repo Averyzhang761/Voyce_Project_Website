@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from .models import Facility, PivotFacility, All
+from .models import PivotFacility
+from project_track.models import Sample, Info
 from .forms import AddDataForms, AddAllForms
 from django.shortcuts import redirect
 from django.views.generic import TemplateView, ListView, UpdateView
@@ -23,7 +24,7 @@ def index(request):
 
 def view_table(request):
 
-	facility = Facility.objects.filter(
+	facility = Sample.objects.filter(
 		Facility_Name=request.session['user.profile.facility'])[0]
 	female_medicaid = facility.Open_Female_Medicaid_Beds
 	male_medicaid = facility.Open_Male_Medicaid_Beds
@@ -54,7 +55,7 @@ def view_table(request):
 	
 
 def update_data(request):
-	facility = Facility.objects.filter(
+	facility = Sample.objects.filter(
 		Facility_Name=request.session['user.profile.facility'])[0]
 
 	form=AddDataForms(instance=facility)
@@ -99,7 +100,7 @@ def view_all(request):
 	#zipvalues = zip(fields, values)
 	
 
-	facility = All.objects.filter(
+	facility = Info.objects.filter(
 		Facility_Name=request.session['user.profile.facility'])[0]
 
 	context = {
@@ -110,14 +111,11 @@ def view_all(request):
 
 def update_all(request):
 
-	fields = All._meta.get_fields()
 
-
-	facility = All.objects.filter(
+	facility = Info.objects.filter(
 		Facility_Name=request.session['user.profile.facility'])[0]
 
 	form = AddAllForms(instance=facility)
-	values = list(form.fields.values())
 
 	#zipvalues = zip(fields, values)
 
@@ -131,9 +129,12 @@ def update_all(request):
 		form = AddAllForms(request.POST, instance=facility)
 
 		if form.is_valid():
+			print('save')
 			form.save()
 
 			return redirect('extension')
+		
+		
 
 		return redirect('extension')
 
@@ -148,13 +149,13 @@ def update_all(request):
 
 
 class SearchResultsView(ListView):
-	model=Facility
+	model=Sample
 	template_name='searchresults.html'
 
 	def get_queryset(self):
 
 		queryset=self.request.GET.get('q')
-		objects=Facility.objects.filter(
+		objects=Sample.objects.filter(
 			Q(facility__icontains=queryset))
 
 		return objects

@@ -21,8 +21,7 @@ class Contact(models.Model):
     message = models.TextField()
 class Facility(models.Model):
     # county = models.CharField(max_length=100,null=False)
-    Facility_Name = models.CharField(
-        unique=True, db_index=False, auto_created=False, max_length=50)
+    Facility_Name = models.CharField(max_length=50, null=False, unique=True)
     County = models.CharField(max_length=50)
     Timestamp = models.DateTimeField(max_length=50)
     As_of = models.DateField(max_length=30)

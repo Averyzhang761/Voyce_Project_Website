@@ -1,4 +1,4 @@
-from table.models import Facility
+from project_track.models import Sample
 from django.forms import ModelForm
 from django import forms
 #from .models import User
@@ -12,9 +12,9 @@ sys.path.append(os.path.abspath(os.path.join('..', 'table')))
 
 # Create your models here.
 
-names = Facility.objects.values('Facility_Name')
+names = Sample.objects.values('Facility_Name')
 facilities = [name['Facility_Name'] for name in names]
-county_names = Facility.objects.values('County')
+county_names = Sample.objects.values('County')
 print(type(county_names))
 #counties = list(set(county_names['county']))
 counties = [name['County'] for name in county_names]
@@ -28,9 +28,8 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     county = forms.ChoiceField(widget = forms.Select, choices=COUNTY_CHOICE, required=True)
-    #county = forms.ModelChoiceField(queryset=Facility.objects.order_by('county').values_list('county', flat=True).distinct())
     facility = forms.ChoiceField(widget = forms.Select, choices=FACILITY_CHOICES, required=True)
-    print(Facility.objects.order_by('County').values_list(
+    print(Sample.objects.order_by('County').values_list(
         'County', flat=True).distinct())
     # queryset=Add_Site.objects.order_by('subnet').values_list('subnet', flat=True).distinct()
     # facility = forms.ChoiceField(choices=FACILITY_CHOICES)

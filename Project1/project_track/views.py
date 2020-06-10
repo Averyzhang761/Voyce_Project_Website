@@ -43,7 +43,8 @@ from django.contrib import messages
 
 from django.conf import settings
 from django.core.mail import send_mail
-from table.models import Facility, PivotFacility
+from table.models import PivotFacility
+from project_track.models import Sample
 
 from django.http import JsonResponse
 
@@ -86,6 +87,7 @@ def log_in(request):
 	if request.method == "POST":
 		message = 'Your email and password did not match. Please try again.'
 		try:
+			
 			form = forms.UserForm(request.POST)
 			user_email = request.POST.get('email')
 			user_password = request.POST.get('password')
@@ -95,7 +97,8 @@ def log_in(request):
 			#request.session['email'] = user_email
 			# login(request)
 			user = User.objects.get(email=user_email)
-			facility = Facility.objects.filter(Facility_Name=user.profile.facility)[0]
+			facility = Sample.objects.filter(
+				Facility_Name=user.profile.facility)[0]
 			request.session['user.profile.facility'] = user.profile.facility
 			female_medicaid = facility.Open_Female_Medicaid_Beds
 			male_medicaid = facility.Open_Male_Medicaid_Beds
@@ -124,23 +127,6 @@ def log_in(request):
 			return render(request, 'table.html', context)
 
 			
-			'''form = AddDataForms(instance=facility)
-
-			if request.method == 'POST':
-				form = AddDataForms(request.POST, instance=facility)
-
-				if form.is_valid():
-					form.save()
-
-					return redirect('new')
-
-			context = {
-				'form': form,
-				'facility': facility
-			}
-			'''
-
-			return render(request, 'newdata.html', context)
 
 			#user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
 			# user=authenticate(request, email=user_email, password=request.POST.get('password'))
@@ -246,7 +232,7 @@ def load_facilities(request):
 	# user_county = request.GET.get('countyID')
 	# user_county = "county_B"
 	print(user_county)
-	facilities = Facility.objects.filter(county=user_county).values('name').order_by('name')
+	facilities = Sample.objects.filter(county=user_county).values('name').order_by('name')
 	# for item in facilities:
 	#     item['name'] = model_to_dict(item['name'])
 
