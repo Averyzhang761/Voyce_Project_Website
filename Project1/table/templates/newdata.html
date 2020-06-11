@@ -17,14 +17,6 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   {#	<link rel="stylesheet" type="text/css" href="{% static '/css/main.html' %}">#}
-
-</head>
-
-<body>
-  {%  include 'navbar.html' %}
-  <div class="container-fluid">
-</body>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
   integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -32,7 +24,12 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-</html>
+</head>
+
+<body>
+  {%  include 'navbar.html' %}
+  <div class="container-fluid"></div>
+
 <p class="text-lg-left" style="font-size:160%;">Facility: {{facility.Facility_Name}}</p>
 <p class="text-left" style="font-size:160%;">Last Modified: {{facility.Timestamp}}</p>
 <!--
@@ -79,5 +76,10 @@
 
 <button class="btn btn-secondary" type="submit" name='cancel'>Cancel</button>
 
-{% endblock %}
+</form>
+</body>
 
+
+</html>
+
+{% endblock %}
