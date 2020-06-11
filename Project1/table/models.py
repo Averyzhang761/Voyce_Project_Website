@@ -27,6 +27,11 @@ class PivotFacility(models.Model):
     medicare = models.SmallIntegerField(blank=True, null=True)
     private = models.SmallIntegerField(blank=True, null=True)
     dementia = models.SmallIntegerField(blank=True, null=True)
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 1a39cac56d919a199c2cca706337fecfbe2493a2
 '''
 class Facility(models.Model):
     # county = models.CharField(max_length=100,null=False)
