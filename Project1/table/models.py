@@ -19,6 +19,14 @@ class Contact(models.Model):
     email = models.EmailField(max_length=100)
     purpose = models.CharField(max_length=2, choices=PURPOSE_CHOICES)
     message = models.TextField()
+
+
+class PivotFacility(models.Model):
+    gender = models.CharField(max_length=10)
+    medicaid = models.SmallIntegerField()
+    medicare = models.SmallIntegerField(blank=True, null=True)
+    private = models.SmallIntegerField(blank=True, null=True)
+    dementia = models.SmallIntegerField(blank=True, null=True)
 '''
 class Facility(models.Model):
     # county = models.CharField(max_length=100,null=False)

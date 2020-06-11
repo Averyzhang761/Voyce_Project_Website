@@ -23,11 +23,11 @@ Database.install_as_MySQLdb()
 
 
 class Sample(models.Model):
-    Facility_Name = models.CharField(
-        primary_key=True, unique=False, db_index=False, auto_created=False, max_length=50)
+    id = models.AutoField(auto_created=True, unique=True, primary_key=True)
+    Facility_Name = models.CharField(unique=False, db_index=False, auto_created=False, max_length=50)
     County = models.CharField(max_length=50)
     Timestamp = models.DateTimeField(max_length=50, auto_now=True)
-    As_of = models.DateField(max_length=30)
+    As_of = models.DateField(max_length=30, auto_now_add=True)
     Open_Female_Medicaid_Beds = models.IntegerField(blank=True)
     Open_Male_Medicaid_Beds = models.IntegerField(blank=True)
     Open_Female_Medicare_Beds = models.IntegerField(blank=True)

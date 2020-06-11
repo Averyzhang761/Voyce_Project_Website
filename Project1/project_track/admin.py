@@ -41,7 +41,7 @@ class SampleAdmin(admin.ModelAdmin):
                     "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
                     "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",
                     "Open_Male_Dementia_Beds"]
-    list_editable = ["As_of", "Open_Female_Medicaid_Beds",
+    list_editable = ["Open_Female_Medicaid_Beds",
                      "Open_Male_Medicaid_Beds", "Open_Female_Medicare_Beds",
                      "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
                      "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",
