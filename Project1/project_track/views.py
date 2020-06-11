@@ -91,44 +91,49 @@ def log_in(request):
 		try:
 			
 			form = forms.UserForm(request.POST)
-			user_email = request.POST.get('email')
 			user_password = request.POST.get('password')
-			user_object = User.objects.get(
-				email=user_email, password=user_password)
-			context = {"objects": user_object}
-			#request.session['email'] = user_email
-			# login(request)
+			user_email = request.POST.get('email')
 			user = User.objects.get(email=user_email)
-			facility = Sample.objects.filter(
-				Facility_Name=user.profile.facility)[0]
-			request.session['user.profile.facility'] = user.profile.facility
-			female_medicaid = facility.Open_Female_Medicaid_Beds
-			male_medicaid = facility.Open_Male_Medicaid_Beds
-			female_medicare = facility.Open_Female_Medicare_Beds
-			male_medicare = facility.Open_Male_Medicare_Beds
-			female_private = facility.Open_Female_Private_Pay_Beds
-			male_private = facility.Open_Male_Private_Pay_Beds
-			female_dementia = facility.Open_Female_Dementia_Beds
-			male_dementia = facility.Open_Male_Dementia_Beds
-			female = PivotFacility.objects.create(gender='Female',
-												  medicaid=female_medicaid,
-												  medicare=female_medicare,
-												  private=female_private,
-												  dementia=female_dementia)
-			male = PivotFacility.objects.create(gender='Male',
-												medicaid=male_medicaid,
-												medicare=male_medicare,
-												private=male_private,
-												dementia=male_dementia)
+			# print("user", user.password)
+			user_password_db = user.password
+			print(check_password(user_password, user_password_db))
+			if check_password(user_password, user_password_db) == True and user.is_active == True:
 
-			context = {
-				'female': female,
-				'male': male,
-				'facility': facility,
-			}
-			return render(request, 'table.html', context)
+				user = User.objects.get(email=user_email)
+				facility = Sample.objects.filter(
+					Facility_Name=user.profile.facility)[0]
+				request.session['user.profile.facility'] = user.profile.facility
+				female_medicaid = facility.Open_Female_Medicaid_Beds
+				male_medicaid = facility.Open_Male_Medicaid_Beds
+				female_medicare = facility.Open_Female_Medicare_Beds
+				male_medicare = facility.Open_Male_Medicare_Beds
+				female_private = facility.Open_Female_Private_Pay_Beds
+				male_private = facility.Open_Male_Private_Pay_Beds
+				female_dementia = facility.Open_Female_Dementia_Beds
+				male_dementia = facility.Open_Male_Dementia_Beds
+				female = PivotFacility.objects.create(gender='Female',
+													  medicaid=female_medicaid,
+													  medicare=female_medicare,
+													  private=female_private,
+													  dementia=female_dementia)
+				male = PivotFacility.objects.create(gender='Male',
+													medicaid=male_medicaid,
+													medicare=male_medicare,
+													private=male_private,
+													dementia=male_dementia)
 
-			
+				context = {
+					'female': female,
+					'male': male,
+					'facility': facility,
+				}
+				print("table")
+				return render(request, 'table.html', context)
+
+			else:
+
+				return render(request, 'login.html', {'message':"User is not yet approved, please try again later."})
+
 
 			#user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
 			# user=authenticate(request, email=user_email, password=request.POST.get('password'))
@@ -191,7 +196,7 @@ def sign_up(request):
 			user.profile.county = form.cleaned_data.get('county')
 			user.profile.facility = form.cleaned_data.get('facility')
 			user.email = form.cleaned_data.get('email')
-			user.set_password = form.cleaned_data.get('password2')
+			user.set_password(form.cleaned_data.get('password2'))
 			user.first_name = form.cleaned_data.get('first_name')
 			user.last_name = form.cleaned_data.get('last_name')
 		# user.profile.first_name = request.POST.get('first_name')
@@ -235,7 +240,7 @@ def load_facilities(request):
 	# user_county = request.GET.get('countyID')
 	# user_county = "county_B"
 	print(user_county)
-	facilities = Sample.objects.filter(county=user_county).values('name').order_by('name')
+	facilities = Sample.objects.filter(County=user_county).values('Facility_Name').order_by('Facility_Name')
 	# for item in facilities:
 	#     item['name'] = model_to_dict(item['name'])
 
@@ -314,7 +319,7 @@ def activate(request, uidb64, token):
 		# user.email_user(subject, message)
 		# to_email = form.cleaned_data.get('email')
 		#to_email = request.POST.get('email')
-		email = EmailMessage(subject, message, to=['aubrey.lan@outlook.com'])
+		email = EmailMessage(subject, message, to=['no-reply@voycestl.org'])
 		email.send()
 		return redirect('login')
 		#context = {'uidb64': uidb64, 'token': token}

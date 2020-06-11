@@ -66,59 +66,10 @@
                     }
                 });
             });
-            {#$.ajax({ # }
-            { #  type: 'GET', # }
-            { #  url: "test/", # }
-            { #  dataType: 'text', # }
-            { #  async: true, # }
-            { #  success: function(data) { var output = data; alert(output) }, # }
-            { #  error: function(data) { alert('fail') }#}
-            { ## }
-            { #    });#
-            }
-            {## }
+
             // });
             //e.preventDefault();
 
-            {#$("submit").click(function (event) {# }
-        { #    event.preventDefault(); });#
-            }
-            {#    function Validate() {# }
-                {#    var ddlFruits = document.getElementById("facility");# }
-                {#        if (ddlFruits.value == "") {# }
-                    {#            console.log('wrong');# }
-                    {#            //If the "Please Select" option is selected display error.#}
-                        {#            alert("Please select an option!");# }
-                        {#            return false;# }
-                        {# }#
-                    }
-                    {#        console.log('right here');# }
-                    {#        return true;# }
-
-
-                    {#$("#signupForm").validate({ # }
-        { #rules: { # }
-        { #    select_field: { # }
-        { #        required: { # }
-        { #            depends: function(element) {# }
-        { #                if('' == $('#facility').val()){# }
-                        {#                //Set predefined value to blank.#}
-                            {#                    alert("Please select an facility!");# }
-                            {#                    return false;# }
-                            {#                //$('select#facility').val('Union Manor RCF_2');#}
-                                {# }else {# }
-                                {#                    alert("select an facility!");# }
-                                {#                    return true;# }
-                                {# }#
-                            }
-                            {## }
-                            {# }
-                        }
-                    }
-                }
-            });#}
-
-        {## }
 
         //$('#county').on('click', function() {
         //        $("#signupForm").validate();
