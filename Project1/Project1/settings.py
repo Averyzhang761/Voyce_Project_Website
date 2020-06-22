@@ -21,6 +21,7 @@ SECRET_KEY = '9d+t)2%bfgq8id(hcbq971$i$7gv8b!7pm5!m$1esqs!c5dbcx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +39,8 @@ EMAIL_HOST_PASSWORD = 'LongTerm2020!'
 
 PASSWORD_RESET_TIMEOUT = 10
 
+TEMMPLATE_LOADERS = ['apptemplates.Loader']
+
 INSTALLED_APPS = [
     #'Project1.apps.SuitConfig',
     'django.contrib.admin',
@@ -49,6 +52,8 @@ INSTALLED_APPS = [
     # very important!!!
     'project_track.apps.ProjectTrackConfig',
     'table',
+    'chartit',
+    'six'
 ]
 
 MIDDLEWARE = [

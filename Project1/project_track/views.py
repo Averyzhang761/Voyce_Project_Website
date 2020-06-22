@@ -56,6 +56,11 @@ from .models import Sample
 from .models import Sample
 from table.forms import AddDataForms
 
+from chartit import DataPool, Chart, PivotDataPool, PivotChart
+from django.db.models import Avg, Sum, Count, Min, Max, Case, When, F
+
+
+
 
 # Create your views here.
 
@@ -100,8 +105,13 @@ def log_in(request):
 			if check_password(user_password, user_password_db) == True and user.is_active == True:
 
 				user = User.objects.get(email=user_email)
+				user.refresh_from_db()
+			
+				
 				facility = Sample.objects.filter(
 					Facility_Name=user.profile.facility)[0]
+				
+				
 				request.session['user.profile.facility'] = user.profile.facility
 				female_medicaid = facility.Open_Female_Medicaid_Beds
 				male_medicaid = facility.Open_Male_Medicaid_Beds
@@ -330,81 +340,6 @@ def activate(request, uidb64, token):
 		return redirect('signup')
 
 
-'''
-def signup(request):
-
-	form = SignUpForm(request.POST)
-
-	if form.is_valid():
-		user = form.save()
-		user.refresh_from_db()
-		user.profile.first_name = form.cleaned_data.get('first_name')
-		user.profile.last_name = form.cleaned_data.get('last_name')
-		user.profile.facility = form.cleaned_data.get('facility')
-		# user can't login until link confirmed
-		user.is_active = False
-		user.save()
-		current_site = get_current_site(request)
-		subject = 'Activate Your Account'
-		message = render_to_string('account_activation_email.html', {
-			'user': user,
-			'domain': current_site.domain,
-			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-			'token': account_activation_token.make_token(user),
-		})
-		#user.email_user(subject, message)
-		to_email = form.cleaned_data.get('email')
-		email = EmailMessage(subject, message, to=[to_email])
-		email.send()
-		return redirect('account_activation_sent')
-
-	return render(request, 'signup3.html', {'form': form})
-
-
-def account_activation_sent(request):
-	return render(request, 'account_activation_sent.html')
-
-def activate(request, uidb64, token):
-	try:
-		uid = force_text(urlsafe_base64_decode(uidb64))
-		user = User.objects.get(pk=uid)
-	except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-		user = None
-
-	if user is not None and account_activation_token.check_token(user, token):
-		user.is_active = True
-		#user.profile.email_confirmed = True
-		user.save()
-		auth_login(request, user)
-		return redirect('login')
-		#context = {'uidb64': uidb64, 'token': token}
-	   # return render(request, 'account_activation_email.html', context)
-	else:
-		return render(request, 'signup.html')
-'''
-
-
-# def forgetpsd(request):
-#     sub = forms.Subscribe()
-#     if request.method == 'POST':
-#         sub = forms.Subscribe(request.POST)
-#         subject = 'Reset your password'
-#         message = 'Please use this link to reset your password, http://127.0.0.1:8000/reset'
-#         user_email = sub['email'].value()
-#         if(User.objects.filter(email=user_email).exists()):
-#             # print(User.objects.get(email=user_email))
-#             recepient = str(sub['email'].value())
-#             message = message + \
-#                 iri_to_uri(quote('/resetpassword/%s' % quote(recepient)))
-#
-#             print(message)
-#             send_mail(subject, message, settings.EMAIL_HOST_USER,
-#                       [recepient], fail_silently=False)
-#             return render(request, 'success.html', {'recepient': recepient})
-#         else:
-#             # print(sub.errors)
-#             return render(request, 'forgetpsd.html', {'form': sub, "message": 'Your email does not exist. Please sign up first.'})
-#     return render(request, 'forgetpsd.html', {'form': sub})
 def forget_password(request):
 	sub = forms.Subscribe()
 	if request.method == 'POST':
@@ -476,46 +411,67 @@ class ResetPasswordView(View):
 			return render(request, 'test.html')
 
 def test(request):
-	# objects, created=User.objects.get_or_create(user_id=2, user_name = 'archt', first_name = 'arch', last_name = 'talents',
-	#  email = 'arch@talentu', user_password = '12345678')
-	# if created:
-	#     print('new instance')
-	#     # , user_name = 'avery61', first_name = 'Avery', last_name = 'Zhang',
-	#     # email = 'lanxi.z@wustl.edu', user_password = '12345678
-	#     # objects.set_user_name('archt')
-	#     # objects.set_first_name('arch')
-	#     # objects.set_last_name('talents')
-	#     # objects.set_email('arch@talents')
-	#     # objects.set_user_password('archtt121')
-	#     # objects.save()
-	#     print(created)
-	#     objects.user_name='archt'
-	#     objects.first_name='arch'
-	#     objects.last_name='talents'
-	#     objects.email='arch@talents'
-	#     objects.user_password='12345678'
-	#     objects.save()
-	# User.objects.create()
-	#query_results = objects
 
-	# objects = User.objects.create(user_id=2, user_name='archt', first_name='arch', last_name='talents',
-	#                                        email = 'arch@talentu', user_password = '12345678')
-	# objects=User.objects.get(user_id=2)
-	# objects.delete()
-	# objects=User.objects.get(user_name='jamesz')
-	# objects = User.objects.all().values
-	# context = {"objects": objects}
-	#
-	# print(context)
-	# if request.method == "POST":
-	#     context = {}
-	#     # context['form'] = PersonForm()
-	#     # new_form = form.save()
-	#     return render(request, 'test.html', context)
-	#
-	# else:
-	#     context = {}
-	#     # context['form'] = form
-	#     users = User.objects.order_by('user_name')
 	print(request.GET.get('countyID'))
 	return render(request, 'signup.html')
+
+
+def dashboard_view(request):
+    ds = PivotDataPool(
+        series=[
+            {'options': {
+                'source': Sample.objects.annotate(sumbed=F('Open_Female_Medicaid_Beds')+F('Open_Male_Medicaid_Beds')+F('Open_Female_Medicare_Beds')+F('Open_Male_Medicare_Beds')+F('Open_Female_Private_Pay_Beds')+F('Open_Male_Private_Pay_Beds')+F('Open_Female_Dementia_Beds')+F('Open_Male_Dementia_Beds'), summedicaid=F('Open_Female_Medicaid_Beds')+F('Open_Male_Medicaid_Beds')),
+                # Sample.objects.raw('SELECT Open_Female_Medicaid_Beds + Open_Male_Medicaid_Beds + Open_Female_Medicare_Beds+Open_Male_Medicare_Beds+Open_Female_Private_Pay_Beds+Open_Male_Private_Pay_Beds+Open_Female_Dementia_Beds+Open_Male_Dementia_Beds AS sumbed,Open_Female_Medicaid_Beds+Open_Male_Dementia_Beds AS summedicaid from Sample'),
+                'categories': 'County'
+
+            },
+
+                'terms': {
+                    'Total Bed': Sum('sumbed'), 'Total Medicaid Bed': Sum('summedicaid'),
+                    # 'legend_by':['Region'],
+            }
+            }])
+    pivcht = PivotChart(
+        datasource=ds,
+        series_options=[
+            {'options': {
+                'type': 'column'
+                # #type: 'bar' vertical x
+            },
+                'terms': ['Total Bed', 'Total Medicaid Bed'],
+            }],
+        chart_options={
+            'title': {
+                'text': 'Total Bed vs. Medicaid Bed'
+            },
+            'subtitle': {
+                'text': 'Across County',
+            },
+            'xAxis': {
+                'title': {'text': 'County'}},
+            'yAxis': {
+                'title': {'text': 'Number of Beds'}},
+            'legend': {
+                'layout': 'vertical',
+                'align': 'right',
+                'verticalAlign': 'center',
+                'x': -10,
+                'y': 30,  # smaller y, higher legend
+                'floating': True,
+                'borderWidth': 1,
+                "backgroundColor": '#EEEEEE',
+                'shadow': True,
+                'reversed': True
+            },
+            'plotOptions': {
+                'column': {  # if 'bar', not control column type, no label
+                    'dataLabels': {
+                        'enabled': True
+                    },
+                    'pointPadding': 0,
+                    'borderWidth': 4,  # larger width, slimmer bar
+                    'borderRadius': 1
+                }}, })
+
+    return render(request, 'dashboard.html', {'pivotlist': [pivcht]})
+
