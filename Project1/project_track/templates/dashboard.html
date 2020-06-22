@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <h1> Dashboard</h1>
+      <!-- jQuery CDN -->
+    <script
+    src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+    crossorigin="anonymous"></script>
+     <!-- highcharts CDN -->
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <link rel = "stylesheet" href = "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    {% load chartit %}
+    {{ pivotlist|load_charts:"pivcht" }}
+</head>
+<body>
+{#chart bed compare#}
+    </div>
+    <div id='pivcht' style="min-width: 310px; height: 400px; max-width: 1200px; margin: 0 auto">  </div>
+{#    <hr>#}
+{#    <div id='pivcht2' style="min-width: 310px; height: 400px; max-width: 900px; margin: 0 auto">  </div>#}
+{#    <hr>#}
+{#<a href="{% url 'bedchart' %}"role="button">Bed Availability Report </a>#}
+
+    <hr>
+{#  chart payment#}
+{#     <br/>#}
+      {#<!-- Just so that JSFiddle's Result label doesn't overlap the Chart -->#}
+     <select class="dropdown" id="dd">
+     <option value="" selected="selected">Select County</option>
+      <option value="data1">St. Louis</option>
+     <option value="data2">St. Charles</option>
+    </select>
+
+{#<select name="facilities">#}
+{#<option value="">---------</option>#}
+{#{% for facility in facilities %}#}
+{#<option>{{ facility.name }}</option>#}
+{#{% endfor %}#}
+{#</select>#}
+
+    <div class = "container" style="min-width: 310px; height: 500px; max-width: 1000px; margin: 0 auto">
+      <canvas id = "myChart"></canvas>
+  </div>
+
+  <script>
+
+
+    let myChart = document.getElementById('myChart').getContext('2d');
+
+    let barChart = new Chart(myChart,{
+      type: "bar",
+      data: {
+        labels:['Medicaid', 'Medicaid Pending', 'DMH', 'VA Contracts', 'Medicare A/B/Advantage', 'private pay'],
+        datasets:[{
+          label:"Number of Facilities",
+          data:[
+              {#{'data1':[{x:'Medicaid',y:19},{x:'Medicaid Pending',y:34},#}
+              {#    {x:'DMH',y:67},{x:'VA Contracts',y:30},{x:'Medicare A/B/Advantage',y:34},{x:'private pay',y:20}]#}
+          19,
+          45,
+          67,
+          23,
+          34,
+          34
+          ],
+        backgroundColor: 'orange'
+        }]
+      },
+      options:{
+          responsive: true,
+          title:{
+              display: true,
+              text: "Number of Facilities in Each Payment Acceptance Type",
+              fontsize: 500
+          },
+          legend:{
+              display: true,
+              position:'top'
+          },
+          layout:{
+              left: 22,
+              right: 22,
+              bottom: 0,
+              top: 52
+          }
+      }
+    });
+  </script>
+</body>
+</html>

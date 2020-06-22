@@ -53,7 +53,9 @@ def view_table(request):
 
 
 def update_data(request):
+	
 	n = len(Sample.objects.all())
+	print('len', n)
 	facility = Sample.objects.filter(
 		Facility_Name=request.session['user.profile.facility'])[0]
 
@@ -80,7 +82,7 @@ def update_data(request):
 			male_dementia = form.cleaned_data.get('Open_Male_Dementia_Beds')
 
 			newsample = Sample.objects.create(
-							id = facility.id + n+1,
+                            id=facility.id - facility.id + n+1,
 							Facility_Name=facility.Facility_Name,
 							County=facility.County,
 							Open_Female_Medicaid_Beds=female_medicaid,

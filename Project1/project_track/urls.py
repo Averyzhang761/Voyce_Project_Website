@@ -6,6 +6,7 @@ from django.conf.urls import url
 
 urlpatterns=[
     path('',views.log_in, name="login"),
+    path('admin/chart', views.dashboard_view, name='dashboard'),
     path('home/',views.home, name="home"),
     path('upload/', views.upload, name='upload'),
     path('signup/', views.sign_up, name="signup"),

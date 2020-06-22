@@ -27,7 +27,9 @@ class Sample(models.Model):
     Facility_Name = models.CharField(unique=False, db_index=False, auto_created=False, max_length=50)
     County = models.CharField(max_length=50)
     Timestamp = models.DateTimeField(max_length=50, auto_now=True)
+    #Timestamp = models.CharField(max_length=50)
     As_of = models.DateField(max_length=30, auto_now_add=True)
+    #As_of = models.CharField(max_length=50)
     Open_Female_Medicaid_Beds = models.IntegerField(blank=True)
     Open_Male_Medicaid_Beds = models.IntegerField(blank=True)
     Open_Female_Medicare_Beds = models.IntegerField(blank=True)
@@ -54,7 +56,6 @@ class Info(models.Model):
     Type = models.CharField(max_length=20)
     County = models.CharField(max_length=50)
     #Sub_Type = models.CharField(max_length=20, blank=True)
-    Number_of_Beds = models.IntegerField(blank=True)
     Address = models.CharField(max_length=200, blank=True)
     City = models.CharField(max_length=50, blank=True)
     State = models.CharField(max_length=30, blank=True)
@@ -67,11 +68,17 @@ class Info(models.Model):
     SW_Email = models.CharField(max_length=50, blank=True)
     Markt_or_Admission = models.CharField(max_length=50, blank=True)
     Markt_or_Admission_Email = models.CharField(max_length=50, blank=True)
+    Number_of_Beds = models.IntegerField(blank=True)
     Accept_New_Residents = models.CharField(max_length=50, blank=True)
     Age_Limit = models.IntegerField(blank=True)
     Memory_Care = models.CharField(max_length=50, blank=True)
     Behavior_or_Psych_Unit = models.CharField(max_length=50, blank=True)
-    Payments = models.CharField(max_length=20, blank=True)
+    Pay_Medicaid = models.CharField(max_length=50, blank=True)
+    Pay_Medicaid_Pending = models.CharField(max_length=50, blank=True)
+    Pay_Medicare = models.CharField(max_length=50, blank=True)
+    Pay_DMH = models.CharField(max_length=50, blank=True)
+    Pay_Private_Pay = models.CharField(max_length=50, blank=True)
+    VA_Contracts = models.CharField(max_length=50, blank=True)
     Accept_Quadriplegic_and_Paraplegic = models.CharField(
         max_length=50, blank=True)
     Accept_Patients_with_Chemical_Dependence_History = models.CharField(
@@ -83,15 +90,25 @@ class Info(models.Model):
         max_length=50, blank=True)
     Wound_Care = models.CharField(max_length=50, blank=True)
     Wander_Guard = models.CharField(max_length=50, blank=True)
-    VA_Contracts = models.CharField(max_length=50, blank=True)
     Respite_Care = models.CharField(max_length=50, blank=True)
     Coma = models.CharField(max_length=50, blank=True)
     Bariatric_Care = models.CharField(max_length=50, blank=True)
     IV_Therapy = models.CharField(max_length=50, blank=True)
-    Trach_Tube_or_Ventilator = models.CharField(max_length=50, blank=True)
-    Dialysis = models.CharField(max_length=30, blank=True)
+    Trach_Tube = models.CharField(max_length=50, blank=True)
+    Ventilator = models.CharField(max_length=50, blank=True)
+    Dialysis = models.CharField(max_length=50, blank=True)
     Notes = models.CharField(max_length=200, blank=True)
     Accept_COVID_Patients = models.CharField(max_length=50, blank=True)
+    Facility_Website =  models.CharField(
+        max_length=100, blank=True)
+    Facility_Facebook = models.CharField(
+        max_length=100, blank=True)
+    DHSS_Page = models.CharField(
+        max_length=100, blank=True)
+    Nursing_Home_Compare = models.CharField(
+        max_length=100, blank=True)
+    Google_Review_Page = models.CharField(
+        max_length=100, blank=True)
 
     def __unicode__(self):
         return self.Facility_Name + ' ' + self.County + ' ' + self.Type
