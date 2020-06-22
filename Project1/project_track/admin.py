@@ -61,30 +61,37 @@ class InfoAdmin(admin.ModelAdmin):
                     "Google_Review_Page", ]
     list_display_links = ["Facility_Name"]
     list_filter = (("Facility_Name", DropdownFilter),
-                                 ("Type", DropdownFilter),
-                                 ("County", DropdownFilter),
-                                 ("City", DropdownFilter),
-                                 ("Accept_New_Residents", DropdownFilter),
-                                 ("Number_of_Beds", DropdownFilter),
-                                 ("Age_Limit", DropdownFilter),
-                                 ("Memory_Care", DropdownFilter),
-                                 ("Behavior_or_Psych_Unit", DropdownFilter),
-                                 ("Accept_Quadriplegic_and_Paraplegic", DropdownFilter),
-                                 ("Accept_Patients_with_Chemical_Dependence_History",
-                                  DropdownFilter),
-                                 ("Hearing_Impairment_Accommodation", DropdownFilter),
-                                 ("Visual_Impairment_Accommodation", DropdownFilter),
-                                 ("Wound_Care", DropdownFilter),
-                                 ("Wander_Guard", DropdownFilter),
-                                 ("VA_Contracts", DropdownFilter),
-                                 ("Accept_Chemical_Dependence", DropdownFilter),
-                                 ("Respite_Care", DropdownFilter),
-                                 ("Coma", DropdownFilter),
-                                 ("Bariatric_Care", DropdownFilter),
-                                 ("IV_Therapy", DropdownFilter),
-                                 ("Dialysis", DropdownFilter),
-                                 ("Accept_COVID_Patients", DropdownFilter)
-                                 )
+                   ("Type", DropdownFilter),
+                   ("County", DropdownFilter),
+                   ("City", DropdownFilter),
+                   ("Accept_New_Residents", DropdownFilter),
+                   ("Number_of_Beds", DropdownFilter),
+                   ("Age_Limit", DropdownFilter),
+                   ("Memory_Care", DropdownFilter),
+                   ("Behavior_or_Psych_Unit", DropdownFilter),
+                   ("Pay_Medicaid", DropdownFilter),
+                   ("Pay_Medicaid_Pending", DropdownFilter),
+                   ("Pay_Medicare", DropdownFilter),
+                   ("Pay_DMH", DropdownFilter),
+                   ("Pay_Private_Pay", DropdownFilter),
+                   ("Accept_Quadriplegic_and_Paraplegic", DropdownFilter),
+                   ("Accept_Patients_with_Chemical_Dependence_History",
+                    DropdownFilter),
+                   ("Hearing_Impairment_Accommodation", DropdownFilter),
+                   ("Visual_Impairment_Accommodation", DropdownFilter),
+                   ("Wound_Care", DropdownFilter),
+                   ("Wander_Guard", DropdownFilter),
+                   ("VA_Contracts", DropdownFilter),
+                   ("Accept_Chemical_Dependence", DropdownFilter),
+                   ("Respite_Care", DropdownFilter),
+                   ("Coma", DropdownFilter),
+                   ("Bariatric_Care", DropdownFilter),
+                   ("IV_Therapy", DropdownFilter),
+                   ("Trach_Tube", DropdownFilter),
+                   ("Dialysis", DropdownFilter),
+                   ("Ventilator", DropdownFilter),
+                   ("Accept_COVID_Patients", DropdownFilter)
+                   )
     search_fields = ["Facility_Name"]
 
     def get_queryset(self, request):
@@ -137,5 +144,5 @@ class SampleAdmin(admin.ModelAdmin):
 
 admin.site.register(Info, InfoAdmin)
 admin.site.register(Sample, SampleAdmin)
-#admin.site.register(All,AllAdmin)
+# admin.site.register(All,AllAdmin)
 # admin.site.unregister(Group)
