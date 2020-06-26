@@ -43,7 +43,7 @@ class Sample(models.Model):
     def __unicode__(self):
         return self.Facility_Name + ' ' + self.County + ' '
     class Meta:
-        db_table = 'Sample'
+        db_table = 'project_track_sample'
         # Add verbose name
         verbose_name = 'Facility_bed_information'
 
@@ -117,7 +117,7 @@ class Info(models.Model):
     def __unicode__(self):
         return self.Facility_Name + ' ' + self.County + ' ' + self.Type
     class Meta:
-        db_table = 'Info'
+        db_table = 'project_track_info'
         # Add verbose name
         verbose_name = 'Facility_Attribute'
 
