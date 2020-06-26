@@ -13,7 +13,7 @@ from .filters import DropdownFilter
 admin.site.site_header = 'VOYCE Admin Management Console'
 
 
-class InfoAdmin(admin.ModelAdmin):
+class InfoAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_display = ["Facility_Name",
                     "Type",
                     "County",
@@ -95,7 +95,8 @@ class InfoAdmin(admin.ModelAdmin):
                    ("Accept_COVID_Patients", DropdownFilter)
                    )
     search_fields = ["Facility_Name"]
-
+    actions = ["export_as_csv"]
+    
     def get_queryset(self, request):
         queryset = super(InfoAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
@@ -117,8 +118,8 @@ class ExportCsvMixin:
         return response
     export_as_csv.short_description = "Export Selected"
 
-class SampleAdmin(admin.ModelAdmin):
-    list_display = ["Facility_Name", "County", "Timestamp", "As_of", "Open_Female_Medicaid_Beds",
+class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
+    list_display = ["Facility_Name", "County", "Timestamp", "Open_Female_Medicaid_Beds",
                     "Open_Male_Medicaid_Beds", "Open_Female_Medicare_Beds",
                     "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
                     "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",
@@ -132,7 +133,8 @@ class SampleAdmin(admin.ModelAdmin):
     list_filter = (("Facility_Name", DropdownFilter),
                    "Timestamp", ("County", DropdownFilter))
     search_fields = ["Facility_Name"]
-
+    actions = ["export_as_csv"]
+    
     def get_queryset(self, request):
         queryset = super(SampleAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
