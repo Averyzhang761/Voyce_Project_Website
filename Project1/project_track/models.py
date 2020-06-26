@@ -28,7 +28,7 @@ class Sample(models.Model):
     County = models.CharField(max_length=50)
     Timestamp = models.DateTimeField(max_length=50, auto_now=True)
     #Timestamp = models.CharField(max_length=50)
-    As_of = models.DateField(max_length=30, auto_now_add=True)
+#     As_of = models.DateField(max_length=30, auto_now_add=True)
     #As_of = models.CharField(max_length=50)
     Open_Female_Medicaid_Beds = models.IntegerField(blank=True)
     Open_Male_Medicaid_Beds = models.IntegerField(blank=True)
