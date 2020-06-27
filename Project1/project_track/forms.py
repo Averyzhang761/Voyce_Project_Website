@@ -15,7 +15,6 @@ sys.path.append(os.path.abspath(os.path.join('..', 'table')))
 names = Sample.objects.values('Facility_Name')
 facilities = [name['Facility_Name'] for name in names]
 county_names = Sample.objects.values('County')
-print(type(county_names))
 #counties = list(set(county_names['county']))
 counties = [name['County'] for name in county_names]
 uniqu_counties = list(set(counties))

@@ -137,7 +137,6 @@ def log_in(request):
 					'male': male,
 					'facility': facility,
 				}
-				print("table")
 				return render(request, 'table.html', context)
 
 			else:
@@ -193,7 +192,6 @@ def sign_up(request):
 		# print(request.POST.get('facilities'))
 		#print(form.cleaned_data)
 		if form.is_valid():
-			print("right here, valid")
 			user = form.save(commit=False)
 			#user.refresh_from_db()
 			user = User.objects.create_user(form)
@@ -249,7 +247,6 @@ def load_facilities(request):
 		print("it is Ajax")
 	# user_county = request.GET.get('countyID')
 	# user_county = "county_B"
-	print(user_county)
 	facilities = Sample.objects.filter(County=user_county).values('Facility_Name').order_by('Facility_Name')
 	# for item in facilities:
 	#     item['name'] = model_to_dict(item['name'])
