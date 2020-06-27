@@ -151,7 +151,6 @@ def update_all(request):
 		form = AddAllForms(request.POST, instance=facility)
 
 		if form.is_valid():
-			print('save')
 			form.save()
 
 			return redirect('extension')

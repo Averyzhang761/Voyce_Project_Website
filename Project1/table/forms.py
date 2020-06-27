@@ -20,9 +20,7 @@ class AddDataForms(forms.ModelForm):
 class AddAllForms(forms.ModelForm):
     class Meta:
         model = Info
-        fields = ["Facility_Name",
-                  "Type",
-                  "County",
+        fields = ["County",
                   "Address",
                   "City",
                   "State",

@@ -101,7 +101,7 @@ class InfoAdmin(admin.ModelAdmin):
 
 
 class SampleAdmin(admin.ModelAdmin):
-    list_display = ["Facility_Name", "County", "Timestamp", "As_of", "Open_Female_Medicaid_Beds",
+    list_display = ["Facility_Name", "County", "Timestamp", "Open_Female_Medicaid_Beds",
                     "Open_Male_Medicaid_Beds", "Open_Female_Medicare_Beds",
                     "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
                     "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",

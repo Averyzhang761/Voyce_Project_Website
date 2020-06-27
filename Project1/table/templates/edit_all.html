@@ -58,6 +58,7 @@
 <form action="{% url 'newextension' %}" method="post">
     {% csrf_token %}
     {{ form.non_field_errors }}
+    {{ form.errors }}
 <h1>Data</h1>
 <table style="width:100%" class="table table-striped">
     <tr>
@@ -66,7 +67,7 @@
     </tr>
     <tr>
         <th style="width:50%">Type</th>
-        <td>{{form.Type}}</td>
+        <td>{{facility.Type}}</td>
     </tr>
     <tr>
         <th style="width:50%">County</th>
