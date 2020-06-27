@@ -40,7 +40,11 @@ class Sample(models.Model):
     Notes = models.CharField(max_length=200, blank=True)
 
     def __unicode__(self):
-        return self.Facility_Name + ' ' + self.County
+        return self.Facility_Name + ' ' + self.County + ' '
+    class Meta:
+        db_table = 'project_track_sample'
+        # Add verbose name
+        verbose_name = 'Facility_bed_information'
 
 
 names = Sample.objects.values('Facility_Name')
@@ -111,7 +115,10 @@ class Info(models.Model):
 
     def __unicode__(self):
         return self.Facility_Name + ' ' + self.County + ' ' + self.Type
-
+    class Meta:
+        db_table = 'project_track_info'
+        # Add verbose name
+        verbose_name = 'Facility_Attribute'
 
 class Profile(models.Model):
     user = models.OneToOneField(

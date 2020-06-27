@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 # Register your models here.
+import csv
+from django.http import HttpResponse
 
 from .models import Info
 
@@ -10,8 +12,23 @@ from .filters import DropdownFilter
 
 admin.site.site_header = 'VOYCE Admin Management Console'
 
+class ExportCsvMixin:
+    def export_as_csv(self, request, queryset):
 
-class InfoAdmin(admin.ModelAdmin):
+        meta = self.model._meta
+        field_names = [field.name for field in meta.fields]
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename={}.csv'.format(meta)
+        writer = csv.writer(response)
+
+        writer.writerow(field_names)
+        for obj in queryset:
+            row = writer.writerow([getattr(obj, field) for field in field_names])
+        return response
+    export_as_csv.short_description = "Export Selected"
+    
+class InfoAdmin(admin.ModelAdmin, ExportCsvMixin):
     list_display = ["Facility_Name",
                     "Type",
                     "County",
@@ -93,14 +110,16 @@ class InfoAdmin(admin.ModelAdmin):
                    ("Accept_COVID_Patients", DropdownFilter)
                    )
     search_fields = ["Facility_Name"]
-
+    actions = ["export_as_csv"]
+    
     def get_queryset(self, request):
         queryset = super(InfoAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
         return queryset
 
 
-class SampleAdmin(admin.ModelAdmin):
+
+class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_display = ["Facility_Name", "County", "Timestamp", "Open_Female_Medicaid_Beds",
                     "Open_Male_Medicaid_Beds", "Open_Female_Medicare_Beds",
                     "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
@@ -115,7 +134,8 @@ class SampleAdmin(admin.ModelAdmin):
     list_filter = (("Facility_Name", DropdownFilter),
                    "Timestamp", ("County", DropdownFilter))
     search_fields = ["Facility_Name"]
-
+    actions = ["export_as_csv"]
+    
     def get_queryset(self, request):
         queryset = super(SampleAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
