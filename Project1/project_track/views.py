@@ -375,10 +375,10 @@ def reset_password(request):
 			user_object = User.objects.get(email=email)
 			user_object.refresh_from_db()
 			user_object.profile.email_confirmed = True
-			user_object.password = user_password_conf
+			user_object.set_password(user_password_conf)
 			#user_object.profile_user.save()
 			user_object.save()
-			return render(request, 'login.html', {"message": 'Password reset, please log in again'})
+			return render(request, 'reset_success.html', {"message": 'Password reset, please log in again'})
 		return render(request, 'reset_password.html', {'form': form})
 	return render(request, 'reset_password.html', {'form': form})
 
