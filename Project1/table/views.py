@@ -13,6 +13,8 @@ from django.views.generic.edit import DeleteView
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
+def back_to_log_in(request):
+	return render(request, "login.html")
 
 def index(request):
 	return render(request, 'index.html')
