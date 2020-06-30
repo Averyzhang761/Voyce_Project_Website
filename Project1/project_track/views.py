@@ -137,7 +137,8 @@ def log_in(request):
 					'male': male,
 					'facility': facility,
 				}
-				return render(request, 'table.html', context)
+				#return render(request, 'table.html', context)
+				return redirect(view_table)
 
 			else:
 
