@@ -76,7 +76,7 @@ def update_data(request):
 		if form.is_valid():
 			female_medicaid = form.cleaned_data.get('Open_Female_Medicaid_Beds')
 			male_medicaid = form.cleaned_data.get('Open_Male_Medicaid_Beds')
-			female_medicare = form.cleaned_data.get('Open_Male_Medicare_Beds')
+			female_medicare = form.cleaned_data.get('Open_Female_Medicare_Beds')
 			male_medicare = form.cleaned_data.get('Open_Male_Medicare_Beds')
 			female_private = form.cleaned_data.get('Open_Female_Private_Pay_Beds')
 			male_private = form.cleaned_data.get('Open_Male_Private_Pay_Beds')
