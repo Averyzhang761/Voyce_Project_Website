@@ -26,7 +26,7 @@ def index(request):
 def view_table(request):
 
 	facility = Sample.objects.filter(
-		Facility_Name=request.session['user.profile.facility'])[0]
+		Facility_Name=request.session['user.profile.facility']).latest('id')
 	female_medicaid = facility.Open_Female_Medicaid_Beds
 	male_medicaid = facility.Open_Male_Medicaid_Beds
 	female_medicare = facility.Open_Female_Medicare_Beds
@@ -56,10 +56,10 @@ def view_table(request):
 
 def update_data(request):
 	
-	n = len(Sample.objects.all())
+	n = Sample.objects.latest('id').id
 	print('len', n)
 	facility = Sample.objects.filter(
-		Facility_Name=request.session['user.profile.facility'])[0]
+		Facility_Name=request.session['user.profile.facility']).latest('id')
 
 	form = AddDataForms(instance=facility)
 	#instance=facility
@@ -84,7 +84,7 @@ def update_data(request):
 			male_dementia = form.cleaned_data.get('Open_Male_Dementia_Beds')
 
 			newsample = Sample.objects.create(
-                            id=facility.id - facility.id + n+1,
+                            id=n+1,
 							Facility_Name=facility.Facility_Name,
 							County=facility.County,
 							Open_Female_Medicaid_Beds=female_medicaid,
@@ -96,6 +96,10 @@ def update_data(request):
 							Open_Female_Dementia_Beds=female_dementia,
 							Open_Male_Dementia_Beds=male_dementia,
 			)
+
+			print(newsample.id)
+			newsample.id = n+1
+			print(newsample.id)
 			newsample.save()
 			return redirect('view_table')
 

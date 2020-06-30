@@ -23,7 +23,7 @@ Database.install_as_MySQLdb()
 
 
 class Sample(models.Model):
-    id = models.AutoField(auto_created=True, unique=True, primary_key=True)
+    id = models.AutoField(unique=True, primary_key=True)
     Facility_Name = models.CharField(unique=False, db_index=False, auto_created=False, max_length=50)
     County = models.CharField(max_length=50)
     Timestamp = models.DateTimeField(max_length=50, auto_now=True)
