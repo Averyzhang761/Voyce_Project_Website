@@ -14,6 +14,7 @@ sys.path.append(os.path.abspath(os.path.join('..', 'table')))
 
 names = Sample.objects.values('Facility_Name')
 facilities = [name['Facility_Name'] for name in names]
+uniqu_facilities = list(set(facilities))
 county_names = Sample.objects.values('County')
 #counties = list(set(county_names['county']))
 counties = [name['County'] for name in county_names]
@@ -21,7 +22,7 @@ uniqu_counties = list(set(counties))
 #uniqu_counties = ['County_A','County_B']
 #counties = uniqu_counties
 COUNTY_CHOICE = tuple([(county, county) for county in uniqu_counties])
-FACILITY_CHOICES = tuple([(facility, facility) for facility in facilities])
+FACILITY_CHOICES = tuple([(facility, facility) for facility in uniqu_facilities])
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
