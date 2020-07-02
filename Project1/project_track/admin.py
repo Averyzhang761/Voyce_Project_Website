@@ -135,7 +135,8 @@ class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
                    "Timestamp", ("County", DropdownFilter))
     search_fields = ["Facility_Name"]
     actions = ["export_as_csv"]
-    
+    def has_add_permission(self, request):
+        return False
     def get_queryset(self, request):
         queryset = super(SampleAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
