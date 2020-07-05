@@ -25,11 +25,11 @@ Database.install_as_MySQLdb()
 class Sample(models.Model):
     def number():
         no = Sample.objects.latest('id')
-    no = no.id
-    if no == None:
-        return 1
-    else:
-        return no + 1
+        no = no.id
+        if no == None:
+            return 1
+        else:
+            return no + 1
 
     id = models.IntegerField(unique=True, primary_key=True,default=number)
     #id = models.AutoField(unique=True, primary_key=True)
