@@ -23,10 +23,19 @@ Database.install_as_MySQLdb()
 
 
 class Sample(models.Model):
-    id = models.AutoField(unique=True, primary_key=True)
+        def number():
+        no = Sample.objects.latest('id')
+        no = no.id
+        if no == None:
+            return 1
+        else:
+            return no + 1
+
+    id = models.IntegerField(unique=True, primary_key=True,default=number)
+    #id = models.AutoField(unique=True, primary_key=True)
     Facility_Name = models.CharField(unique=False, db_index=False, auto_created=False, max_length=50)
     County = models.CharField(max_length=50)
-    Timestamp = models.DateTimeField(max_length=50, auto_now=True)
+    Timestamp = models.DateTimeField(max_length=50, auto_now_add=True)
     #Timestamp = models.CharField(max_length=50)
     #As_of = models.CharField(max_length=50)
     Open_Female_Medicaid_Beds = models.IntegerField(blank=True)
