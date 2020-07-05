@@ -24,7 +24,7 @@ Database.install_as_MySQLdb()
 
 class Sample(models.Model):
         def number():
-        no = Sample.objects.latest('id')
+            no = Sample.objects.latest('id')
         no = no.id
         if no == None:
             return 1
