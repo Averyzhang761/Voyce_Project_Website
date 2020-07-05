@@ -125,18 +125,18 @@ class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
                     "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
                     "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",
                     "Open_Male_Dementia_Beds"]
-    list_editable = ["Open_Female_Medicaid_Beds",
-                     "Open_Male_Medicaid_Beds", "Open_Female_Medicare_Beds",
-                     "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
-                     "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",
-                     "Open_Male_Dementia_Beds"]
+#     list_editable = ["Open_Female_Medicaid_Beds",
+#                      "Open_Male_Medicaid_Beds", "Open_Female_Medicare_Beds",
+#                      "Open_Male_Medicare_Beds", "Open_Female_Private_Pay_Beds",
+#                      "Open_Male_Private_Pay_Beds", "Open_Female_Dementia_Beds",
+#                      "Open_Male_Dementia_Beds"]
     list_display_links = ["Facility_Name"]
     list_filter = (("Facility_Name", DropdownFilter),
                    "Timestamp", ("County", DropdownFilter))
     search_fields = ["Facility_Name"]
     actions = ["export_as_csv"]
-    def has_add_permission(self, request):
-        return False
+#     def has_add_permission(self, request):
+#         return False
     def get_queryset(self, request):
         queryset = super(SampleAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
