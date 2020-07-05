@@ -31,7 +31,7 @@ class Sample(models.Model):
         else:
             return no + 1
 
-    id = models.IntegerField(unique=True, primary_key=True,default=number)
+    id = models.IntegerField(unique=True, primary_key=True,default=number,editable=False)
     #id = models.AutoField(unique=True, primary_key=True)
     Facility_Name = models.CharField(unique=False, db_index=False, auto_created=False, max_length=50)
     County = models.CharField(max_length=50)
