@@ -327,8 +327,10 @@ def activate(request, uidb64, token):
 		# user.email_user(subject, message)
 		# to_email = form.cleaned_data.get('email')
 		#to_email = request.POST.get('email')
-		email = EmailMessage(subject, message, to=['no-reply@voycestl.org'])
+		email = EmailMessage(subject, message, to=['nlynch@voycestl.org'])
+		email2 = EmailMessage(subject, message, to=['gkwon@voycestl.org'])
 		email.send()
+		email2.send()
 		return redirect('login')
 		#context = {'uidb64': uidb64, 'token': token}
 	   # return render(request, 'account_activation_email.html', context)
