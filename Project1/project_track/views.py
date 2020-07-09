@@ -415,7 +415,6 @@ def test(request):
 	print(request.GET.get('countyID'))
 	return render(request, 'signup.html')
 
-
 def dashboard_view(request):
     ds = PivotDataPool(
         series=[
