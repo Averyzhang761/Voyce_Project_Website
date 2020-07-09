@@ -140,10 +140,22 @@ def log_in(request):
 				#return render(request, 'table.html', context)
 				return redirect(view_table)
 
-			else:
+			elif user.is_active == True and check_password(user_password, user_password_db) == False:
 
-				return render(request, 'login.html', {'message':"User is not yet approved, please try again later."})
+				return render(request, 'login.html', {'message':"Wrong password, please try again."})
+			elif user.is_active == False:
 
+				return render(request, 'login.html', {'message':"The User is not approved, please try again later."})
+		except User.DoesNotExist:
+
+			print(request.POST.get('email'), 'does not exist')
+			# render to register page
+			# user = User.objects.get(user_name=request.POST.get('email'), email=request.POST.get('email'),
+			#                                 user_password=request.POST.get('password'))
+			# user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+			# authenticate(request, email=request.POST.get('email'), user_password=request.POST.get('password'))
+			return render(request, 'login.html',
+						  {'form': form, 'message': "User does not exist, please sign up first."})
 
 			#user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
 			# user=authenticate(request, email=user_email, password=request.POST.get('password'))
@@ -156,18 +168,19 @@ def log_in(request):
 			#     # Do something for anonymous users.
 			#     print("anonymous")
 			#     return render(request, 'login.html')
-		except User.DoesNotExist:
-			print(request.POST.get('email'), 'does not exist')
-			# render to register page
-			# user = User.objects.get(user_name=request.POST.get('email'), email=request.POST.get('email'),
-			#                                 user_password=request.POST.get('password'))
-			# user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
-			# authenticate(request, email=request.POST.get('email'), user_password=request.POST.get('password'))
-			return render(request, 'login.html', {'form': form, 'message': "User does not exist, please sign up first."})
+		# else:
+		# 	print(request.POST.get('email'), 'does not exist')
+		# 	# render to register page
+		# 	# user = User.objects.get(user_name=request.POST.get('email'), email=request.POST.get('email'),
+		# 	#                                 user_password=request.POST.get('password'))
+		# 	# user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
+		# 	# authenticate(request, email=request.POST.get('email'), user_password=request.POST.get('password'))
+		# 	return render(request, 'login.html', {'form': form, 'message': "User does not exist, please sign up first."})
 			# project_track="I am the project_track application"
 
 	else:
 		return render(request, 'login.html', {'form': form})
+
 
 
 def sign_up(request):
@@ -371,8 +384,8 @@ def reset_password(request):
 	if request.method == "POST":
 		form = forms.PassReset(request.POST)
 		email = request.POST.get('email')
-		user_password = request.POST.get('user_password')
-		user_password_conf = request.POST.get('user_password_confirm')
+		user_password = request.POST.get('password1')
+		user_password_conf = request.POST.get('password2')
 
 		if user_password == user_password_conf:
 			user_object = User.objects.get(email=email)
