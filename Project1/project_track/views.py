@@ -226,7 +226,7 @@ def sign_up(request):
 			subject = 'Activate Your Account'
 			message = render_to_string('account_activation_email.html', {
 				'user': user,
-				'domain': 'www.voyceconnect.org',
+				'domain': current_site.domain,
 				'uid': urlsafe_base64_encode(force_bytes(user.pk)),
 				'token': account_activation_token.make_token(user),
 			})
@@ -292,7 +292,7 @@ def monitor(request, uidb64, token):
 		subject = 'VOYCE User, Your registration has been approved!!!'
 		message = render_to_string('account_success_email.html', {
 			'user': user,
-			'domain': 'www.voyceconnect.org',
+			'domain': current_site.domain,
 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
 			'token': account_activation_token.make_token(user),
 		})
@@ -319,7 +319,7 @@ def activate(request, uidb64, token):
 		subject = 'VOYCE: New User signed up on Your website, check the new user'
 		message = render_to_string('account_monitor_email.html', {
 			'user': user,
-			'domain': 'www.voyceconnect.org',
+			'domain': current_site.domain,
 			'uid': urlsafe_base64_encode(force_bytes(user.pk)),
 			'token': account_activation_token.make_token(user),
 		})
