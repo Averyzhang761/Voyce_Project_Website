@@ -355,7 +355,7 @@ def forget_password(request):
 			#print(User.objects.get(email=user_email))
 			recepient = str(sub['email'].value())
 			#message =  message + iri_to_uri(quote('/resetpassword/%s' %quote(recepient)))
-			message = message  + urlsafe_base64_encode(force_bytes(user.pk)) + '/' + token
+			message = message  + urlsafe_base64_encode(force_bytes(user.pk)).decode() + '/' + token
 			print(message)
 			send_mail(subject, message, settings.EMAIL_HOST_USER,
 					  [recepient], fail_silently = False)
