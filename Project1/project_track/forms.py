@@ -108,7 +108,7 @@ class Subscribe(forms.Form):
 
 
 
-class PassReset(forms.Form):
+class PassReset(UserCreationForm):
     # first_name = forms.CharField(max_length=100)
     # last_name = forms.CharField(max_length=100)
     # email = forms.EmailField()
@@ -117,6 +117,11 @@ class PassReset(forms.Form):
     #                         widget=forms.Select(choices=user_list))
     #fields = ['user_city','user_facility','user_name','first_name','last_name','email']
     email = forms.CharField(max_length=60)
-    user_password = forms.CharField(max_length=60)
-    user_password_confirm = forms.CharField(max_length=60)
+    # user_password = forms.CharField(max_length=60)
+    # user_password_confirm = forms.CharField(max_length=60)
+    class Meta:
+        model = User
+        fields = ('email',
+                  'password1',
+                  'password2')
 
