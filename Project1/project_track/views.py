@@ -346,7 +346,7 @@ def forget_password(request):
 		sub = forms.Subscribe(request.POST)
 		subject = 'Reset your password'
 		user_email = str(sub['email'].value())
-		message = 'Please use this link to reset your password. This link will expire in 10 minutes. http://127.0.0.1:8000/reset_password/'
+		message = 'Please use this link to reset your password. This link will expire in 10 minutes. http://www.voyceconnect.org/reset_password/'
 		try:
 		# if User.objects.filter(email=user_email).exists():
 			user = User.objects.get(email=user_email)
