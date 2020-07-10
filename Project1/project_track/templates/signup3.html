@@ -39,6 +39,7 @@
                         //}
                         console.log(data);
                         var output = [];
+                        var map = {};
                         $.each(data.facility, function (key, value) {
                             //console.log(key);
                             //console.log(value.name);
@@ -48,8 +49,13 @@
                             //    $('<option></option>').val(index).html(text)
                             //);
                             //{
-                            output.push('<option selected value="' + value.Facility_Name + '">' + value.Facility_Name + '</option>');
+                            if (map[value.Facility_Name]!=true) {
+                                console.log("here now");
+                                output.push('<option selected value="' + value.Facility_Name + '">' + value.Facility_Name + '</option>');
+                            }
+                            map[value.Facility_Name] = true;
                         });
+
                         $('select#facility').html(output.join(''));
                         //});
                         //var data = '<option value="-1">Please Select a Facility</option>';
