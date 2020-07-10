@@ -316,7 +316,7 @@ def monitor(request, uidb64, token):
 		email = EmailMessage(subject, message, to=[to_email])
 		email.send()
 		return redirect('login')
-	return None
+	return render(request, "already_approved.html")
 
 
 def activate(request, uidb64, token):
