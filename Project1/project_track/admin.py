@@ -118,7 +118,12 @@ class InfoAdmin(admin.ModelAdmin, ExportCsvMixin):
         queryset = queryset.order_by("Facility_Name")
         return queryset
 
-
+class UpdateActionForm(ActionForm):
+    Facility_Name = forms.CharField(required=False)
+def ReplaceFN(modeladmin, request, queryset):
+    myDict = dict(request.POST.lists())
+    queryset.update(Facility_Name=myDict["Facility_Name"][0])
+ReplaceFN.short_description = "Replace Facility Name"
 
 class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_display = ["Facility_Name", "County", "Timestamp", "Open_Female_Medicaid_Beds",
@@ -135,15 +140,12 @@ class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
     list_filter = (("Facility_Name", DropdownFilter),
                    "Timestamp", ("County", DropdownFilter))
     search_fields = ["Facility_Name"]
-    actions = ["export_as_csv"]
+    #actions = ["export_as_csv"]
+    action_form = UpdateActionForm
+    actions = ["export_as_csv", ReplaceFN]
 #     def has_add_permission(self, request):
 #         return False
-    class UpdateActionForm(ActionForm):
-       Facility_Name = forms.CharField(required=False)
-    def ReplaceFN(modeladmin, request, queryset):
-        myDict = dict(request.POST.lists())
-        queryset.update(Facility_Name=myDict["Facility_Name"][0])
-    ReplaceFN.short_description = "Replace Facility Name"
+    
     def get_queryset(self, request):
         queryset = super(SampleAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
