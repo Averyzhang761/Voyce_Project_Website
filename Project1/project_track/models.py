@@ -115,8 +115,8 @@ class Info(models.Model):
         max_length=100, blank=True)
     Facility_Facebook = models.CharField(
         max_length=100, blank=True)
-    DHSS_Page = models.CharField(
-        max_length=100, blank=True)
+#     DHSS_Page = models.CharField(
+#         max_length=100, blank=True)
     Nursing_Home_Compare = models.CharField(
         max_length=100, blank=True)
     Google_Review_Page = models.CharField(
