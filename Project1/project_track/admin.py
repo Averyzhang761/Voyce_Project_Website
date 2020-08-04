@@ -1,3 +1,5 @@
+from django.contrib.admin.helpers import ActionForm
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
 # Register your models here.
@@ -73,7 +75,6 @@ class InfoAdmin(admin.ModelAdmin, ExportCsvMixin):
                     "Accept_COVID_Patients",
                     "Facility_Website",
                     "Facility_Facebook",
-                    "DHSS_Page",
                     "Nursing_Home_Compare",
                     "Google_Review_Page", ]
     list_display_links = ["Facility_Name"]
@@ -137,6 +138,12 @@ class SampleAdmin(admin.ModelAdmin,ExportCsvMixin):
     actions = ["export_as_csv"]
 #     def has_add_permission(self, request):
 #         return False
+    class UpdateActionForm(ActionForm):
+       Facility_Name = forms.CharField(required=False)
+    def ReplaceFN(modeladmin, request, queryset):
+        myDict = dict(request.POST.lists())
+        queryset.update(Facility_Name=myDict["Facility_Name"][0])
+    ReplaceFN.short_description = "Replace Facility Name"
     def get_queryset(self, request):
         queryset = super(SampleAdmin, self).get_queryset(request)
         queryset = queryset.order_by("Facility_Name")
