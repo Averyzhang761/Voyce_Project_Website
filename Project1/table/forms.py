@@ -62,6 +62,5 @@ class AddAllForms(forms.ModelForm):
                   "Accept_COVID_Patients",
                   "Facility_Website",
                   "Facility_Facebook",
-                  "DHSS_Page",
                   "Nursing_Home_Compare",
                   "Google_Review_Page",]
